@@ -1,0 +1,21 @@
+// define protocol buffer version
+syntax = "proto3";
+
+option go_package = "model";
+
+package service_irishub;
+
+import public "model_totalShare.proto";
+import public "model_candidateList.proto";
+import public "model_candidateDetail.proto";
+import public "model_delegatorCandidateList.proto";
+
+service IRISHubService {
+	rpc GetDelegatorTotalShares(model.totalShare.TotalShareRequest) returns (model.totalShare.TotalShareResponse) {}
+
+	rpc GetCandidateList(model.candidateList.CandidateListRequest) returns (model.candidateList.CandidateListResponse) {}
+
+	rpc GetCandidateDetail(model.candidateDetail.CandidateDetailRequest) returns (model.candidateDetail.CandidateDetailResponse) {}
+
+	rpc GetDelegatorCandidateList(model.delegatorCandidateList.DelegatorCandidateListRequest) returns (model.delegatorCandidateList.DelegatorCandidateListResponse) {}
+}
