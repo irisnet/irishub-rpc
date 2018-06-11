@@ -3,7 +3,7 @@ syntax = "proto3";
 
 option go_package = "model";
 
-package model_common;
+package model.common;
 
 
 message Delegator {

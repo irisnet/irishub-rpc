@@ -3,7 +3,7 @@ syntax = "proto3";
 
 option go_package = "model";
 
-package model_delegatorCandidateList;
+package model.delegatorCandidateList;
 
 import public "model_common.proto";
 
@@ -16,5 +16,5 @@ message DelegatorCandidateListRequest {
 }
 
 message DelegatorCandidateListResponse {
-	repeated model_common.Candidate candidate = 1;
+	repeated model.common.Candidate candidate = 1;
 }

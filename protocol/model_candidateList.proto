@@ -3,7 +3,7 @@ syntax = "proto3";
 
 option go_package = "model";
 
-package model_candidateList;
+package model.candidateList;
 
 import public "model_common.proto";
 
@@ -16,5 +16,5 @@ message CandidateListRequest {
 }
 
 message CandidateListResponse {
-	repeated model_common.Candidate candidates = 1;
+	repeated model.common.Candidate candidates = 1;
 }
