@@ -1,0 +1,17 @@
+// define protocol buffer version
+syntax = "proto3";
+
+option go_package = "model";
+
+package model_candidateDetail;
+
+import public "model_common.proto";
+
+message CandidateDetailRequest {
+	string address = 1;
+	string pubKey = 2;
+}
+
+message CandidateDetailResponse {
+	repeated model_common.Candidate candidate = 1;
+}

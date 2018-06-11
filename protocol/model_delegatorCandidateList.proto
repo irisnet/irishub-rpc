@@ -1,0 +1,20 @@
+// define protocol buffer version
+syntax = "proto3";
+
+option go_package = "model";
+
+package model_delegatorCandidateList;
+
+import public "model_common.proto";
+
+message DelegatorCandidateListRequest {
+	string address = 1;
+	uint64 page = 2;
+	uint64 perPage = 3;
+	string sort = 4;
+	string q = 5;
+}
+
+message DelegatorCandidateListResponse {
+	repeated model_common.Candidate candidate = 1;
+}

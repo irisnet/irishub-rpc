@@ -1,0 +1,14 @@
+// define protocol buffer version
+syntax = "proto3";
+
+option go_package = "model";
+
+package model.totalShare;
+
+message TotalShareRequest {
+	string address = 1;
+}
+
+message TotalShareResponse {
+	uint64 totalShares = 2;
+}

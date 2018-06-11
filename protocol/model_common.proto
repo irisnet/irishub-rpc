@@ -1,0 +1,29 @@
+// define protocol buffer version
+syntax = "proto3";
+
+option go_package = "model";
+
+package model_common;
+
+
+message Delegator {
+	string address = 1;
+	string pubKey = 2;
+	uint64 shares = 3;
+}
+
+message Candidate {
+	string address = 1;
+	string pubKey = 2;
+	uint64 shares = 3;
+	double votingPower = 4;
+
+	message Description {
+    	string details = 1;
+    	string identity = 2;
+    	string moniker = 3;
+    	string website = 4;
+    }
+	Description description = 5;
+	repeated Delegator delegators = 6;
+}
