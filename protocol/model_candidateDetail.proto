@@ -13,5 +13,5 @@ message CandidateDetailRequest {
 }
 
 message CandidateDetailResponse {
-	repeated model.common.Candidate candidate = 1;
+	model.common.Candidate candidate = 1;
 }
