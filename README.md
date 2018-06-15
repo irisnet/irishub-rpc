@@ -1,2 +1,2 @@
 # irishub-rpc
-IRIS hub specific gRPC interface
+IRIS hub specific Thrift RPC interface
