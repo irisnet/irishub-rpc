@@ -3,9 +3,9 @@
 //
 // DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 //
+import {Thrift} from "./thrift";
 
-
-Delegator = function(args) {
+var Delegator = function(args) {
   this.address = null;
   this.pubKey = null;
   this.shares = null;
@@ -87,7 +87,7 @@ Delegator.prototype.write = function(output) {
   return;
 };
 
-CandidateDescription = function(args) {
+var CandidateDescription = function(args) {
   this.details = null;
   this.identity = null;
   this.moniker = null;
@@ -185,7 +185,7 @@ CandidateDescription.prototype.write = function(output) {
   return;
 };
 
-Candidate = function(args) {
+var Candidate = function(args) {
   this.address = null;
   this.pubKey = null;
   this.shares = null;
@@ -339,7 +339,7 @@ Candidate.prototype.write = function(output) {
   return;
 };
 
-Exception = function(args) {
+var Exception = function(args) {
   this.errCode = null;
   this.errMsg = null;
   if (args) {
@@ -406,3 +406,4 @@ Exception.prototype.write = function(output) {
   return;
 };
 
+export {Delegator,CandidateDescription, Candidate, Exception }

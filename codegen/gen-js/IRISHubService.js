@@ -6,8 +6,8 @@
 
 
 //HELPER FUNCTIONS AND STRUCTURES
-
-IRISHubService_GetCandidateList_args = function(args) {
+import {Thrift} from "./thrift";
+var IRISHubService_GetCandidateList_args = function(args) {
   this.req = null;
   if (args) {
     if (args.req !== undefined && args.req !== null) {
@@ -61,7 +61,7 @@ IRISHubService_GetCandidateList_args.prototype.write = function(output) {
   return;
 };
 
-IRISHubService_GetCandidateList_result = function(args) {
+var IRISHubService_GetCandidateList_result = function(args) {
   this.success = null;
   this.e = null;
   if (args instanceof Exception) {
@@ -133,7 +133,7 @@ IRISHubService_GetCandidateList_result.prototype.write = function(output) {
   return;
 };
 
-IRISHubService_GetCandidateDetail_args = function(args) {
+var IRISHubService_GetCandidateDetail_args = function(args) {
   this.req = null;
   if (args) {
     if (args.req !== undefined && args.req !== null) {
@@ -187,7 +187,7 @@ IRISHubService_GetCandidateDetail_args.prototype.write = function(output) {
   return;
 };
 
-IRISHubService_GetCandidateDetail_result = function(args) {
+var IRISHubService_GetCandidateDetail_result = function(args) {
   this.success = null;
   this.e = null;
   if (args instanceof Exception) {
@@ -259,7 +259,7 @@ IRISHubService_GetCandidateDetail_result.prototype.write = function(output) {
   return;
 };
 
-IRISHubService_GetDelegatorCandidateList_args = function(args) {
+var IRISHubService_GetDelegatorCandidateList_args = function(args) {
   this.req = null;
   if (args) {
     if (args.req !== undefined && args.req !== null) {
@@ -313,7 +313,7 @@ IRISHubService_GetDelegatorCandidateList_args.prototype.write = function(output)
   return;
 };
 
-IRISHubService_GetDelegatorCandidateList_result = function(args) {
+var IRISHubService_GetDelegatorCandidateList_result = function(args) {
   this.success = null;
   this.e = null;
   if (args instanceof Exception) {
@@ -385,7 +385,7 @@ IRISHubService_GetDelegatorCandidateList_result.prototype.write = function(outpu
   return;
 };
 
-IRISHubService_GetDelegatorTotalShares_args = function(args) {
+var IRISHubService_GetDelegatorTotalShares_args = function(args) {
   this.req = null;
   if (args) {
     if (args.req !== undefined && args.req !== null) {
@@ -439,7 +439,7 @@ IRISHubService_GetDelegatorTotalShares_args.prototype.write = function(output) {
   return;
 };
 
-IRISHubService_GetDelegatorTotalShares_result = function(args) {
+var IRISHubService_GetDelegatorTotalShares_result = function(args) {
   this.success = null;
   this.e = null;
   if (args instanceof Exception) {
@@ -511,7 +511,7 @@ IRISHubService_GetDelegatorTotalShares_result.prototype.write = function(output)
   return;
 };
 
-IRISHubServiceClient = function(input, output) {
+var IRISHubServiceClient = function(input, output) {
     this.input = input;
     this.output = (!output) ? input : output;
     this.seqid = 0;
@@ -733,3 +733,17 @@ IRISHubServiceClient.prototype.recv_GetDelegatorTotalShares = function() {
   }
   throw 'GetDelegatorTotalShares failed: unknown result';
 };
+
+export {
+
+	IRISHubService_GetCandidateList_args,
+	IRISHubService_GetCandidateList_result,
+	IRISHubService_GetCandidateDetail_args,
+	IRISHubService_GetCandidateDetail_result,
+	IRISHubService_GetDelegatorCandidateList_args,
+	IRISHubService_GetDelegatorCandidateList_result,
+	IRISHubService_GetDelegatorTotalShares_args,
+	IRISHubService_GetDelegatorTotalShares_result,
+	IRISHubServiceClient
+
+}

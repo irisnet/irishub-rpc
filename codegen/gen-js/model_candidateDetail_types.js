@@ -3,9 +3,9 @@
 //
 // DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 //
+import {Thrift} from "./thrift";
 
-
-CandidateDetailRequest = function(args) {
+var CandidateDetailRequest = function(args) {
   this.address = null;
   this.pubKey = null;
   if (args) {
@@ -71,7 +71,7 @@ CandidateDetailRequest.prototype.write = function(output) {
   return;
 };
 
-CandidateDetailResponse = function(args) {
+var CandidateDetailResponse = function(args) {
   this.candidate = null;
   if (args) {
     if (args.candidate !== undefined && args.candidate !== null) {
@@ -125,3 +125,4 @@ CandidateDetailResponse.prototype.write = function(output) {
   return;
 };
 
+export {CandidateDetailRequest,CandidateDetailResponse}

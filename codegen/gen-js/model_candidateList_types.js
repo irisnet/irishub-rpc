@@ -3,9 +3,9 @@
 //
 // DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 //
+import {Thrift} from "./thrift";
 
-
-CandidateListRequest = function(args) {
+var CandidateListRequest = function(args) {
   this.address = null;
   this.page = null;
   this.perPage = null;
@@ -119,7 +119,7 @@ CandidateListRequest.prototype.write = function(output) {
   return;
 };
 
-CandidateListResponse = function(args) {
+var CandidateListResponse = function(args) {
   this.candidates = null;
   if (args) {
     if (args.candidates !== undefined && args.candidates !== null) {
@@ -195,3 +195,4 @@ CandidateListResponse.prototype.write = function(output) {
   return;
 };
 
+export {CandidateListRequest,CandidateListResponse}
