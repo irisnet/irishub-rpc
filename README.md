@@ -9,8 +9,23 @@ go example
 
 [setup](http://thrift-tutorial.readthedocs.io/en/latest/installation.html)
 
-**2. Generating Server Code**
+**2. Generating Code**
+
+- go server
 
 ```
-thrift -r -out ./codegen/server --gen go ./thrift/service_irishub.thrift 
+thrift -r -out ./codegen/server --gen go ./thrift/service_irishub.thrift
 ```
+
+- js client
+
+```
+thrift -r -out ./codegen/gen-js --gen js ./thrift/service_irishub.thrift
+```
+
+- nodejs client
+
+```
+thrift -r -out ./codegen/gen-nodejs --gen js:node ./thrift/service_irishub.thrift
+```
+

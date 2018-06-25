@@ -1,4 +1,3 @@
-/* eslint-disable */
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements. See the NOTICE file
@@ -47,7 +46,7 @@ var Thrift = {
      * @const {string} Version
      * @memberof Thrift
      */
-    Version: '0.11.0',
+    Version: '1.0.0-dev',
 
     /**
      * Thrift IDL type string to Id mapping.
@@ -339,17 +338,13 @@ Thrift.TXHRTransport.prototype = {
      * @returns {undefined|string} Nothing or the current send buffer.
      * @throws {string} If XHR fails.
      */
-    flush: function(async, callback, option) {
+    flush: function(async, callback) {
         var self = this;
         if ((async && !callback) || this.url === undefined || this.url === '') {
             return this.send_buf;
         }
 
         var xreq = this.getXmlHttpRequestObject();
-		if(option) {
-            xreq.timeout = option.timeout;
-            xreq.ontimeout = (option.timeout_callback)();
-        }
 
         if (xreq.overrideMimeType) {
             xreq.overrideMimeType('application/vnd.apache.thrift.json; charset=utf-8');
@@ -577,18 +572,11 @@ Thrift.TWebSocketTransport.prototype = {
                 var clientCallback = callback;
                 return function(msg) {
                     self.setRecvBuffer(msg);
-                    clientCallback();
+                    if (clientCallback) {
+                        clientCallback();
+                    }
                 };
             }()));
-            if(callback) {
-                this.callbacks.push((function() {
-                    var clientCallback = callback;
-                    return function(msg) {
-                        self.setRecvBuffer(msg);
-                        clientCallback();
-                    };
-                }()));
-            }
         } else {
             //Queue the send to go out __onOpen
             this.send_pending.push({
@@ -604,8 +592,8 @@ Thrift.TWebSocketTransport.prototype = {
             //If the user made calls before the connection was fully
             //open, send them now
             this.send_pending.forEach(function(elem) {
-                this.socket.send(elem.buf);
-                this.callbacks.push((function() {
+                self.socket.send(elem.buf);
+                self.callbacks.push((function() {
                     var clientCallback = elem.cb;
                     return function(msg) {
                         self.setRecvBuffer(msg);
@@ -1270,7 +1258,12 @@ Thrift.Protocol.prototype = {
 
     /** Deserializes the end of a list. */
     readListEnd: function() {
-        this.readFieldEnd();
+        var pos = this.rpos.pop() - 2;
+        var st = this.rstack;
+        st.pop();
+        if (st instanceof Array && st.length > pos && st[pos].length > 0) {
+            st.push(st[pos].shift());
+        }
     },
 
     /**
@@ -1445,6 +1438,9 @@ Thrift.Protocol.prototype = {
                 }
                 this.readListEnd();
                 return null;
+
+            default:
+                throw new Thrift.TProtocolException(Thrift.TProtocolExceptionType.INVALID_DATA);
         }
     }
 };
@@ -1567,5 +1563,3 @@ copyMap = function(obj, types) {
 
 Thrift.copyMap = copyMap;
 Thrift.copyList = copyList;
-
-export {Thrift}
