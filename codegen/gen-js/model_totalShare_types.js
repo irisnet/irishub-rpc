@@ -4,8 +4,8 @@
 // DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 //
 
-import {Thrift} from "./thrift";
- var TotalShareRequest = function(args) {
+
+TotalShareRequest = function(args) {
   this.address = null;
   if (args) {
     if (args.address !== undefined && args.address !== null) {
@@ -58,7 +58,7 @@ TotalShareRequest.prototype.write = function(output) {
   return;
 };
 
-var TotalShareResponse = function(args) {
+TotalShareResponse = function(args) {
   this.totalShares = null;
   if (args) {
     if (args.totalShares !== undefined && args.totalShares !== null) {
@@ -111,4 +111,3 @@ TotalShareResponse.prototype.write = function(output) {
   return;
 };
 
-export {TotalShareRequest,TotalShareResponse}
