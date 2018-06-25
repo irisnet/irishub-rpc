@@ -30,3 +30,36 @@ exception Exception {
   1: i32 errCode,
   2: string errMsg
 }
+
+// ==================================
+// define method request and response
+// ==================================
+
+struct CandidateListRequest {
+	1: string address,
+	2: i16 page,
+	3: i16 perPage,
+	4: string sort,
+	5: string q
+}
+
+struct CandidateDetailRequest {
+	1: string address
+	2: string pubKey
+}
+
+struct DelegatorCandidateListRequest {
+	1: string address,
+	2: i16 page,
+	3: i16 perPage,
+	4: string sort,
+	5: string q
+}
+
+struct TotalShareRequest {
+	1: string address
+}
+
+struct TotalShareResponse {
+	2: i64 totalShares
+}

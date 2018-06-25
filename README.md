@@ -14,7 +14,7 @@ go example
 - go server
 
 ```
-thrift -r -out ./codegen/server --gen go ./thrift/service_irishub.thrift
+thrift -r -out ./codegen/server --gen go ./thrift/service.thrift
 ```
 
 - js client
