@@ -9,21 +9,17 @@ var thrift = require('thrift');
 var Thrift = thrift.Thrift;
 var Q = thrift.Q;
 
-var model_common_ttypes = require('./model_common_types');
-var model_totalShare_ttypes = require('./model_totalShare_types');
-var model_candidateList_ttypes = require('./model_candidateList_types');
-var model_candidateDetail_ttypes = require('./model_candidateDetail_types');
-var model_delegatorCandidateList_ttypes = require('./model_delegatorCandidateList_types');
+var model_ttypes = require('./model_types');
 
 
-var ttypes = require('./service_irishub_types');
+var ttypes = require('./service_types');
 //HELPER FUNCTIONS AND STRUCTURES
 
 var IRISHubService_GetCandidateList_args = function(args) {
   this.req = null;
   if (args) {
     if (args.req !== undefined && args.req !== null) {
-      this.req = new model_candidateList_ttypes.CandidateListRequest(args.req);
+      this.req = new model_ttypes.CandidateListRequest(args.req);
     }
   }
 };
@@ -43,7 +39,7 @@ IRISHubService_GetCandidateList_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.req = new model_candidateList_ttypes.CandidateListRequest();
+        this.req = new model_ttypes.CandidateListRequest();
         this.req.read(input);
       } else {
         input.skip(ftype);
@@ -76,13 +72,13 @@ IRISHubService_GetCandidateList_args.prototype.write = function(output) {
 var IRISHubService_GetCandidateList_result = function(args) {
   this.success = null;
   this.e = null;
-  if (args instanceof model_common_ttypes.Exception) {
+  if (args instanceof model_ttypes.Exception) {
     this.e = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = new model_candidateList_ttypes.CandidateListResponse(args.success);
+      this.success = Thrift.copyList(args.success, [model_ttypes.Candidate]);
     }
     if (args.e !== undefined && args.e !== null) {
       this.e = args.e;
@@ -104,16 +100,29 @@ IRISHubService_GetCandidateList_result.prototype.read = function(input) {
     switch (fid)
     {
       case 0:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.success = new model_candidateList_ttypes.CandidateListResponse();
-        this.success.read(input);
+      if (ftype == Thrift.Type.LIST) {
+        var _size0 = 0;
+        var _rtmp34;
+        this.success = [];
+        var _etype3 = 0;
+        _rtmp34 = input.readListBegin();
+        _etype3 = _rtmp34.etype;
+        _size0 = _rtmp34.size;
+        for (var _i5 = 0; _i5 < _size0; ++_i5)
+        {
+          var elem6 = null;
+          elem6 = new model_ttypes.Candidate();
+          elem6.read(input);
+          this.success.push(elem6);
+        }
+        input.readListEnd();
       } else {
         input.skip(ftype);
       }
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.e = new model_common_ttypes.Exception();
+        this.e = new model_ttypes.Exception();
         this.e.read(input);
       } else {
         input.skip(ftype);
@@ -131,8 +140,17 @@ IRISHubService_GetCandidateList_result.prototype.read = function(input) {
 IRISHubService_GetCandidateList_result.prototype.write = function(output) {
   output.writeStructBegin('IRISHubService_GetCandidateList_result');
   if (this.success !== null && this.success !== undefined) {
-    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
-    this.success.write(output);
+    output.writeFieldBegin('success', Thrift.Type.LIST, 0);
+    output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
+    for (var iter7 in this.success)
+    {
+      if (this.success.hasOwnProperty(iter7))
+      {
+        iter7 = this.success[iter7];
+        iter7.write(output);
+      }
+    }
+    output.writeListEnd();
     output.writeFieldEnd();
   }
   if (this.e !== null && this.e !== undefined) {
@@ -149,7 +167,7 @@ var IRISHubService_GetCandidateDetail_args = function(args) {
   this.req = null;
   if (args) {
     if (args.req !== undefined && args.req !== null) {
-      this.req = new model_candidateDetail_ttypes.CandidateDetailRequest(args.req);
+      this.req = new model_ttypes.CandidateDetailRequest(args.req);
     }
   }
 };
@@ -169,7 +187,7 @@ IRISHubService_GetCandidateDetail_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.req = new model_candidateDetail_ttypes.CandidateDetailRequest();
+        this.req = new model_ttypes.CandidateDetailRequest();
         this.req.read(input);
       } else {
         input.skip(ftype);
@@ -202,13 +220,13 @@ IRISHubService_GetCandidateDetail_args.prototype.write = function(output) {
 var IRISHubService_GetCandidateDetail_result = function(args) {
   this.success = null;
   this.e = null;
-  if (args instanceof model_common_ttypes.Exception) {
+  if (args instanceof model_ttypes.Exception) {
     this.e = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = new model_candidateDetail_ttypes.CandidateDetailResponse(args.success);
+      this.success = new model_ttypes.Candidate(args.success);
     }
     if (args.e !== undefined && args.e !== null) {
       this.e = args.e;
@@ -231,7 +249,7 @@ IRISHubService_GetCandidateDetail_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.STRUCT) {
-        this.success = new model_candidateDetail_ttypes.CandidateDetailResponse();
+        this.success = new model_ttypes.Candidate();
         this.success.read(input);
       } else {
         input.skip(ftype);
@@ -239,7 +257,7 @@ IRISHubService_GetCandidateDetail_result.prototype.read = function(input) {
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.e = new model_common_ttypes.Exception();
+        this.e = new model_ttypes.Exception();
         this.e.read(input);
       } else {
         input.skip(ftype);
@@ -275,7 +293,7 @@ var IRISHubService_GetDelegatorCandidateList_args = function(args) {
   this.req = null;
   if (args) {
     if (args.req !== undefined && args.req !== null) {
-      this.req = new model_delegatorCandidateList_ttypes.DelegatorCandidateListRequest(args.req);
+      this.req = new model_ttypes.DelegatorCandidateListRequest(args.req);
     }
   }
 };
@@ -295,7 +313,7 @@ IRISHubService_GetDelegatorCandidateList_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.req = new model_delegatorCandidateList_ttypes.DelegatorCandidateListRequest();
+        this.req = new model_ttypes.DelegatorCandidateListRequest();
         this.req.read(input);
       } else {
         input.skip(ftype);
@@ -328,13 +346,13 @@ IRISHubService_GetDelegatorCandidateList_args.prototype.write = function(output)
 var IRISHubService_GetDelegatorCandidateList_result = function(args) {
   this.success = null;
   this.e = null;
-  if (args instanceof model_common_ttypes.Exception) {
+  if (args instanceof model_ttypes.Exception) {
     this.e = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = new model_delegatorCandidateList_ttypes.DelegatorCandidateListResponse(args.success);
+      this.success = Thrift.copyList(args.success, [model_ttypes.Candidate]);
     }
     if (args.e !== undefined && args.e !== null) {
       this.e = args.e;
@@ -356,16 +374,29 @@ IRISHubService_GetDelegatorCandidateList_result.prototype.read = function(input)
     switch (fid)
     {
       case 0:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.success = new model_delegatorCandidateList_ttypes.DelegatorCandidateListResponse();
-        this.success.read(input);
+      if (ftype == Thrift.Type.LIST) {
+        var _size8 = 0;
+        var _rtmp312;
+        this.success = [];
+        var _etype11 = 0;
+        _rtmp312 = input.readListBegin();
+        _etype11 = _rtmp312.etype;
+        _size8 = _rtmp312.size;
+        for (var _i13 = 0; _i13 < _size8; ++_i13)
+        {
+          var elem14 = null;
+          elem14 = new model_ttypes.Candidate();
+          elem14.read(input);
+          this.success.push(elem14);
+        }
+        input.readListEnd();
       } else {
         input.skip(ftype);
       }
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.e = new model_common_ttypes.Exception();
+        this.e = new model_ttypes.Exception();
         this.e.read(input);
       } else {
         input.skip(ftype);
@@ -383,8 +414,17 @@ IRISHubService_GetDelegatorCandidateList_result.prototype.read = function(input)
 IRISHubService_GetDelegatorCandidateList_result.prototype.write = function(output) {
   output.writeStructBegin('IRISHubService_GetDelegatorCandidateList_result');
   if (this.success !== null && this.success !== undefined) {
-    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
-    this.success.write(output);
+    output.writeFieldBegin('success', Thrift.Type.LIST, 0);
+    output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
+    for (var iter15 in this.success)
+    {
+      if (this.success.hasOwnProperty(iter15))
+      {
+        iter15 = this.success[iter15];
+        iter15.write(output);
+      }
+    }
+    output.writeListEnd();
     output.writeFieldEnd();
   }
   if (this.e !== null && this.e !== undefined) {
@@ -401,7 +441,7 @@ var IRISHubService_GetDelegatorTotalShares_args = function(args) {
   this.req = null;
   if (args) {
     if (args.req !== undefined && args.req !== null) {
-      this.req = new model_totalShare_ttypes.TotalShareRequest(args.req);
+      this.req = new model_ttypes.TotalShareRequest(args.req);
     }
   }
 };
@@ -421,7 +461,7 @@ IRISHubService_GetDelegatorTotalShares_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.req = new model_totalShare_ttypes.TotalShareRequest();
+        this.req = new model_ttypes.TotalShareRequest();
         this.req.read(input);
       } else {
         input.skip(ftype);
@@ -454,13 +494,13 @@ IRISHubService_GetDelegatorTotalShares_args.prototype.write = function(output) {
 var IRISHubService_GetDelegatorTotalShares_result = function(args) {
   this.success = null;
   this.e = null;
-  if (args instanceof model_common_ttypes.Exception) {
+  if (args instanceof model_ttypes.Exception) {
     this.e = args;
     return;
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = new model_totalShare_ttypes.TotalShareResponse(args.success);
+      this.success = new model_ttypes.TotalShareResponse(args.success);
     }
     if (args.e !== undefined && args.e !== null) {
       this.e = args.e;
@@ -483,7 +523,7 @@ IRISHubService_GetDelegatorTotalShares_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.STRUCT) {
-        this.success = new model_totalShare_ttypes.TotalShareResponse();
+        this.success = new model_ttypes.TotalShareResponse();
         this.success.read(input);
       } else {
         input.skip(ftype);
@@ -491,7 +531,7 @@ IRISHubService_GetDelegatorTotalShares_result.prototype.read = function(input) {
       break;
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.e = new model_common_ttypes.Exception();
+        this.e = new model_ttypes.Exception();
         this.e.read(input);
       } else {
         input.skip(ftype);
@@ -773,7 +813,7 @@ IRISHubServiceProcessor.prototype.process_GetCandidateList = function(seqid, inp
         output.flush();
       }, function (err) {
         var result;
-        if (err instanceof model_common_ttypes.Exception) {
+        if (err instanceof model_ttypes.Exception) {
           result = new IRISHubService_GetCandidateList_result(err);
           output.writeMessageBegin("GetCandidateList", Thrift.MessageType.REPLY, seqid);
         } else {
@@ -787,7 +827,7 @@ IRISHubServiceProcessor.prototype.process_GetCandidateList = function(seqid, inp
   } else {
     this._handler.GetCandidateList(args.req, function (err, result) {
       var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof model_common_ttypes.Exception) {
+      if ((err === null || typeof err === 'undefined') || err instanceof model_ttypes.Exception) {
         result_obj = new IRISHubService_GetCandidateList_result((err !== null || typeof err === 'undefined') ? err : {success: result});
         output.writeMessageBegin("GetCandidateList", Thrift.MessageType.REPLY, seqid);
       } else {
@@ -814,7 +854,7 @@ IRISHubServiceProcessor.prototype.process_GetCandidateDetail = function(seqid, i
         output.flush();
       }, function (err) {
         var result;
-        if (err instanceof model_common_ttypes.Exception) {
+        if (err instanceof model_ttypes.Exception) {
           result = new IRISHubService_GetCandidateDetail_result(err);
           output.writeMessageBegin("GetCandidateDetail", Thrift.MessageType.REPLY, seqid);
         } else {
@@ -828,7 +868,7 @@ IRISHubServiceProcessor.prototype.process_GetCandidateDetail = function(seqid, i
   } else {
     this._handler.GetCandidateDetail(args.req, function (err, result) {
       var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof model_common_ttypes.Exception) {
+      if ((err === null || typeof err === 'undefined') || err instanceof model_ttypes.Exception) {
         result_obj = new IRISHubService_GetCandidateDetail_result((err !== null || typeof err === 'undefined') ? err : {success: result});
         output.writeMessageBegin("GetCandidateDetail", Thrift.MessageType.REPLY, seqid);
       } else {
@@ -855,7 +895,7 @@ IRISHubServiceProcessor.prototype.process_GetDelegatorCandidateList = function(s
         output.flush();
       }, function (err) {
         var result;
-        if (err instanceof model_common_ttypes.Exception) {
+        if (err instanceof model_ttypes.Exception) {
           result = new IRISHubService_GetDelegatorCandidateList_result(err);
           output.writeMessageBegin("GetDelegatorCandidateList", Thrift.MessageType.REPLY, seqid);
         } else {
@@ -869,7 +909,7 @@ IRISHubServiceProcessor.prototype.process_GetDelegatorCandidateList = function(s
   } else {
     this._handler.GetDelegatorCandidateList(args.req, function (err, result) {
       var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof model_common_ttypes.Exception) {
+      if ((err === null || typeof err === 'undefined') || err instanceof model_ttypes.Exception) {
         result_obj = new IRISHubService_GetDelegatorCandidateList_result((err !== null || typeof err === 'undefined') ? err : {success: result});
         output.writeMessageBegin("GetDelegatorCandidateList", Thrift.MessageType.REPLY, seqid);
       } else {
@@ -896,7 +936,7 @@ IRISHubServiceProcessor.prototype.process_GetDelegatorTotalShares = function(seq
         output.flush();
       }, function (err) {
         var result;
-        if (err instanceof model_common_ttypes.Exception) {
+        if (err instanceof model_ttypes.Exception) {
           result = new IRISHubService_GetDelegatorTotalShares_result(err);
           output.writeMessageBegin("GetDelegatorTotalShares", Thrift.MessageType.REPLY, seqid);
         } else {
@@ -910,7 +950,7 @@ IRISHubServiceProcessor.prototype.process_GetDelegatorTotalShares = function(seq
   } else {
     this._handler.GetDelegatorTotalShares(args.req, function (err, result) {
       var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof model_common_ttypes.Exception) {
+      if ((err === null || typeof err === 'undefined') || err instanceof model_ttypes.Exception) {
         result_obj = new IRISHubService_GetDelegatorTotalShares_result((err !== null || typeof err === 'undefined') ? err : {success: result});
         output.writeMessageBegin("GetDelegatorTotalShares", Thrift.MessageType.REPLY, seqid);
       } else {

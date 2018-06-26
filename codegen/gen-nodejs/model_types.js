@@ -414,3 +414,403 @@ Exception.prototype.write = function(output) {
   return;
 };
 
+var CandidateListRequest = module.exports.CandidateListRequest = function(args) {
+  this.address = null;
+  this.page = null;
+  this.perPage = null;
+  this.sort = null;
+  this.q = null;
+  if (args) {
+    if (args.address !== undefined && args.address !== null) {
+      this.address = args.address;
+    }
+    if (args.page !== undefined && args.page !== null) {
+      this.page = args.page;
+    }
+    if (args.perPage !== undefined && args.perPage !== null) {
+      this.perPage = args.perPage;
+    }
+    if (args.sort !== undefined && args.sort !== null) {
+      this.sort = args.sort;
+    }
+    if (args.q !== undefined && args.q !== null) {
+      this.q = args.q;
+    }
+  }
+};
+CandidateListRequest.prototype = {};
+CandidateListRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.address = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.I16) {
+        this.page = input.readI16();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.I16) {
+        this.perPage = input.readI16();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.STRING) {
+        this.sort = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 5:
+      if (ftype == Thrift.Type.STRING) {
+        this.q = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+CandidateListRequest.prototype.write = function(output) {
+  output.writeStructBegin('CandidateListRequest');
+  if (this.address !== null && this.address !== undefined) {
+    output.writeFieldBegin('address', Thrift.Type.STRING, 1);
+    output.writeString(this.address);
+    output.writeFieldEnd();
+  }
+  if (this.page !== null && this.page !== undefined) {
+    output.writeFieldBegin('page', Thrift.Type.I16, 2);
+    output.writeI16(this.page);
+    output.writeFieldEnd();
+  }
+  if (this.perPage !== null && this.perPage !== undefined) {
+    output.writeFieldBegin('perPage', Thrift.Type.I16, 3);
+    output.writeI16(this.perPage);
+    output.writeFieldEnd();
+  }
+  if (this.sort !== null && this.sort !== undefined) {
+    output.writeFieldBegin('sort', Thrift.Type.STRING, 4);
+    output.writeString(this.sort);
+    output.writeFieldEnd();
+  }
+  if (this.q !== null && this.q !== undefined) {
+    output.writeFieldBegin('q', Thrift.Type.STRING, 5);
+    output.writeString(this.q);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var CandidateDetailRequest = module.exports.CandidateDetailRequest = function(args) {
+  this.address = null;
+  this.pubKey = null;
+  if (args) {
+    if (args.address !== undefined && args.address !== null) {
+      this.address = args.address;
+    }
+    if (args.pubKey !== undefined && args.pubKey !== null) {
+      this.pubKey = args.pubKey;
+    }
+  }
+};
+CandidateDetailRequest.prototype = {};
+CandidateDetailRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.address = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.pubKey = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+CandidateDetailRequest.prototype.write = function(output) {
+  output.writeStructBegin('CandidateDetailRequest');
+  if (this.address !== null && this.address !== undefined) {
+    output.writeFieldBegin('address', Thrift.Type.STRING, 1);
+    output.writeString(this.address);
+    output.writeFieldEnd();
+  }
+  if (this.pubKey !== null && this.pubKey !== undefined) {
+    output.writeFieldBegin('pubKey', Thrift.Type.STRING, 2);
+    output.writeString(this.pubKey);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var DelegatorCandidateListRequest = module.exports.DelegatorCandidateListRequest = function(args) {
+  this.address = null;
+  this.page = null;
+  this.perPage = null;
+  this.sort = null;
+  this.q = null;
+  if (args) {
+    if (args.address !== undefined && args.address !== null) {
+      this.address = args.address;
+    }
+    if (args.page !== undefined && args.page !== null) {
+      this.page = args.page;
+    }
+    if (args.perPage !== undefined && args.perPage !== null) {
+      this.perPage = args.perPage;
+    }
+    if (args.sort !== undefined && args.sort !== null) {
+      this.sort = args.sort;
+    }
+    if (args.q !== undefined && args.q !== null) {
+      this.q = args.q;
+    }
+  }
+};
+DelegatorCandidateListRequest.prototype = {};
+DelegatorCandidateListRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.address = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.I16) {
+        this.page = input.readI16();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.I16) {
+        this.perPage = input.readI16();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.STRING) {
+        this.sort = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 5:
+      if (ftype == Thrift.Type.STRING) {
+        this.q = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+DelegatorCandidateListRequest.prototype.write = function(output) {
+  output.writeStructBegin('DelegatorCandidateListRequest');
+  if (this.address !== null && this.address !== undefined) {
+    output.writeFieldBegin('address', Thrift.Type.STRING, 1);
+    output.writeString(this.address);
+    output.writeFieldEnd();
+  }
+  if (this.page !== null && this.page !== undefined) {
+    output.writeFieldBegin('page', Thrift.Type.I16, 2);
+    output.writeI16(this.page);
+    output.writeFieldEnd();
+  }
+  if (this.perPage !== null && this.perPage !== undefined) {
+    output.writeFieldBegin('perPage', Thrift.Type.I16, 3);
+    output.writeI16(this.perPage);
+    output.writeFieldEnd();
+  }
+  if (this.sort !== null && this.sort !== undefined) {
+    output.writeFieldBegin('sort', Thrift.Type.STRING, 4);
+    output.writeString(this.sort);
+    output.writeFieldEnd();
+  }
+  if (this.q !== null && this.q !== undefined) {
+    output.writeFieldBegin('q', Thrift.Type.STRING, 5);
+    output.writeString(this.q);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var TotalShareRequest = module.exports.TotalShareRequest = function(args) {
+  this.address = null;
+  if (args) {
+    if (args.address !== undefined && args.address !== null) {
+      this.address = args.address;
+    }
+  }
+};
+TotalShareRequest.prototype = {};
+TotalShareRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.address = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+TotalShareRequest.prototype.write = function(output) {
+  output.writeStructBegin('TotalShareRequest');
+  if (this.address !== null && this.address !== undefined) {
+    output.writeFieldBegin('address', Thrift.Type.STRING, 1);
+    output.writeString(this.address);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var TotalShareResponse = module.exports.TotalShareResponse = function(args) {
+  this.totalShares = null;
+  if (args) {
+    if (args.totalShares !== undefined && args.totalShares !== null) {
+      this.totalShares = args.totalShares;
+    }
+  }
+};
+TotalShareResponse.prototype = {};
+TotalShareResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 2:
+      if (ftype == Thrift.Type.I64) {
+        this.totalShares = input.readI64();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+TotalShareResponse.prototype.write = function(output) {
+  output.writeStructBegin('TotalShareResponse');
+  if (this.totalShares !== null && this.totalShares !== undefined) {
+    output.writeFieldBegin('totalShares', Thrift.Type.I64, 2);
+    output.writeI64(this.totalShares);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+

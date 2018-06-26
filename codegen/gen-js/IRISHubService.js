@@ -70,7 +70,7 @@ IRISHubService_GetCandidateList_result = function(args) {
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = new CandidateListResponse(args.success);
+      this.success = Thrift.copyList(args.success, [Candidate]);
     }
     if (args.e !== undefined && args.e !== null) {
       this.e = args.e;
@@ -92,9 +92,22 @@ IRISHubService_GetCandidateList_result.prototype.read = function(input) {
     switch (fid)
     {
       case 0:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.success = new CandidateListResponse();
-        this.success.read(input);
+      if (ftype == Thrift.Type.LIST) {
+        var _size0 = 0;
+        var _rtmp34;
+        this.success = [];
+        var _etype3 = 0;
+        _rtmp34 = input.readListBegin();
+        _etype3 = _rtmp34.etype;
+        _size0 = _rtmp34.size;
+        for (var _i5 = 0; _i5 < _size0; ++_i5)
+        {
+          var elem6 = null;
+          elem6 = new Candidate();
+          elem6.read(input);
+          this.success.push(elem6);
+        }
+        input.readListEnd();
       } else {
         input.skip(ftype);
       }
@@ -119,8 +132,17 @@ IRISHubService_GetCandidateList_result.prototype.read = function(input) {
 IRISHubService_GetCandidateList_result.prototype.write = function(output) {
   output.writeStructBegin('IRISHubService_GetCandidateList_result');
   if (this.success !== null && this.success !== undefined) {
-    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
-    this.success.write(output);
+    output.writeFieldBegin('success', Thrift.Type.LIST, 0);
+    output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
+    for (var iter7 in this.success)
+    {
+      if (this.success.hasOwnProperty(iter7))
+      {
+        iter7 = this.success[iter7];
+        iter7.write(output);
+      }
+    }
+    output.writeListEnd();
     output.writeFieldEnd();
   }
   if (this.e !== null && this.e !== undefined) {
@@ -196,7 +218,7 @@ IRISHubService_GetCandidateDetail_result = function(args) {
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = new CandidateDetailResponse(args.success);
+      this.success = new Candidate(args.success);
     }
     if (args.e !== undefined && args.e !== null) {
       this.e = args.e;
@@ -219,7 +241,7 @@ IRISHubService_GetCandidateDetail_result.prototype.read = function(input) {
     {
       case 0:
       if (ftype == Thrift.Type.STRUCT) {
-        this.success = new CandidateDetailResponse();
+        this.success = new Candidate();
         this.success.read(input);
       } else {
         input.skip(ftype);
@@ -322,7 +344,7 @@ IRISHubService_GetDelegatorCandidateList_result = function(args) {
   }
   if (args) {
     if (args.success !== undefined && args.success !== null) {
-      this.success = new DelegatorCandidateListResponse(args.success);
+      this.success = Thrift.copyList(args.success, [Candidate]);
     }
     if (args.e !== undefined && args.e !== null) {
       this.e = args.e;
@@ -344,9 +366,22 @@ IRISHubService_GetDelegatorCandidateList_result.prototype.read = function(input)
     switch (fid)
     {
       case 0:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.success = new DelegatorCandidateListResponse();
-        this.success.read(input);
+      if (ftype == Thrift.Type.LIST) {
+        var _size8 = 0;
+        var _rtmp312;
+        this.success = [];
+        var _etype11 = 0;
+        _rtmp312 = input.readListBegin();
+        _etype11 = _rtmp312.etype;
+        _size8 = _rtmp312.size;
+        for (var _i13 = 0; _i13 < _size8; ++_i13)
+        {
+          var elem14 = null;
+          elem14 = new Candidate();
+          elem14.read(input);
+          this.success.push(elem14);
+        }
+        input.readListEnd();
       } else {
         input.skip(ftype);
       }
@@ -371,8 +406,17 @@ IRISHubService_GetDelegatorCandidateList_result.prototype.read = function(input)
 IRISHubService_GetDelegatorCandidateList_result.prototype.write = function(output) {
   output.writeStructBegin('IRISHubService_GetDelegatorCandidateList_result');
   if (this.success !== null && this.success !== undefined) {
-    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
-    this.success.write(output);
+    output.writeFieldBegin('success', Thrift.Type.LIST, 0);
+    output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
+    for (var iter15 in this.success)
+    {
+      if (this.success.hasOwnProperty(iter15))
+      {
+        iter15 = this.success[iter15];
+        iter15.write(output);
+      }
+    }
+    output.writeListEnd();
     output.writeFieldEnd();
   }
   if (this.e !== null && this.e !== undefined) {
