@@ -63,3 +63,11 @@ struct TotalShareRequest {
 struct TotalShareResponse {
 	2: i64 totalShares
 }
+
+struct AccountNumRequest {
+    1: string address
+}
+
+struct AccountNumResponse {
+    1: i64 accountNum
+}

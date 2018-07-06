@@ -1593,3 +1593,185 @@ func (p *TotalShareResponse) String() string {
   return fmt.Sprintf("TotalShareResponse(%+v)", *p)
 }
 
+// Attributes:
+//  - Address
+type AccountNumRequest struct {
+  Address string `thrift:"address,1" db:"address" json:"address"`
+}
+
+func NewAccountNumRequest() *AccountNumRequest {
+  return &AccountNumRequest{}
+}
+
+
+func (p *AccountNumRequest) GetAddress() string {
+  return p.Address
+}
+func (p *AccountNumRequest) Read(iprot thrift.TProtocol) error {
+  if _, err := iprot.ReadStructBegin(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+  }
+
+
+  for {
+    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+    if err != nil {
+      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+    }
+    if fieldTypeId == thrift.STOP { break; }
+    switch fieldId {
+    case 1:
+      if fieldTypeId == thrift.STRING {
+        if err := p.ReadField1(iprot); err != nil {
+          return err
+        }
+      } else {
+        if err := iprot.Skip(fieldTypeId); err != nil {
+          return err
+        }
+      }
+    default:
+      if err := iprot.Skip(fieldTypeId); err != nil {
+        return err
+      }
+    }
+    if err := iprot.ReadFieldEnd(); err != nil {
+      return err
+    }
+  }
+  if err := iprot.ReadStructEnd(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+  }
+  return nil
+}
+
+func (p *AccountNumRequest)  ReadField1(iprot thrift.TProtocol) error {
+  if v, err := iprot.ReadString(); err != nil {
+  return thrift.PrependError("error reading field 1: ", err)
+} else {
+  p.Address = v
+}
+  return nil
+}
+
+func (p *AccountNumRequest) Write(oprot thrift.TProtocol) error {
+  if err := oprot.WriteStructBegin("AccountNumRequest"); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
+  if p != nil {
+    if err := p.writeField1(oprot); err != nil { return err }
+  }
+  if err := oprot.WriteFieldStop(); err != nil {
+    return thrift.PrependError("write field stop error: ", err) }
+  if err := oprot.WriteStructEnd(); err != nil {
+    return thrift.PrependError("write struct stop error: ", err) }
+  return nil
+}
+
+func (p *AccountNumRequest) writeField1(oprot thrift.TProtocol) (err error) {
+  if err := oprot.WriteFieldBegin("address", thrift.STRING, 1); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:address: ", p), err) }
+  if err := oprot.WriteString(string(p.Address)); err != nil {
+  return thrift.PrependError(fmt.Sprintf("%T.address (1) field write error: ", p), err) }
+  if err := oprot.WriteFieldEnd(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write field end error 1:address: ", p), err) }
+  return err
+}
+
+func (p *AccountNumRequest) String() string {
+  if p == nil {
+    return "<nil>"
+  }
+  return fmt.Sprintf("AccountNumRequest(%+v)", *p)
+}
+
+// Attributes:
+//  - AccountNum
+type AccountNumResponse struct {
+  AccountNum int64 `thrift:"accountNum,1" db:"accountNum" json:"accountNum"`
+}
+
+func NewAccountNumResponse() *AccountNumResponse {
+  return &AccountNumResponse{}
+}
+
+
+func (p *AccountNumResponse) GetAccountNum() int64 {
+  return p.AccountNum
+}
+func (p *AccountNumResponse) Read(iprot thrift.TProtocol) error {
+  if _, err := iprot.ReadStructBegin(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+  }
+
+
+  for {
+    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+    if err != nil {
+      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+    }
+    if fieldTypeId == thrift.STOP { break; }
+    switch fieldId {
+    case 1:
+      if fieldTypeId == thrift.I64 {
+        if err := p.ReadField1(iprot); err != nil {
+          return err
+        }
+      } else {
+        if err := iprot.Skip(fieldTypeId); err != nil {
+          return err
+        }
+      }
+    default:
+      if err := iprot.Skip(fieldTypeId); err != nil {
+        return err
+      }
+    }
+    if err := iprot.ReadFieldEnd(); err != nil {
+      return err
+    }
+  }
+  if err := iprot.ReadStructEnd(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+  }
+  return nil
+}
+
+func (p *AccountNumResponse)  ReadField1(iprot thrift.TProtocol) error {
+  if v, err := iprot.ReadI64(); err != nil {
+  return thrift.PrependError("error reading field 1: ", err)
+} else {
+  p.AccountNum = v
+}
+  return nil
+}
+
+func (p *AccountNumResponse) Write(oprot thrift.TProtocol) error {
+  if err := oprot.WriteStructBegin("AccountNumResponse"); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
+  if p != nil {
+    if err := p.writeField1(oprot); err != nil { return err }
+  }
+  if err := oprot.WriteFieldStop(); err != nil {
+    return thrift.PrependError("write field stop error: ", err) }
+  if err := oprot.WriteStructEnd(); err != nil {
+    return thrift.PrependError("write struct stop error: ", err) }
+  return nil
+}
+
+func (p *AccountNumResponse) writeField1(oprot thrift.TProtocol) (err error) {
+  if err := oprot.WriteFieldBegin("accountNum", thrift.I64, 1); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:accountNum: ", p), err) }
+  if err := oprot.WriteI64(int64(p.AccountNum)); err != nil {
+  return thrift.PrependError(fmt.Sprintf("%T.accountNum (1) field write error: ", p), err) }
+  if err := oprot.WriteFieldEnd(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write field end error 1:accountNum: ", p), err) }
+  return err
+}
+
+func (p *AccountNumResponse) String() string {
+  if p == nil {
+    return "<nil>"
+  }
+  return fmt.Sprintf("AccountNumResponse(%+v)", *p)
+}
+
