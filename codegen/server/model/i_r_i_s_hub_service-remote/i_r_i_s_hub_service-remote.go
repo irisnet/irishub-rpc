@@ -26,7 +26,6 @@ func Usage() {
   fmt.Fprintln(os.Stderr, "  Candidate GetCandidateDetail(CandidateDetailRequest req)")
   fmt.Fprintln(os.Stderr, "   GetDelegatorCandidateList(DelegatorCandidateListRequest req)")
   fmt.Fprintln(os.Stderr, "  TotalShareResponse GetDelegatorTotalShares(TotalShareRequest req)")
-  fmt.Fprintln(os.Stderr, "  AccountNumResponse GetAccountNum(AccountNumRequest req)")
   fmt.Fprintln(os.Stderr)
   os.Exit(0)
 }
@@ -129,19 +128,19 @@ func main() {
       fmt.Fprintln(os.Stderr, "GetCandidateList requires 1 args")
       flag.Usage()
     }
-    arg14 := flag.Arg(1)
-    mbTrans15 := thrift.NewTMemoryBufferLen(len(arg14))
-    defer mbTrans15.Close()
-    _, err16 := mbTrans15.WriteString(arg14)
-    if err16 != nil {
+    arg12 := flag.Arg(1)
+    mbTrans13 := thrift.NewTMemoryBufferLen(len(arg12))
+    defer mbTrans13.Close()
+    _, err14 := mbTrans13.WriteString(arg12)
+    if err14 != nil {
       Usage()
       return
     }
-    factory17 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt18 := factory17.GetProtocol(mbTrans15)
+    factory15 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt16 := factory15.GetProtocol(mbTrans13)
     argvalue0 := model.NewCandidateListRequest()
-    err19 := argvalue0.Read(jsProt18)
-    if err19 != nil {
+    err17 := argvalue0.Read(jsProt16)
+    if err17 != nil {
       Usage()
       return
     }
@@ -154,19 +153,19 @@ func main() {
       fmt.Fprintln(os.Stderr, "GetCandidateDetail requires 1 args")
       flag.Usage()
     }
-    arg20 := flag.Arg(1)
-    mbTrans21 := thrift.NewTMemoryBufferLen(len(arg20))
-    defer mbTrans21.Close()
-    _, err22 := mbTrans21.WriteString(arg20)
-    if err22 != nil {
+    arg18 := flag.Arg(1)
+    mbTrans19 := thrift.NewTMemoryBufferLen(len(arg18))
+    defer mbTrans19.Close()
+    _, err20 := mbTrans19.WriteString(arg18)
+    if err20 != nil {
       Usage()
       return
     }
-    factory23 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt24 := factory23.GetProtocol(mbTrans21)
+    factory21 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt22 := factory21.GetProtocol(mbTrans19)
     argvalue0 := model.NewCandidateDetailRequest()
-    err25 := argvalue0.Read(jsProt24)
-    if err25 != nil {
+    err23 := argvalue0.Read(jsProt22)
+    if err23 != nil {
       Usage()
       return
     }
@@ -179,19 +178,19 @@ func main() {
       fmt.Fprintln(os.Stderr, "GetDelegatorCandidateList requires 1 args")
       flag.Usage()
     }
-    arg26 := flag.Arg(1)
-    mbTrans27 := thrift.NewTMemoryBufferLen(len(arg26))
-    defer mbTrans27.Close()
-    _, err28 := mbTrans27.WriteString(arg26)
-    if err28 != nil {
+    arg24 := flag.Arg(1)
+    mbTrans25 := thrift.NewTMemoryBufferLen(len(arg24))
+    defer mbTrans25.Close()
+    _, err26 := mbTrans25.WriteString(arg24)
+    if err26 != nil {
       Usage()
       return
     }
-    factory29 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt30 := factory29.GetProtocol(mbTrans27)
+    factory27 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt28 := factory27.GetProtocol(mbTrans25)
     argvalue0 := model.NewDelegatorCandidateListRequest()
-    err31 := argvalue0.Read(jsProt30)
-    if err31 != nil {
+    err29 := argvalue0.Read(jsProt28)
+    if err29 != nil {
       Usage()
       return
     }
@@ -204,49 +203,24 @@ func main() {
       fmt.Fprintln(os.Stderr, "GetDelegatorTotalShares requires 1 args")
       flag.Usage()
     }
-    arg32 := flag.Arg(1)
-    mbTrans33 := thrift.NewTMemoryBufferLen(len(arg32))
-    defer mbTrans33.Close()
-    _, err34 := mbTrans33.WriteString(arg32)
-    if err34 != nil {
+    arg30 := flag.Arg(1)
+    mbTrans31 := thrift.NewTMemoryBufferLen(len(arg30))
+    defer mbTrans31.Close()
+    _, err32 := mbTrans31.WriteString(arg30)
+    if err32 != nil {
       Usage()
       return
     }
-    factory35 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt36 := factory35.GetProtocol(mbTrans33)
+    factory33 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt34 := factory33.GetProtocol(mbTrans31)
     argvalue0 := model.NewTotalShareRequest()
-    err37 := argvalue0.Read(jsProt36)
-    if err37 != nil {
+    err35 := argvalue0.Read(jsProt34)
+    if err35 != nil {
       Usage()
       return
     }
     value0 := argvalue0
     fmt.Print(client.GetDelegatorTotalShares(context.Background(), value0))
-    fmt.Print("\n")
-    break
-  case "GetAccountNum":
-    if flag.NArg() - 1 != 1 {
-      fmt.Fprintln(os.Stderr, "GetAccountNum requires 1 args")
-      flag.Usage()
-    }
-    arg38 := flag.Arg(1)
-    mbTrans39 := thrift.NewTMemoryBufferLen(len(arg38))
-    defer mbTrans39.Close()
-    _, err40 := mbTrans39.WriteString(arg38)
-    if err40 != nil {
-      Usage()
-      return
-    }
-    factory41 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt42 := factory41.GetProtocol(mbTrans39)
-    argvalue0 := model.NewAccountNumRequest()
-    err43 := argvalue0.Read(jsProt42)
-    if err43 != nil {
-      Usage()
-      return
-    }
-    value0 := argvalue0
-    fmt.Print(client.GetAccountNum(context.Background(), value0))
     fmt.Print("\n")
     break
   case "":
