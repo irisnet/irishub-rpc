@@ -1593,3 +1593,185 @@ func (p *TotalShareResponse) String() string {
   return fmt.Sprintf("TotalShareResponse(%+v)", *p)
 }
 
+// Attributes:
+//  - ValidatorAddress
+type ExRateRequest struct {
+  ValidatorAddress string `thrift:"validatorAddress,1" db:"validatorAddress" json:"validatorAddress"`
+}
+
+func NewExRateRequest() *ExRateRequest {
+  return &ExRateRequest{}
+}
+
+
+func (p *ExRateRequest) GetValidatorAddress() string {
+  return p.ValidatorAddress
+}
+func (p *ExRateRequest) Read(iprot thrift.TProtocol) error {
+  if _, err := iprot.ReadStructBegin(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+  }
+
+
+  for {
+    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+    if err != nil {
+      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+    }
+    if fieldTypeId == thrift.STOP { break; }
+    switch fieldId {
+    case 1:
+      if fieldTypeId == thrift.STRING {
+        if err := p.ReadField1(iprot); err != nil {
+          return err
+        }
+      } else {
+        if err := iprot.Skip(fieldTypeId); err != nil {
+          return err
+        }
+      }
+    default:
+      if err := iprot.Skip(fieldTypeId); err != nil {
+        return err
+      }
+    }
+    if err := iprot.ReadFieldEnd(); err != nil {
+      return err
+    }
+  }
+  if err := iprot.ReadStructEnd(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+  }
+  return nil
+}
+
+func (p *ExRateRequest)  ReadField1(iprot thrift.TProtocol) error {
+  if v, err := iprot.ReadString(); err != nil {
+  return thrift.PrependError("error reading field 1: ", err)
+} else {
+  p.ValidatorAddress = v
+}
+  return nil
+}
+
+func (p *ExRateRequest) Write(oprot thrift.TProtocol) error {
+  if err := oprot.WriteStructBegin("ExRateRequest"); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
+  if p != nil {
+    if err := p.writeField1(oprot); err != nil { return err }
+  }
+  if err := oprot.WriteFieldStop(); err != nil {
+    return thrift.PrependError("write field stop error: ", err) }
+  if err := oprot.WriteStructEnd(); err != nil {
+    return thrift.PrependError("write struct stop error: ", err) }
+  return nil
+}
+
+func (p *ExRateRequest) writeField1(oprot thrift.TProtocol) (err error) {
+  if err := oprot.WriteFieldBegin("validatorAddress", thrift.STRING, 1); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:validatorAddress: ", p), err) }
+  if err := oprot.WriteString(string(p.ValidatorAddress)); err != nil {
+  return thrift.PrependError(fmt.Sprintf("%T.validatorAddress (1) field write error: ", p), err) }
+  if err := oprot.WriteFieldEnd(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write field end error 1:validatorAddress: ", p), err) }
+  return err
+}
+
+func (p *ExRateRequest) String() string {
+  if p == nil {
+    return "<nil>"
+  }
+  return fmt.Sprintf("ExRateRequest(%+v)", *p)
+}
+
+// Attributes:
+//  - TokenSharesRate
+type ExRateResponse struct {
+  TokenSharesRate string `thrift:"tokenSharesRate,1" db:"tokenSharesRate" json:"tokenSharesRate"`
+}
+
+func NewExRateResponse() *ExRateResponse {
+  return &ExRateResponse{}
+}
+
+
+func (p *ExRateResponse) GetTokenSharesRate() string {
+  return p.TokenSharesRate
+}
+func (p *ExRateResponse) Read(iprot thrift.TProtocol) error {
+  if _, err := iprot.ReadStructBegin(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+  }
+
+
+  for {
+    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+    if err != nil {
+      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+    }
+    if fieldTypeId == thrift.STOP { break; }
+    switch fieldId {
+    case 1:
+      if fieldTypeId == thrift.STRING {
+        if err := p.ReadField1(iprot); err != nil {
+          return err
+        }
+      } else {
+        if err := iprot.Skip(fieldTypeId); err != nil {
+          return err
+        }
+      }
+    default:
+      if err := iprot.Skip(fieldTypeId); err != nil {
+        return err
+      }
+    }
+    if err := iprot.ReadFieldEnd(); err != nil {
+      return err
+    }
+  }
+  if err := iprot.ReadStructEnd(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+  }
+  return nil
+}
+
+func (p *ExRateResponse)  ReadField1(iprot thrift.TProtocol) error {
+  if v, err := iprot.ReadString(); err != nil {
+  return thrift.PrependError("error reading field 1: ", err)
+} else {
+  p.TokenSharesRate = v
+}
+  return nil
+}
+
+func (p *ExRateResponse) Write(oprot thrift.TProtocol) error {
+  if err := oprot.WriteStructBegin("ExRateResponse"); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
+  if p != nil {
+    if err := p.writeField1(oprot); err != nil { return err }
+  }
+  if err := oprot.WriteFieldStop(); err != nil {
+    return thrift.PrependError("write field stop error: ", err) }
+  if err := oprot.WriteStructEnd(); err != nil {
+    return thrift.PrependError("write struct stop error: ", err) }
+  return nil
+}
+
+func (p *ExRateResponse) writeField1(oprot thrift.TProtocol) (err error) {
+  if err := oprot.WriteFieldBegin("tokenSharesRate", thrift.STRING, 1); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:tokenSharesRate: ", p), err) }
+  if err := oprot.WriteString(string(p.TokenSharesRate)); err != nil {
+  return thrift.PrependError(fmt.Sprintf("%T.tokenSharesRate (1) field write error: ", p), err) }
+  if err := oprot.WriteFieldEnd(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write field end error 1:tokenSharesRate: ", p), err) }
+  return err
+}
+
+func (p *ExRateResponse) String() string {
+  if p == nil {
+    return "<nil>"
+  }
+  return fmt.Sprintf("ExRateResponse(%+v)", *p)
+}
+
