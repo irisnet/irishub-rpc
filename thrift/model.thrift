@@ -63,3 +63,11 @@ struct TotalShareRequest {
 struct TotalShareResponse {
 	2: i64 totalShares
 }
+
+struct ExRateRequest {
+    1: string validatorAddress
+}
+
+struct ExRateResponse {
+    1: string tokenSharesRate
+}
