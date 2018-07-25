@@ -1775,3 +1775,130 @@ func (p *ExRateResponse) String() string {
   return fmt.Sprintf("ExRateResponse(%+v)", *p)
 }
 
+// Attributes:
+//  - TxHash
+//  - ExRate
+type DelegatorStakeActionExRateRequest struct {
+  TxHash string `thrift:"txHash,1" db:"txHash" json:"txHash"`
+  ExRate string `thrift:"ex_rate,2" db:"ex_rate" json:"ex_rate"`
+}
+
+func NewDelegatorStakeActionExRateRequest() *DelegatorStakeActionExRateRequest {
+  return &DelegatorStakeActionExRateRequest{}
+}
+
+
+func (p *DelegatorStakeActionExRateRequest) GetTxHash() string {
+  return p.TxHash
+}
+
+func (p *DelegatorStakeActionExRateRequest) GetExRate() string {
+  return p.ExRate
+}
+func (p *DelegatorStakeActionExRateRequest) Read(iprot thrift.TProtocol) error {
+  if _, err := iprot.ReadStructBegin(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+  }
+
+
+  for {
+    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+    if err != nil {
+      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+    }
+    if fieldTypeId == thrift.STOP { break; }
+    switch fieldId {
+    case 1:
+      if fieldTypeId == thrift.STRING {
+        if err := p.ReadField1(iprot); err != nil {
+          return err
+        }
+      } else {
+        if err := iprot.Skip(fieldTypeId); err != nil {
+          return err
+        }
+      }
+    case 2:
+      if fieldTypeId == thrift.STRING {
+        if err := p.ReadField2(iprot); err != nil {
+          return err
+        }
+      } else {
+        if err := iprot.Skip(fieldTypeId); err != nil {
+          return err
+        }
+      }
+    default:
+      if err := iprot.Skip(fieldTypeId); err != nil {
+        return err
+      }
+    }
+    if err := iprot.ReadFieldEnd(); err != nil {
+      return err
+    }
+  }
+  if err := iprot.ReadStructEnd(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+  }
+  return nil
+}
+
+func (p *DelegatorStakeActionExRateRequest)  ReadField1(iprot thrift.TProtocol) error {
+  if v, err := iprot.ReadString(); err != nil {
+  return thrift.PrependError("error reading field 1: ", err)
+} else {
+  p.TxHash = v
+}
+  return nil
+}
+
+func (p *DelegatorStakeActionExRateRequest)  ReadField2(iprot thrift.TProtocol) error {
+  if v, err := iprot.ReadString(); err != nil {
+  return thrift.PrependError("error reading field 2: ", err)
+} else {
+  p.ExRate = v
+}
+  return nil
+}
+
+func (p *DelegatorStakeActionExRateRequest) Write(oprot thrift.TProtocol) error {
+  if err := oprot.WriteStructBegin("DelegatorStakeActionExRateRequest"); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
+  if p != nil {
+    if err := p.writeField1(oprot); err != nil { return err }
+    if err := p.writeField2(oprot); err != nil { return err }
+  }
+  if err := oprot.WriteFieldStop(); err != nil {
+    return thrift.PrependError("write field stop error: ", err) }
+  if err := oprot.WriteStructEnd(); err != nil {
+    return thrift.PrependError("write struct stop error: ", err) }
+  return nil
+}
+
+func (p *DelegatorStakeActionExRateRequest) writeField1(oprot thrift.TProtocol) (err error) {
+  if err := oprot.WriteFieldBegin("txHash", thrift.STRING, 1); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:txHash: ", p), err) }
+  if err := oprot.WriteString(string(p.TxHash)); err != nil {
+  return thrift.PrependError(fmt.Sprintf("%T.txHash (1) field write error: ", p), err) }
+  if err := oprot.WriteFieldEnd(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write field end error 1:txHash: ", p), err) }
+  return err
+}
+
+func (p *DelegatorStakeActionExRateRequest) writeField2(oprot thrift.TProtocol) (err error) {
+  if err := oprot.WriteFieldBegin("ex_rate", thrift.STRING, 2); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write field begin error 2:ex_rate: ", p), err) }
+  if err := oprot.WriteString(string(p.ExRate)); err != nil {
+  return thrift.PrependError(fmt.Sprintf("%T.ex_rate (2) field write error: ", p), err) }
+  if err := oprot.WriteFieldEnd(); err != nil {
+    return thrift.PrependError(fmt.Sprintf("%T write field end error 2:ex_rate: ", p), err) }
+  return err
+}
+
+func (p *DelegatorStakeActionExRateRequest) String() string {
+  if p == nil {
+    return "<nil>"
+  }
+  return fmt.Sprintf("DelegatorStakeActionExRateRequest(%+v)", *p)
+}
+

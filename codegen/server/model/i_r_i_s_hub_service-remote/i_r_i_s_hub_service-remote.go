@@ -27,6 +27,7 @@ func Usage() {
   fmt.Fprintln(os.Stderr, "   GetDelegatorCandidateList(DelegatorCandidateListRequest req)")
   fmt.Fprintln(os.Stderr, "  TotalShareResponse GetDelegatorTotalShares(TotalShareRequest req)")
   fmt.Fprintln(os.Stderr, "  ExRateResponse GetExRate(ExRateRequest req)")
+  fmt.Fprintln(os.Stderr, "  void SaveDelegatorStakeActionExRate(DelegatorStakeActionExRateRequest req)")
   fmt.Fprintln(os.Stderr)
   os.Exit(0)
 }
@@ -129,19 +130,19 @@ func main() {
       fmt.Fprintln(os.Stderr, "GetCandidateList requires 1 args")
       flag.Usage()
     }
-    arg14 := flag.Arg(1)
-    mbTrans15 := thrift.NewTMemoryBufferLen(len(arg14))
-    defer mbTrans15.Close()
-    _, err16 := mbTrans15.WriteString(arg14)
-    if err16 != nil {
+    arg16 := flag.Arg(1)
+    mbTrans17 := thrift.NewTMemoryBufferLen(len(arg16))
+    defer mbTrans17.Close()
+    _, err18 := mbTrans17.WriteString(arg16)
+    if err18 != nil {
       Usage()
       return
     }
-    factory17 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt18 := factory17.GetProtocol(mbTrans15)
+    factory19 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt20 := factory19.GetProtocol(mbTrans17)
     argvalue0 := model.NewCandidateListRequest()
-    err19 := argvalue0.Read(jsProt18)
-    if err19 != nil {
+    err21 := argvalue0.Read(jsProt20)
+    if err21 != nil {
       Usage()
       return
     }
@@ -154,19 +155,19 @@ func main() {
       fmt.Fprintln(os.Stderr, "GetCandidateDetail requires 1 args")
       flag.Usage()
     }
-    arg20 := flag.Arg(1)
-    mbTrans21 := thrift.NewTMemoryBufferLen(len(arg20))
-    defer mbTrans21.Close()
-    _, err22 := mbTrans21.WriteString(arg20)
-    if err22 != nil {
+    arg22 := flag.Arg(1)
+    mbTrans23 := thrift.NewTMemoryBufferLen(len(arg22))
+    defer mbTrans23.Close()
+    _, err24 := mbTrans23.WriteString(arg22)
+    if err24 != nil {
       Usage()
       return
     }
-    factory23 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt24 := factory23.GetProtocol(mbTrans21)
+    factory25 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt26 := factory25.GetProtocol(mbTrans23)
     argvalue0 := model.NewCandidateDetailRequest()
-    err25 := argvalue0.Read(jsProt24)
-    if err25 != nil {
+    err27 := argvalue0.Read(jsProt26)
+    if err27 != nil {
       Usage()
       return
     }
@@ -179,19 +180,19 @@ func main() {
       fmt.Fprintln(os.Stderr, "GetDelegatorCandidateList requires 1 args")
       flag.Usage()
     }
-    arg26 := flag.Arg(1)
-    mbTrans27 := thrift.NewTMemoryBufferLen(len(arg26))
-    defer mbTrans27.Close()
-    _, err28 := mbTrans27.WriteString(arg26)
-    if err28 != nil {
+    arg28 := flag.Arg(1)
+    mbTrans29 := thrift.NewTMemoryBufferLen(len(arg28))
+    defer mbTrans29.Close()
+    _, err30 := mbTrans29.WriteString(arg28)
+    if err30 != nil {
       Usage()
       return
     }
-    factory29 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt30 := factory29.GetProtocol(mbTrans27)
+    factory31 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt32 := factory31.GetProtocol(mbTrans29)
     argvalue0 := model.NewDelegatorCandidateListRequest()
-    err31 := argvalue0.Read(jsProt30)
-    if err31 != nil {
+    err33 := argvalue0.Read(jsProt32)
+    if err33 != nil {
       Usage()
       return
     }
@@ -204,19 +205,19 @@ func main() {
       fmt.Fprintln(os.Stderr, "GetDelegatorTotalShares requires 1 args")
       flag.Usage()
     }
-    arg32 := flag.Arg(1)
-    mbTrans33 := thrift.NewTMemoryBufferLen(len(arg32))
-    defer mbTrans33.Close()
-    _, err34 := mbTrans33.WriteString(arg32)
-    if err34 != nil {
+    arg34 := flag.Arg(1)
+    mbTrans35 := thrift.NewTMemoryBufferLen(len(arg34))
+    defer mbTrans35.Close()
+    _, err36 := mbTrans35.WriteString(arg34)
+    if err36 != nil {
       Usage()
       return
     }
-    factory35 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt36 := factory35.GetProtocol(mbTrans33)
+    factory37 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt38 := factory37.GetProtocol(mbTrans35)
     argvalue0 := model.NewTotalShareRequest()
-    err37 := argvalue0.Read(jsProt36)
-    if err37 != nil {
+    err39 := argvalue0.Read(jsProt38)
+    if err39 != nil {
       Usage()
       return
     }
@@ -229,24 +230,49 @@ func main() {
       fmt.Fprintln(os.Stderr, "GetExRate requires 1 args")
       flag.Usage()
     }
-    arg38 := flag.Arg(1)
-    mbTrans39 := thrift.NewTMemoryBufferLen(len(arg38))
-    defer mbTrans39.Close()
-    _, err40 := mbTrans39.WriteString(arg38)
-    if err40 != nil {
+    arg40 := flag.Arg(1)
+    mbTrans41 := thrift.NewTMemoryBufferLen(len(arg40))
+    defer mbTrans41.Close()
+    _, err42 := mbTrans41.WriteString(arg40)
+    if err42 != nil {
       Usage()
       return
     }
-    factory41 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt42 := factory41.GetProtocol(mbTrans39)
+    factory43 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt44 := factory43.GetProtocol(mbTrans41)
     argvalue0 := model.NewExRateRequest()
-    err43 := argvalue0.Read(jsProt42)
-    if err43 != nil {
+    err45 := argvalue0.Read(jsProt44)
+    if err45 != nil {
       Usage()
       return
     }
     value0 := argvalue0
     fmt.Print(client.GetExRate(context.Background(), value0))
+    fmt.Print("\n")
+    break
+  case "SaveDelegatorStakeActionExRate":
+    if flag.NArg() - 1 != 1 {
+      fmt.Fprintln(os.Stderr, "SaveDelegatorStakeActionExRate requires 1 args")
+      flag.Usage()
+    }
+    arg46 := flag.Arg(1)
+    mbTrans47 := thrift.NewTMemoryBufferLen(len(arg46))
+    defer mbTrans47.Close()
+    _, err48 := mbTrans47.WriteString(arg46)
+    if err48 != nil {
+      Usage()
+      return
+    }
+    factory49 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt50 := factory49.GetProtocol(mbTrans47)
+    argvalue0 := model.NewDelegatorStakeActionExRateRequest()
+    err51 := argvalue0.Read(jsProt50)
+    if err51 != nil {
+      Usage()
+      return
+    }
+    value0 := argvalue0
+    fmt.Print(client.SaveDelegatorStakeActionExRate(context.Background(), value0))
     fmt.Print("\n")
     break
   case "":
