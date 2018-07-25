@@ -71,3 +71,8 @@ struct ExRateRequest {
 struct ExRateResponse {
     1: string tokenSharesRate
 }
+
+struct DelegatorStakeActionExRateRequest {
+    1: string txHash
+    2: string ex_rate
+}
