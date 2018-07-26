@@ -71,8 +71,3 @@ struct ValidatorExRateRequest {
 struct ValidatorExRateResponse {
     1: double tokenSharesRate
 }
-
-struct DelegatorStakeExRateRequest {
-    1: string txHash
-    2: double tokenSharesRate
-}

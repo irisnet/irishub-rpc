@@ -27,7 +27,6 @@ func Usage() {
   fmt.Fprintln(os.Stderr, "   GetDelegatorCandidateList(DelegatorCandidateListRequest req)")
   fmt.Fprintln(os.Stderr, "  TotalShareResponse GetDelegatorTotalShares(TotalShareRequest req)")
   fmt.Fprintln(os.Stderr, "  ValidatorExRateResponse GetValidatorExRate(ValidatorExRateRequest req)")
-  fmt.Fprintln(os.Stderr, "  void SaveDelegatorStakeExRate(DelegatorStakeExRateRequest req)")
   fmt.Fprintln(os.Stderr)
   os.Exit(0)
 }
@@ -130,19 +129,19 @@ func main() {
       fmt.Fprintln(os.Stderr, "GetCandidateList requires 1 args")
       flag.Usage()
     }
-    arg16 := flag.Arg(1)
-    mbTrans17 := thrift.NewTMemoryBufferLen(len(arg16))
-    defer mbTrans17.Close()
-    _, err18 := mbTrans17.WriteString(arg16)
-    if err18 != nil {
+    arg14 := flag.Arg(1)
+    mbTrans15 := thrift.NewTMemoryBufferLen(len(arg14))
+    defer mbTrans15.Close()
+    _, err16 := mbTrans15.WriteString(arg14)
+    if err16 != nil {
       Usage()
       return
     }
-    factory19 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt20 := factory19.GetProtocol(mbTrans17)
+    factory17 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt18 := factory17.GetProtocol(mbTrans15)
     argvalue0 := model.NewCandidateListRequest()
-    err21 := argvalue0.Read(jsProt20)
-    if err21 != nil {
+    err19 := argvalue0.Read(jsProt18)
+    if err19 != nil {
       Usage()
       return
     }
@@ -155,19 +154,19 @@ func main() {
       fmt.Fprintln(os.Stderr, "GetCandidateDetail requires 1 args")
       flag.Usage()
     }
-    arg22 := flag.Arg(1)
-    mbTrans23 := thrift.NewTMemoryBufferLen(len(arg22))
-    defer mbTrans23.Close()
-    _, err24 := mbTrans23.WriteString(arg22)
-    if err24 != nil {
+    arg20 := flag.Arg(1)
+    mbTrans21 := thrift.NewTMemoryBufferLen(len(arg20))
+    defer mbTrans21.Close()
+    _, err22 := mbTrans21.WriteString(arg20)
+    if err22 != nil {
       Usage()
       return
     }
-    factory25 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt26 := factory25.GetProtocol(mbTrans23)
+    factory23 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt24 := factory23.GetProtocol(mbTrans21)
     argvalue0 := model.NewCandidateDetailRequest()
-    err27 := argvalue0.Read(jsProt26)
-    if err27 != nil {
+    err25 := argvalue0.Read(jsProt24)
+    if err25 != nil {
       Usage()
       return
     }
@@ -180,19 +179,19 @@ func main() {
       fmt.Fprintln(os.Stderr, "GetDelegatorCandidateList requires 1 args")
       flag.Usage()
     }
-    arg28 := flag.Arg(1)
-    mbTrans29 := thrift.NewTMemoryBufferLen(len(arg28))
-    defer mbTrans29.Close()
-    _, err30 := mbTrans29.WriteString(arg28)
-    if err30 != nil {
+    arg26 := flag.Arg(1)
+    mbTrans27 := thrift.NewTMemoryBufferLen(len(arg26))
+    defer mbTrans27.Close()
+    _, err28 := mbTrans27.WriteString(arg26)
+    if err28 != nil {
       Usage()
       return
     }
-    factory31 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt32 := factory31.GetProtocol(mbTrans29)
+    factory29 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt30 := factory29.GetProtocol(mbTrans27)
     argvalue0 := model.NewDelegatorCandidateListRequest()
-    err33 := argvalue0.Read(jsProt32)
-    if err33 != nil {
+    err31 := argvalue0.Read(jsProt30)
+    if err31 != nil {
       Usage()
       return
     }
@@ -205,19 +204,19 @@ func main() {
       fmt.Fprintln(os.Stderr, "GetDelegatorTotalShares requires 1 args")
       flag.Usage()
     }
-    arg34 := flag.Arg(1)
-    mbTrans35 := thrift.NewTMemoryBufferLen(len(arg34))
-    defer mbTrans35.Close()
-    _, err36 := mbTrans35.WriteString(arg34)
-    if err36 != nil {
+    arg32 := flag.Arg(1)
+    mbTrans33 := thrift.NewTMemoryBufferLen(len(arg32))
+    defer mbTrans33.Close()
+    _, err34 := mbTrans33.WriteString(arg32)
+    if err34 != nil {
       Usage()
       return
     }
-    factory37 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt38 := factory37.GetProtocol(mbTrans35)
+    factory35 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt36 := factory35.GetProtocol(mbTrans33)
     argvalue0 := model.NewTotalShareRequest()
-    err39 := argvalue0.Read(jsProt38)
-    if err39 != nil {
+    err37 := argvalue0.Read(jsProt36)
+    if err37 != nil {
       Usage()
       return
     }
@@ -230,49 +229,24 @@ func main() {
       fmt.Fprintln(os.Stderr, "GetValidatorExRate requires 1 args")
       flag.Usage()
     }
-    arg40 := flag.Arg(1)
-    mbTrans41 := thrift.NewTMemoryBufferLen(len(arg40))
-    defer mbTrans41.Close()
-    _, err42 := mbTrans41.WriteString(arg40)
-    if err42 != nil {
+    arg38 := flag.Arg(1)
+    mbTrans39 := thrift.NewTMemoryBufferLen(len(arg38))
+    defer mbTrans39.Close()
+    _, err40 := mbTrans39.WriteString(arg38)
+    if err40 != nil {
       Usage()
       return
     }
-    factory43 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt44 := factory43.GetProtocol(mbTrans41)
+    factory41 := thrift.NewTSimpleJSONProtocolFactory()
+    jsProt42 := factory41.GetProtocol(mbTrans39)
     argvalue0 := model.NewValidatorExRateRequest()
-    err45 := argvalue0.Read(jsProt44)
-    if err45 != nil {
+    err43 := argvalue0.Read(jsProt42)
+    if err43 != nil {
       Usage()
       return
     }
     value0 := argvalue0
     fmt.Print(client.GetValidatorExRate(context.Background(), value0))
-    fmt.Print("\n")
-    break
-  case "SaveDelegatorStakeExRate":
-    if flag.NArg() - 1 != 1 {
-      fmt.Fprintln(os.Stderr, "SaveDelegatorStakeExRate requires 1 args")
-      flag.Usage()
-    }
-    arg46 := flag.Arg(1)
-    mbTrans47 := thrift.NewTMemoryBufferLen(len(arg46))
-    defer mbTrans47.Close()
-    _, err48 := mbTrans47.WriteString(arg46)
-    if err48 != nil {
-      Usage()
-      return
-    }
-    factory49 := thrift.NewTSimpleJSONProtocolFactory()
-    jsProt50 := factory49.GetProtocol(mbTrans47)
-    argvalue0 := model.NewDelegatorStakeExRateRequest()
-    err51 := argvalue0.Read(jsProt50)
-    if err51 != nil {
-      Usage()
-      return
-    }
-    value0 := argvalue0
-    fmt.Print(client.SaveDelegatorStakeExRate(context.Background(), value0))
     fmt.Print("\n")
     break
   case "":
