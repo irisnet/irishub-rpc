@@ -64,15 +64,15 @@ struct TotalShareResponse {
 	2: i64 totalShares
 }
 
-struct ExRateRequest {
+struct ValidatorExRateRequest {
     1: string validatorAddress
 }
 
-struct ExRateResponse {
-    1: string tokenSharesRate
+struct ValidatorExRateResponse {
+    1: double tokenSharesRate
 }
 
-struct DelegatorStakeActionExRateRequest {
+struct DelegatorStakeExRateRequest {
     1: string txHash
-    2: string ex_rate
+    2: double tokenSharesRate
 }
