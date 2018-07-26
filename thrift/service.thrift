@@ -13,6 +13,4 @@ service IRISHubService {
 	model.TotalShareResponse GetDelegatorTotalShares(1: model.TotalShareRequest req) throws (1:model.Exception e),
 
     model.ValidatorExRateResponse GetValidatorExRate(1: model.ValidatorExRateRequest req) throws (1:model.Exception e),
-
-    void SaveDelegatorStakeExRate(1: model.DelegatorStakeExRateRequest req) throws (1:model.Exception e),
 }

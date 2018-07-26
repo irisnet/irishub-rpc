@@ -35,9 +35,6 @@ type IRISHubService interface {
   // Parameters:
   //  - Req
   GetValidatorExRate(ctx context.Context, req *ValidatorExRateRequest) (r *ValidatorExRateResponse, err error)
-  // Parameters:
-  //  - Req
-  SaveDelegatorStakeExRate(ctx context.Context, req *DelegatorStakeExRateRequest) (err error)
 }
 
 type IRISHubServiceClient struct {
@@ -149,23 +146,6 @@ func (p *IRISHubServiceClient) GetValidatorExRate(ctx context.Context, req *Vali
   return _result9.GetSuccess(), nil
 }
 
-// Parameters:
-//  - Req
-func (p *IRISHubServiceClient) SaveDelegatorStakeExRate(ctx context.Context, req *DelegatorStakeExRateRequest) (err error) {
-  var _args10 IRISHubServiceSaveDelegatorStakeExRateArgs
-  _args10.Req = req
-  var _result11 IRISHubServiceSaveDelegatorStakeExRateResult
-  if err = p.c.Call(ctx, "SaveDelegatorStakeExRate", &_args10, &_result11); err != nil {
-    return
-  }
-  switch {
-  case _result11.E!= nil:
-    return _result11.E
-  }
-
-  return nil
-}
-
 type IRISHubServiceProcessor struct {
   processorMap map[string]thrift.TProcessorFunction
   handler IRISHubService
@@ -186,14 +166,13 @@ func (p *IRISHubServiceProcessor) ProcessorMap() map[string]thrift.TProcessorFun
 
 func NewIRISHubServiceProcessor(handler IRISHubService) *IRISHubServiceProcessor {
 
-  self12 := &IRISHubServiceProcessor{handler:handler, processorMap:make(map[string]thrift.TProcessorFunction)}
-  self12.processorMap["GetCandidateList"] = &iRISHubServiceProcessorGetCandidateList{handler:handler}
-  self12.processorMap["GetCandidateDetail"] = &iRISHubServiceProcessorGetCandidateDetail{handler:handler}
-  self12.processorMap["GetDelegatorCandidateList"] = &iRISHubServiceProcessorGetDelegatorCandidateList{handler:handler}
-  self12.processorMap["GetDelegatorTotalShares"] = &iRISHubServiceProcessorGetDelegatorTotalShares{handler:handler}
-  self12.processorMap["GetValidatorExRate"] = &iRISHubServiceProcessorGetValidatorExRate{handler:handler}
-  self12.processorMap["SaveDelegatorStakeExRate"] = &iRISHubServiceProcessorSaveDelegatorStakeExRate{handler:handler}
-return self12
+  self10 := &IRISHubServiceProcessor{handler:handler, processorMap:make(map[string]thrift.TProcessorFunction)}
+  self10.processorMap["GetCandidateList"] = &iRISHubServiceProcessorGetCandidateList{handler:handler}
+  self10.processorMap["GetCandidateDetail"] = &iRISHubServiceProcessorGetCandidateDetail{handler:handler}
+  self10.processorMap["GetDelegatorCandidateList"] = &iRISHubServiceProcessorGetDelegatorCandidateList{handler:handler}
+  self10.processorMap["GetDelegatorTotalShares"] = &iRISHubServiceProcessorGetDelegatorTotalShares{handler:handler}
+  self10.processorMap["GetValidatorExRate"] = &iRISHubServiceProcessorGetValidatorExRate{handler:handler}
+return self10
 }
 
 func (p *IRISHubServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
@@ -204,12 +183,12 @@ func (p *IRISHubServiceProcessor) Process(ctx context.Context, iprot, oprot thri
   }
   iprot.Skip(thrift.STRUCT)
   iprot.ReadMessageEnd()
-  x13 := thrift.NewTApplicationException(thrift.UNKNOWN_METHOD, "Unknown function " + name)
+  x11 := thrift.NewTApplicationException(thrift.UNKNOWN_METHOD, "Unknown function " + name)
   oprot.WriteMessageBegin(name, thrift.EXCEPTION, seqId)
-  x13.Write(oprot)
+  x11.Write(oprot)
   oprot.WriteMessageEnd()
   oprot.Flush()
-  return false, x13
+  return false, x11
 
 }
 
@@ -478,56 +457,6 @@ var retval *ValidatorExRateResponse
   return true, err
 }
 
-type iRISHubServiceProcessorSaveDelegatorStakeExRate struct {
-  handler IRISHubService
-}
-
-func (p *iRISHubServiceProcessorSaveDelegatorStakeExRate) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-  args := IRISHubServiceSaveDelegatorStakeExRateArgs{}
-  if err = args.Read(iprot); err != nil {
-    iprot.ReadMessageEnd()
-    x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-    oprot.WriteMessageBegin("SaveDelegatorStakeExRate", thrift.EXCEPTION, seqId)
-    x.Write(oprot)
-    oprot.WriteMessageEnd()
-    oprot.Flush()
-    return false, err
-  }
-
-  iprot.ReadMessageEnd()
-  result := IRISHubServiceSaveDelegatorStakeExRateResult{}
-  var err2 error
-  if err2 = p.handler.SaveDelegatorStakeExRate(ctx, args.Req); err2 != nil {
-  switch v := err2.(type) {
-    case *Exception:
-  result.E = v
-    default:
-    x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing SaveDelegatorStakeExRate: " + err2.Error())
-    oprot.WriteMessageBegin("SaveDelegatorStakeExRate", thrift.EXCEPTION, seqId)
-    x.Write(oprot)
-    oprot.WriteMessageEnd()
-    oprot.Flush()
-    return true, err2
-  }
-  }
-  if err2 = oprot.WriteMessageBegin("SaveDelegatorStakeExRate", thrift.REPLY, seqId); err2 != nil {
-    err = err2
-  }
-  if err2 = result.Write(oprot); err == nil && err2 != nil {
-    err = err2
-  }
-  if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
-    err = err2
-  }
-  if err2 = oprot.Flush(); err == nil && err2 != nil {
-    err = err2
-  }
-  if err != nil {
-    return
-  }
-  return true, err
-}
-
 
 // HELPER FUNCTIONS AND STRUCTURES
 
@@ -717,11 +646,11 @@ func (p *IRISHubServiceGetCandidateListResult)  ReadField0(iprot thrift.TProtoco
   tSlice := make([]*Candidate, 0, size)
   p.Success =  tSlice
   for i := 0; i < size; i ++ {
-    _elem14 := &Candidate{}
-    if err := _elem14.Read(iprot); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", _elem14), err)
+    _elem12 := &Candidate{}
+    if err := _elem12.Read(iprot); err != nil {
+      return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", _elem12), err)
     }
-    p.Success = append(p.Success, _elem14)
+    p.Success = append(p.Success, _elem12)
   }
   if err := iprot.ReadListEnd(); err != nil {
     return thrift.PrependError("error reading list end: ", err)
@@ -1221,11 +1150,11 @@ func (p *IRISHubServiceGetDelegatorCandidateListResult)  ReadField0(iprot thrift
   tSlice := make([]*Candidate, 0, size)
   p.Success =  tSlice
   for i := 0; i < size; i ++ {
-    _elem15 := &Candidate{}
-    if err := _elem15.Read(iprot); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", _elem15), err)
+    _elem13 := &Candidate{}
+    if err := _elem13.Read(iprot); err != nil {
+      return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", _elem13), err)
     }
-    p.Success = append(p.Success, _elem15)
+    p.Success = append(p.Success, _elem13)
   }
   if err := iprot.ReadListEnd(); err != nil {
     return thrift.PrependError("error reading list end: ", err)
@@ -1780,204 +1709,6 @@ func (p *IRISHubServiceGetValidatorExRateResult) String() string {
     return "<nil>"
   }
   return fmt.Sprintf("IRISHubServiceGetValidatorExRateResult(%+v)", *p)
-}
-
-// Attributes:
-//  - Req
-type IRISHubServiceSaveDelegatorStakeExRateArgs struct {
-  Req *DelegatorStakeExRateRequest `thrift:"req,1" db:"req" json:"req"`
-}
-
-func NewIRISHubServiceSaveDelegatorStakeExRateArgs() *IRISHubServiceSaveDelegatorStakeExRateArgs {
-  return &IRISHubServiceSaveDelegatorStakeExRateArgs{}
-}
-
-var IRISHubServiceSaveDelegatorStakeExRateArgs_Req_DEFAULT *DelegatorStakeExRateRequest
-func (p *IRISHubServiceSaveDelegatorStakeExRateArgs) GetReq() *DelegatorStakeExRateRequest {
-  if !p.IsSetReq() {
-    return IRISHubServiceSaveDelegatorStakeExRateArgs_Req_DEFAULT
-  }
-return p.Req
-}
-func (p *IRISHubServiceSaveDelegatorStakeExRateArgs) IsSetReq() bool {
-  return p.Req != nil
-}
-
-func (p *IRISHubServiceSaveDelegatorStakeExRateArgs) Read(iprot thrift.TProtocol) error {
-  if _, err := iprot.ReadStructBegin(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-  }
-
-
-  for {
-    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
-    if err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-    }
-    if fieldTypeId == thrift.STOP { break; }
-    switch fieldId {
-    case 1:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField1(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    default:
-      if err := iprot.Skip(fieldTypeId); err != nil {
-        return err
-      }
-    }
-    if err := iprot.ReadFieldEnd(); err != nil {
-      return err
-    }
-  }
-  if err := iprot.ReadStructEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-  }
-  return nil
-}
-
-func (p *IRISHubServiceSaveDelegatorStakeExRateArgs)  ReadField1(iprot thrift.TProtocol) error {
-  p.Req = &DelegatorStakeExRateRequest{}
-  if err := p.Req.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Req), err)
-  }
-  return nil
-}
-
-func (p *IRISHubServiceSaveDelegatorStakeExRateArgs) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("SaveDelegatorStakeExRate_args"); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
-  if p != nil {
-    if err := p.writeField1(oprot); err != nil { return err }
-  }
-  if err := oprot.WriteFieldStop(); err != nil {
-    return thrift.PrependError("write field stop error: ", err) }
-  if err := oprot.WriteStructEnd(); err != nil {
-    return thrift.PrependError("write struct stop error: ", err) }
-  return nil
-}
-
-func (p *IRISHubServiceSaveDelegatorStakeExRateArgs) writeField1(oprot thrift.TProtocol) (err error) {
-  if err := oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:req: ", p), err) }
-  if err := p.Req.Write(oprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Req), err)
-  }
-  if err := oprot.WriteFieldEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write field end error 1:req: ", p), err) }
-  return err
-}
-
-func (p *IRISHubServiceSaveDelegatorStakeExRateArgs) String() string {
-  if p == nil {
-    return "<nil>"
-  }
-  return fmt.Sprintf("IRISHubServiceSaveDelegatorStakeExRateArgs(%+v)", *p)
-}
-
-// Attributes:
-//  - E
-type IRISHubServiceSaveDelegatorStakeExRateResult struct {
-  E *Exception `thrift:"e,1" db:"e" json:"e,omitempty"`
-}
-
-func NewIRISHubServiceSaveDelegatorStakeExRateResult() *IRISHubServiceSaveDelegatorStakeExRateResult {
-  return &IRISHubServiceSaveDelegatorStakeExRateResult{}
-}
-
-var IRISHubServiceSaveDelegatorStakeExRateResult_E_DEFAULT *Exception
-func (p *IRISHubServiceSaveDelegatorStakeExRateResult) GetE() *Exception {
-  if !p.IsSetE() {
-    return IRISHubServiceSaveDelegatorStakeExRateResult_E_DEFAULT
-  }
-return p.E
-}
-func (p *IRISHubServiceSaveDelegatorStakeExRateResult) IsSetE() bool {
-  return p.E != nil
-}
-
-func (p *IRISHubServiceSaveDelegatorStakeExRateResult) Read(iprot thrift.TProtocol) error {
-  if _, err := iprot.ReadStructBegin(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-  }
-
-
-  for {
-    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
-    if err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-    }
-    if fieldTypeId == thrift.STOP { break; }
-    switch fieldId {
-    case 1:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField1(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    default:
-      if err := iprot.Skip(fieldTypeId); err != nil {
-        return err
-      }
-    }
-    if err := iprot.ReadFieldEnd(); err != nil {
-      return err
-    }
-  }
-  if err := iprot.ReadStructEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-  }
-  return nil
-}
-
-func (p *IRISHubServiceSaveDelegatorStakeExRateResult)  ReadField1(iprot thrift.TProtocol) error {
-  p.E = &Exception{}
-  if err := p.E.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.E), err)
-  }
-  return nil
-}
-
-func (p *IRISHubServiceSaveDelegatorStakeExRateResult) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("SaveDelegatorStakeExRate_result"); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
-  if p != nil {
-    if err := p.writeField1(oprot); err != nil { return err }
-  }
-  if err := oprot.WriteFieldStop(); err != nil {
-    return thrift.PrependError("write field stop error: ", err) }
-  if err := oprot.WriteStructEnd(); err != nil {
-    return thrift.PrependError("write struct stop error: ", err) }
-  return nil
-}
-
-func (p *IRISHubServiceSaveDelegatorStakeExRateResult) writeField1(oprot thrift.TProtocol) (err error) {
-  if p.IsSetE() {
-    if err := oprot.WriteFieldBegin("e", thrift.STRUCT, 1); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:e: ", p), err) }
-    if err := p.E.Write(oprot); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.E), err)
-    }
-    if err := oprot.WriteFieldEnd(); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field end error 1:e: ", p), err) }
-  }
-  return err
-}
-
-func (p *IRISHubServiceSaveDelegatorStakeExRateResult) String() string {
-  if p == nil {
-    return "<nil>"
-  }
-  return fmt.Sprintf("IRISHubServiceSaveDelegatorStakeExRateResult(%+v)", *p)
 }
 
 
