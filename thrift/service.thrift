@@ -14,5 +14,5 @@ service IRISHubService {
 
     model.ValidatorExRateResponse GetValidatorExRate(1: model.ValidatorExRateRequest req) throws (1:model.Exception e),
 
-    void SaveDelegatorStakeActionExRate(1: model.DelegatorStakeActionExRateRequest req) throws (1:model.Exception e),
+    void SaveDelegatorStakeExRate(1: model.DelegatorStakeExRateRequest req) throws (1:model.Exception e),
 }

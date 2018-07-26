@@ -27,7 +27,7 @@ func Usage() {
   fmt.Fprintln(os.Stderr, "   GetDelegatorCandidateList(DelegatorCandidateListRequest req)")
   fmt.Fprintln(os.Stderr, "  TotalShareResponse GetDelegatorTotalShares(TotalShareRequest req)")
   fmt.Fprintln(os.Stderr, "  ValidatorExRateResponse GetValidatorExRate(ValidatorExRateRequest req)")
-  fmt.Fprintln(os.Stderr, "  void SaveDelegatorStakeActionExRate(DelegatorStakeActionExRateRequest req)")
+  fmt.Fprintln(os.Stderr, "  void SaveDelegatorStakeExRate(DelegatorStakeExRateRequest req)")
   fmt.Fprintln(os.Stderr)
   os.Exit(0)
 }
@@ -250,9 +250,9 @@ func main() {
     fmt.Print(client.GetValidatorExRate(context.Background(), value0))
     fmt.Print("\n")
     break
-  case "SaveDelegatorStakeActionExRate":
+  case "SaveDelegatorStakeExRate":
     if flag.NArg() - 1 != 1 {
-      fmt.Fprintln(os.Stderr, "SaveDelegatorStakeActionExRate requires 1 args")
+      fmt.Fprintln(os.Stderr, "SaveDelegatorStakeExRate requires 1 args")
       flag.Usage()
     }
     arg46 := flag.Arg(1)
@@ -265,14 +265,14 @@ func main() {
     }
     factory49 := thrift.NewTSimpleJSONProtocolFactory()
     jsProt50 := factory49.GetProtocol(mbTrans47)
-    argvalue0 := model.NewDelegatorStakeActionExRateRequest()
+    argvalue0 := model.NewDelegatorStakeExRateRequest()
     err51 := argvalue0.Read(jsProt50)
     if err51 != nil {
       Usage()
       return
     }
     value0 := argvalue0
-    fmt.Print(client.SaveDelegatorStakeActionExRate(context.Background(), value0))
+    fmt.Print(client.SaveDelegatorStakeExRate(context.Background(), value0))
     fmt.Print("\n")
     break
   case "":
