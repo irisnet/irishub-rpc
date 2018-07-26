@@ -34,7 +34,7 @@ type IRISHubService interface {
   GetDelegatorTotalShares(ctx context.Context, req *TotalShareRequest) (r *TotalShareResponse, err error)
   // Parameters:
   //  - Req
-  GetExRate(ctx context.Context, req *ExRateRequest) (r *ExRateResponse, err error)
+  GetValidatorExRate(ctx context.Context, req *ValidatorExRateRequest) (r *ValidatorExRateResponse, err error)
   // Parameters:
   //  - Req
   SaveDelegatorStakeActionExRate(ctx context.Context, req *DelegatorStakeActionExRateRequest) (err error)
@@ -134,11 +134,11 @@ func (p *IRISHubServiceClient) GetDelegatorTotalShares(ctx context.Context, req 
 
 // Parameters:
 //  - Req
-func (p *IRISHubServiceClient) GetExRate(ctx context.Context, req *ExRateRequest) (r *ExRateResponse, err error) {
-  var _args8 IRISHubServiceGetExRateArgs
+func (p *IRISHubServiceClient) GetValidatorExRate(ctx context.Context, req *ValidatorExRateRequest) (r *ValidatorExRateResponse, err error) {
+  var _args8 IRISHubServiceGetValidatorExRateArgs
   _args8.Req = req
-  var _result9 IRISHubServiceGetExRateResult
-  if err = p.c.Call(ctx, "GetExRate", &_args8, &_result9); err != nil {
+  var _result9 IRISHubServiceGetValidatorExRateResult
+  if err = p.c.Call(ctx, "GetValidatorExRate", &_args8, &_result9); err != nil {
     return
   }
   switch {
@@ -191,7 +191,7 @@ func NewIRISHubServiceProcessor(handler IRISHubService) *IRISHubServiceProcessor
   self12.processorMap["GetCandidateDetail"] = &iRISHubServiceProcessorGetCandidateDetail{handler:handler}
   self12.processorMap["GetDelegatorCandidateList"] = &iRISHubServiceProcessorGetDelegatorCandidateList{handler:handler}
   self12.processorMap["GetDelegatorTotalShares"] = &iRISHubServiceProcessorGetDelegatorTotalShares{handler:handler}
-  self12.processorMap["GetExRate"] = &iRISHubServiceProcessorGetExRate{handler:handler}
+  self12.processorMap["GetValidatorExRate"] = &iRISHubServiceProcessorGetValidatorExRate{handler:handler}
   self12.processorMap["SaveDelegatorStakeActionExRate"] = &iRISHubServiceProcessorSaveDelegatorStakeActionExRate{handler:handler}
 return self12
 }
@@ -425,16 +425,16 @@ var retval *TotalShareResponse
   return true, err
 }
 
-type iRISHubServiceProcessorGetExRate struct {
+type iRISHubServiceProcessorGetValidatorExRate struct {
   handler IRISHubService
 }
 
-func (p *iRISHubServiceProcessorGetExRate) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-  args := IRISHubServiceGetExRateArgs{}
+func (p *iRISHubServiceProcessorGetValidatorExRate) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+  args := IRISHubServiceGetValidatorExRateArgs{}
   if err = args.Read(iprot); err != nil {
     iprot.ReadMessageEnd()
     x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-    oprot.WriteMessageBegin("GetExRate", thrift.EXCEPTION, seqId)
+    oprot.WriteMessageBegin("GetValidatorExRate", thrift.EXCEPTION, seqId)
     x.Write(oprot)
     oprot.WriteMessageEnd()
     oprot.Flush()
@@ -442,16 +442,16 @@ func (p *iRISHubServiceProcessorGetExRate) Process(ctx context.Context, seqId in
   }
 
   iprot.ReadMessageEnd()
-  result := IRISHubServiceGetExRateResult{}
-var retval *ExRateResponse
+  result := IRISHubServiceGetValidatorExRateResult{}
+var retval *ValidatorExRateResponse
   var err2 error
-  if retval, err2 = p.handler.GetExRate(ctx, args.Req); err2 != nil {
+  if retval, err2 = p.handler.GetValidatorExRate(ctx, args.Req); err2 != nil {
   switch v := err2.(type) {
     case *Exception:
   result.E = v
     default:
-    x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetExRate: " + err2.Error())
-    oprot.WriteMessageBegin("GetExRate", thrift.EXCEPTION, seqId)
+    x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetValidatorExRate: " + err2.Error())
+    oprot.WriteMessageBegin("GetValidatorExRate", thrift.EXCEPTION, seqId)
     x.Write(oprot)
     oprot.WriteMessageEnd()
     oprot.Flush()
@@ -460,7 +460,7 @@ var retval *ExRateResponse
   } else {
     result.Success = retval
 }
-  if err2 = oprot.WriteMessageBegin("GetExRate", thrift.REPLY, seqId); err2 != nil {
+  if err2 = oprot.WriteMessageBegin("GetValidatorExRate", thrift.REPLY, seqId); err2 != nil {
     err = err2
   }
   if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -1541,26 +1541,26 @@ func (p *IRISHubServiceGetDelegatorTotalSharesResult) String() string {
 
 // Attributes:
 //  - Req
-type IRISHubServiceGetExRateArgs struct {
-  Req *ExRateRequest `thrift:"req,1" db:"req" json:"req"`
+type IRISHubServiceGetValidatorExRateArgs struct {
+  Req *ValidatorExRateRequest `thrift:"req,1" db:"req" json:"req"`
 }
 
-func NewIRISHubServiceGetExRateArgs() *IRISHubServiceGetExRateArgs {
-  return &IRISHubServiceGetExRateArgs{}
+func NewIRISHubServiceGetValidatorExRateArgs() *IRISHubServiceGetValidatorExRateArgs {
+  return &IRISHubServiceGetValidatorExRateArgs{}
 }
 
-var IRISHubServiceGetExRateArgs_Req_DEFAULT *ExRateRequest
-func (p *IRISHubServiceGetExRateArgs) GetReq() *ExRateRequest {
+var IRISHubServiceGetValidatorExRateArgs_Req_DEFAULT *ValidatorExRateRequest
+func (p *IRISHubServiceGetValidatorExRateArgs) GetReq() *ValidatorExRateRequest {
   if !p.IsSetReq() {
-    return IRISHubServiceGetExRateArgs_Req_DEFAULT
+    return IRISHubServiceGetValidatorExRateArgs_Req_DEFAULT
   }
 return p.Req
 }
-func (p *IRISHubServiceGetExRateArgs) IsSetReq() bool {
+func (p *IRISHubServiceGetValidatorExRateArgs) IsSetReq() bool {
   return p.Req != nil
 }
 
-func (p *IRISHubServiceGetExRateArgs) Read(iprot thrift.TProtocol) error {
+func (p *IRISHubServiceGetValidatorExRateArgs) Read(iprot thrift.TProtocol) error {
   if _, err := iprot.ReadStructBegin(); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
   }
@@ -1598,16 +1598,16 @@ func (p *IRISHubServiceGetExRateArgs) Read(iprot thrift.TProtocol) error {
   return nil
 }
 
-func (p *IRISHubServiceGetExRateArgs)  ReadField1(iprot thrift.TProtocol) error {
-  p.Req = &ExRateRequest{}
+func (p *IRISHubServiceGetValidatorExRateArgs)  ReadField1(iprot thrift.TProtocol) error {
+  p.Req = &ValidatorExRateRequest{}
   if err := p.Req.Read(iprot); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Req), err)
   }
   return nil
 }
 
-func (p *IRISHubServiceGetExRateArgs) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("GetExRate_args"); err != nil {
+func (p *IRISHubServiceGetValidatorExRateArgs) Write(oprot thrift.TProtocol) error {
+  if err := oprot.WriteStructBegin("GetValidatorExRate_args"); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
   if p != nil {
     if err := p.writeField1(oprot); err != nil { return err }
@@ -1619,7 +1619,7 @@ func (p *IRISHubServiceGetExRateArgs) Write(oprot thrift.TProtocol) error {
   return nil
 }
 
-func (p *IRISHubServiceGetExRateArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *IRISHubServiceGetValidatorExRateArgs) writeField1(oprot thrift.TProtocol) (err error) {
   if err := oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:req: ", p), err) }
   if err := p.Req.Write(oprot); err != nil {
@@ -1630,48 +1630,48 @@ func (p *IRISHubServiceGetExRateArgs) writeField1(oprot thrift.TProtocol) (err e
   return err
 }
 
-func (p *IRISHubServiceGetExRateArgs) String() string {
+func (p *IRISHubServiceGetValidatorExRateArgs) String() string {
   if p == nil {
     return "<nil>"
   }
-  return fmt.Sprintf("IRISHubServiceGetExRateArgs(%+v)", *p)
+  return fmt.Sprintf("IRISHubServiceGetValidatorExRateArgs(%+v)", *p)
 }
 
 // Attributes:
 //  - Success
 //  - E
-type IRISHubServiceGetExRateResult struct {
-  Success *ExRateResponse `thrift:"success,0" db:"success" json:"success,omitempty"`
+type IRISHubServiceGetValidatorExRateResult struct {
+  Success *ValidatorExRateResponse `thrift:"success,0" db:"success" json:"success,omitempty"`
   E *Exception `thrift:"e,1" db:"e" json:"e,omitempty"`
 }
 
-func NewIRISHubServiceGetExRateResult() *IRISHubServiceGetExRateResult {
-  return &IRISHubServiceGetExRateResult{}
+func NewIRISHubServiceGetValidatorExRateResult() *IRISHubServiceGetValidatorExRateResult {
+  return &IRISHubServiceGetValidatorExRateResult{}
 }
 
-var IRISHubServiceGetExRateResult_Success_DEFAULT *ExRateResponse
-func (p *IRISHubServiceGetExRateResult) GetSuccess() *ExRateResponse {
+var IRISHubServiceGetValidatorExRateResult_Success_DEFAULT *ValidatorExRateResponse
+func (p *IRISHubServiceGetValidatorExRateResult) GetSuccess() *ValidatorExRateResponse {
   if !p.IsSetSuccess() {
-    return IRISHubServiceGetExRateResult_Success_DEFAULT
+    return IRISHubServiceGetValidatorExRateResult_Success_DEFAULT
   }
 return p.Success
 }
-var IRISHubServiceGetExRateResult_E_DEFAULT *Exception
-func (p *IRISHubServiceGetExRateResult) GetE() *Exception {
+var IRISHubServiceGetValidatorExRateResult_E_DEFAULT *Exception
+func (p *IRISHubServiceGetValidatorExRateResult) GetE() *Exception {
   if !p.IsSetE() {
-    return IRISHubServiceGetExRateResult_E_DEFAULT
+    return IRISHubServiceGetValidatorExRateResult_E_DEFAULT
   }
 return p.E
 }
-func (p *IRISHubServiceGetExRateResult) IsSetSuccess() bool {
+func (p *IRISHubServiceGetValidatorExRateResult) IsSetSuccess() bool {
   return p.Success != nil
 }
 
-func (p *IRISHubServiceGetExRateResult) IsSetE() bool {
+func (p *IRISHubServiceGetValidatorExRateResult) IsSetE() bool {
   return p.E != nil
 }
 
-func (p *IRISHubServiceGetExRateResult) Read(iprot thrift.TProtocol) error {
+func (p *IRISHubServiceGetValidatorExRateResult) Read(iprot thrift.TProtocol) error {
   if _, err := iprot.ReadStructBegin(); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
   }
@@ -1719,15 +1719,15 @@ func (p *IRISHubServiceGetExRateResult) Read(iprot thrift.TProtocol) error {
   return nil
 }
 
-func (p *IRISHubServiceGetExRateResult)  ReadField0(iprot thrift.TProtocol) error {
-  p.Success = &ExRateResponse{}
+func (p *IRISHubServiceGetValidatorExRateResult)  ReadField0(iprot thrift.TProtocol) error {
+  p.Success = &ValidatorExRateResponse{}
   if err := p.Success.Read(iprot); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Success), err)
   }
   return nil
 }
 
-func (p *IRISHubServiceGetExRateResult)  ReadField1(iprot thrift.TProtocol) error {
+func (p *IRISHubServiceGetValidatorExRateResult)  ReadField1(iprot thrift.TProtocol) error {
   p.E = &Exception{}
   if err := p.E.Read(iprot); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.E), err)
@@ -1735,8 +1735,8 @@ func (p *IRISHubServiceGetExRateResult)  ReadField1(iprot thrift.TProtocol) erro
   return nil
 }
 
-func (p *IRISHubServiceGetExRateResult) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("GetExRate_result"); err != nil {
+func (p *IRISHubServiceGetValidatorExRateResult) Write(oprot thrift.TProtocol) error {
+  if err := oprot.WriteStructBegin("GetValidatorExRate_result"); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
   if p != nil {
     if err := p.writeField0(oprot); err != nil { return err }
@@ -1749,7 +1749,7 @@ func (p *IRISHubServiceGetExRateResult) Write(oprot thrift.TProtocol) error {
   return nil
 }
 
-func (p *IRISHubServiceGetExRateResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *IRISHubServiceGetValidatorExRateResult) writeField0(oprot thrift.TProtocol) (err error) {
   if p.IsSetSuccess() {
     if err := oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
       return thrift.PrependError(fmt.Sprintf("%T write field begin error 0:success: ", p), err) }
@@ -1762,7 +1762,7 @@ func (p *IRISHubServiceGetExRateResult) writeField0(oprot thrift.TProtocol) (err
   return err
 }
 
-func (p *IRISHubServiceGetExRateResult) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *IRISHubServiceGetValidatorExRateResult) writeField1(oprot thrift.TProtocol) (err error) {
   if p.IsSetE() {
     if err := oprot.WriteFieldBegin("e", thrift.STRUCT, 1); err != nil {
       return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:e: ", p), err) }
@@ -1775,11 +1775,11 @@ func (p *IRISHubServiceGetExRateResult) writeField1(oprot thrift.TProtocol) (err
   return err
 }
 
-func (p *IRISHubServiceGetExRateResult) String() string {
+func (p *IRISHubServiceGetValidatorExRateResult) String() string {
   if p == nil {
     return "<nil>"
   }
-  return fmt.Sprintf("IRISHubServiceGetExRateResult(%+v)", *p)
+  return fmt.Sprintf("IRISHubServiceGetValidatorExRateResult(%+v)", *p)
 }
 
 // Attributes:

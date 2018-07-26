@@ -1595,19 +1595,19 @@ func (p *TotalShareResponse) String() string {
 
 // Attributes:
 //  - ValidatorAddress
-type ExRateRequest struct {
+type ValidatorExRateRequest struct {
   ValidatorAddress string `thrift:"validatorAddress,1" db:"validatorAddress" json:"validatorAddress"`
 }
 
-func NewExRateRequest() *ExRateRequest {
-  return &ExRateRequest{}
+func NewValidatorExRateRequest() *ValidatorExRateRequest {
+  return &ValidatorExRateRequest{}
 }
 
 
-func (p *ExRateRequest) GetValidatorAddress() string {
+func (p *ValidatorExRateRequest) GetValidatorAddress() string {
   return p.ValidatorAddress
 }
-func (p *ExRateRequest) Read(iprot thrift.TProtocol) error {
+func (p *ValidatorExRateRequest) Read(iprot thrift.TProtocol) error {
   if _, err := iprot.ReadStructBegin(); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
   }
@@ -1645,7 +1645,7 @@ func (p *ExRateRequest) Read(iprot thrift.TProtocol) error {
   return nil
 }
 
-func (p *ExRateRequest)  ReadField1(iprot thrift.TProtocol) error {
+func (p *ValidatorExRateRequest)  ReadField1(iprot thrift.TProtocol) error {
   if v, err := iprot.ReadString(); err != nil {
   return thrift.PrependError("error reading field 1: ", err)
 } else {
@@ -1654,8 +1654,8 @@ func (p *ExRateRequest)  ReadField1(iprot thrift.TProtocol) error {
   return nil
 }
 
-func (p *ExRateRequest) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("ExRateRequest"); err != nil {
+func (p *ValidatorExRateRequest) Write(oprot thrift.TProtocol) error {
+  if err := oprot.WriteStructBegin("ValidatorExRateRequest"); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
   if p != nil {
     if err := p.writeField1(oprot); err != nil { return err }
@@ -1667,7 +1667,7 @@ func (p *ExRateRequest) Write(oprot thrift.TProtocol) error {
   return nil
 }
 
-func (p *ExRateRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ValidatorExRateRequest) writeField1(oprot thrift.TProtocol) (err error) {
   if err := oprot.WriteFieldBegin("validatorAddress", thrift.STRING, 1); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:validatorAddress: ", p), err) }
   if err := oprot.WriteString(string(p.ValidatorAddress)); err != nil {
@@ -1677,28 +1677,28 @@ func (p *ExRateRequest) writeField1(oprot thrift.TProtocol) (err error) {
   return err
 }
 
-func (p *ExRateRequest) String() string {
+func (p *ValidatorExRateRequest) String() string {
   if p == nil {
     return "<nil>"
   }
-  return fmt.Sprintf("ExRateRequest(%+v)", *p)
+  return fmt.Sprintf("ValidatorExRateRequest(%+v)", *p)
 }
 
 // Attributes:
 //  - TokenSharesRate
-type ExRateResponse struct {
-  TokenSharesRate string `thrift:"tokenSharesRate,1" db:"tokenSharesRate" json:"tokenSharesRate"`
+type ValidatorExRateResponse struct {
+  TokenSharesRate float64 `thrift:"tokenSharesRate,1" db:"tokenSharesRate" json:"tokenSharesRate"`
 }
 
-func NewExRateResponse() *ExRateResponse {
-  return &ExRateResponse{}
+func NewValidatorExRateResponse() *ValidatorExRateResponse {
+  return &ValidatorExRateResponse{}
 }
 
 
-func (p *ExRateResponse) GetTokenSharesRate() string {
+func (p *ValidatorExRateResponse) GetTokenSharesRate() float64 {
   return p.TokenSharesRate
 }
-func (p *ExRateResponse) Read(iprot thrift.TProtocol) error {
+func (p *ValidatorExRateResponse) Read(iprot thrift.TProtocol) error {
   if _, err := iprot.ReadStructBegin(); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
   }
@@ -1712,7 +1712,7 @@ func (p *ExRateResponse) Read(iprot thrift.TProtocol) error {
     if fieldTypeId == thrift.STOP { break; }
     switch fieldId {
     case 1:
-      if fieldTypeId == thrift.STRING {
+      if fieldTypeId == thrift.DOUBLE {
         if err := p.ReadField1(iprot); err != nil {
           return err
         }
@@ -1736,8 +1736,8 @@ func (p *ExRateResponse) Read(iprot thrift.TProtocol) error {
   return nil
 }
 
-func (p *ExRateResponse)  ReadField1(iprot thrift.TProtocol) error {
-  if v, err := iprot.ReadString(); err != nil {
+func (p *ValidatorExRateResponse)  ReadField1(iprot thrift.TProtocol) error {
+  if v, err := iprot.ReadDouble(); err != nil {
   return thrift.PrependError("error reading field 1: ", err)
 } else {
   p.TokenSharesRate = v
@@ -1745,8 +1745,8 @@ func (p *ExRateResponse)  ReadField1(iprot thrift.TProtocol) error {
   return nil
 }
 
-func (p *ExRateResponse) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("ExRateResponse"); err != nil {
+func (p *ValidatorExRateResponse) Write(oprot thrift.TProtocol) error {
+  if err := oprot.WriteStructBegin("ValidatorExRateResponse"); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
   if p != nil {
     if err := p.writeField1(oprot); err != nil { return err }
@@ -1758,21 +1758,21 @@ func (p *ExRateResponse) Write(oprot thrift.TProtocol) error {
   return nil
 }
 
-func (p *ExRateResponse) writeField1(oprot thrift.TProtocol) (err error) {
-  if err := oprot.WriteFieldBegin("tokenSharesRate", thrift.STRING, 1); err != nil {
+func (p *ValidatorExRateResponse) writeField1(oprot thrift.TProtocol) (err error) {
+  if err := oprot.WriteFieldBegin("tokenSharesRate", thrift.DOUBLE, 1); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:tokenSharesRate: ", p), err) }
-  if err := oprot.WriteString(string(p.TokenSharesRate)); err != nil {
+  if err := oprot.WriteDouble(float64(p.TokenSharesRate)); err != nil {
   return thrift.PrependError(fmt.Sprintf("%T.tokenSharesRate (1) field write error: ", p), err) }
   if err := oprot.WriteFieldEnd(); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T write field end error 1:tokenSharesRate: ", p), err) }
   return err
 }
 
-func (p *ExRateResponse) String() string {
+func (p *ValidatorExRateResponse) String() string {
   if p == nil {
     return "<nil>"
   }
-  return fmt.Sprintf("ExRateResponse(%+v)", *p)
+  return fmt.Sprintf("ValidatorExRateResponse(%+v)", *p)
 }
 
 // Attributes:
