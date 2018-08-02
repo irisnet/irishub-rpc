@@ -814,7 +814,7 @@ TotalShareResponse.prototype.write = function(output) {
   return;
 };
 
-var ExRateRequest = module.exports.ExRateRequest = function(args) {
+var ValidatorExRateRequest = module.exports.ValidatorExRateRequest = function(args) {
   this.validatorAddress = null;
   if (args) {
     if (args.validatorAddress !== undefined && args.validatorAddress !== null) {
@@ -822,8 +822,8 @@ var ExRateRequest = module.exports.ExRateRequest = function(args) {
     }
   }
 };
-ExRateRequest.prototype = {};
-ExRateRequest.prototype.read = function(input) {
+ValidatorExRateRequest.prototype = {};
+ValidatorExRateRequest.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -855,8 +855,8 @@ ExRateRequest.prototype.read = function(input) {
   return;
 };
 
-ExRateRequest.prototype.write = function(output) {
-  output.writeStructBegin('ExRateRequest');
+ValidatorExRateRequest.prototype.write = function(output) {
+  output.writeStructBegin('ValidatorExRateRequest');
   if (this.validatorAddress !== null && this.validatorAddress !== undefined) {
     output.writeFieldBegin('validatorAddress', Thrift.Type.STRING, 1);
     output.writeString(this.validatorAddress);
@@ -867,7 +867,7 @@ ExRateRequest.prototype.write = function(output) {
   return;
 };
 
-var ExRateResponse = module.exports.ExRateResponse = function(args) {
+var ValidatorExRateResponse = module.exports.ValidatorExRateResponse = function(args) {
   this.tokenSharesRate = null;
   if (args) {
     if (args.tokenSharesRate !== undefined && args.tokenSharesRate !== null) {
@@ -875,8 +875,8 @@ var ExRateResponse = module.exports.ExRateResponse = function(args) {
     }
   }
 };
-ExRateResponse.prototype = {};
-ExRateResponse.prototype.read = function(input) {
+ValidatorExRateResponse.prototype = {};
+ValidatorExRateResponse.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -890,8 +890,8 @@ ExRateResponse.prototype.read = function(input) {
     switch (fid)
     {
       case 1:
-      if (ftype == Thrift.Type.STRING) {
-        this.tokenSharesRate = input.readString();
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.tokenSharesRate = input.readDouble();
       } else {
         input.skip(ftype);
       }
@@ -908,11 +908,11 @@ ExRateResponse.prototype.read = function(input) {
   return;
 };
 
-ExRateResponse.prototype.write = function(output) {
-  output.writeStructBegin('ExRateResponse');
+ValidatorExRateResponse.prototype.write = function(output) {
+  output.writeStructBegin('ValidatorExRateResponse');
   if (this.tokenSharesRate !== null && this.tokenSharesRate !== undefined) {
-    output.writeFieldBegin('tokenSharesRate', Thrift.Type.STRING, 1);
-    output.writeString(this.tokenSharesRate);
+    output.writeFieldBegin('tokenSharesRate', Thrift.Type.DOUBLE, 1);
+    output.writeDouble(this.tokenSharesRate);
     output.writeFieldEnd();
   }
   output.writeFieldStop();

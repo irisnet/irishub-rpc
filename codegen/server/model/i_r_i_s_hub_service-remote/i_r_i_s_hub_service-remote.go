@@ -26,7 +26,7 @@ func Usage() {
   fmt.Fprintln(os.Stderr, "  Candidate GetCandidateDetail(CandidateDetailRequest req)")
   fmt.Fprintln(os.Stderr, "   GetDelegatorCandidateList(DelegatorCandidateListRequest req)")
   fmt.Fprintln(os.Stderr, "  TotalShareResponse GetDelegatorTotalShares(TotalShareRequest req)")
-  fmt.Fprintln(os.Stderr, "  ExRateResponse GetExRate(ExRateRequest req)")
+  fmt.Fprintln(os.Stderr, "  ValidatorExRateResponse GetValidatorExRate(ValidatorExRateRequest req)")
   fmt.Fprintln(os.Stderr)
   os.Exit(0)
 }
@@ -224,9 +224,9 @@ func main() {
     fmt.Print(client.GetDelegatorTotalShares(context.Background(), value0))
     fmt.Print("\n")
     break
-  case "GetExRate":
+  case "GetValidatorExRate":
     if flag.NArg() - 1 != 1 {
-      fmt.Fprintln(os.Stderr, "GetExRate requires 1 args")
+      fmt.Fprintln(os.Stderr, "GetValidatorExRate requires 1 args")
       flag.Usage()
     }
     arg38 := flag.Arg(1)
@@ -239,14 +239,14 @@ func main() {
     }
     factory41 := thrift.NewTSimpleJSONProtocolFactory()
     jsProt42 := factory41.GetProtocol(mbTrans39)
-    argvalue0 := model.NewExRateRequest()
+    argvalue0 := model.NewValidatorExRateRequest()
     err43 := argvalue0.Read(jsProt42)
     if err43 != nil {
       Usage()
       return
     }
     value0 := argvalue0
-    fmt.Print(client.GetExRate(context.Background(), value0))
+    fmt.Print(client.GetValidatorExRate(context.Background(), value0))
     fmt.Print("\n")
     break
   case "":
