@@ -563,6 +563,132 @@ IRISHubService_GetDelegatorTotalShares_result.prototype.write = function(output)
   return;
 };
 
+var IRISHubService_GetValidatorExRate_args = function(args) {
+  this.req = null;
+  if (args) {
+    if (args.req !== undefined && args.req !== null) {
+      this.req = new model_ttypes.ValidatorExRateRequest(args.req);
+    }
+  }
+};
+IRISHubService_GetValidatorExRate_args.prototype = {};
+IRISHubService_GetValidatorExRate_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.req = new model_ttypes.ValidatorExRateRequest();
+        this.req.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+IRISHubService_GetValidatorExRate_args.prototype.write = function(output) {
+  output.writeStructBegin('IRISHubService_GetValidatorExRate_args');
+  if (this.req !== null && this.req !== undefined) {
+    output.writeFieldBegin('req', Thrift.Type.STRUCT, 1);
+    this.req.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var IRISHubService_GetValidatorExRate_result = function(args) {
+  this.success = null;
+  this.e = null;
+  if (args instanceof model_ttypes.Exception) {
+    this.e = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined && args.success !== null) {
+      this.success = new model_ttypes.ValidatorExRateResponse(args.success);
+    }
+    if (args.e !== undefined && args.e !== null) {
+      this.e = args.e;
+    }
+  }
+};
+IRISHubService_GetValidatorExRate_result.prototype = {};
+IRISHubService_GetValidatorExRate_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new model_ttypes.ValidatorExRateResponse();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.e = new model_ttypes.Exception();
+        this.e.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+IRISHubService_GetValidatorExRate_result.prototype.write = function(output) {
+  output.writeStructBegin('IRISHubService_GetValidatorExRate_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.e !== null && this.e !== undefined) {
+    output.writeFieldBegin('e', Thrift.Type.STRUCT, 1);
+    this.e.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 var IRISHubServiceClient = exports.Client = function(output, pClass) {
     this.output = output;
     this.pClass = pClass;
@@ -780,6 +906,58 @@ IRISHubServiceClient.prototype.recv_GetDelegatorTotalShares = function(input,mty
   }
   return callback('GetDelegatorTotalShares failed: unknown result');
 };
+IRISHubServiceClient.prototype.GetValidatorExRate = function(req, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_GetValidatorExRate(req);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_GetValidatorExRate(req);
+  }
+};
+
+IRISHubServiceClient.prototype.send_GetValidatorExRate = function(req) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('GetValidatorExRate', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    req: req
+  };
+  var args = new IRISHubService_GetValidatorExRate_args(params);
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+IRISHubServiceClient.prototype.recv_GetValidatorExRate = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+  var result = new IRISHubService_GetValidatorExRate_result();
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.e) {
+    return callback(result.e);
+  }
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+  return callback('GetValidatorExRate failed: unknown result');
+};
 var IRISHubServiceProcessor = exports.Processor = function(handler) {
   this._handler = handler;
 }
@@ -956,6 +1134,47 @@ IRISHubServiceProcessor.prototype.process_GetDelegatorTotalShares = function(seq
       } else {
         result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
         output.writeMessageBegin("GetDelegatorTotalShares", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+IRISHubServiceProcessor.prototype.process_GetValidatorExRate = function(seqid, input, output) {
+  var args = new IRISHubService_GetValidatorExRate_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.GetValidatorExRate.length === 1) {
+    Q.fcall(this._handler.GetValidatorExRate.bind(this._handler), args.req)
+      .then(function(result) {
+        var result_obj = new IRISHubService_GetValidatorExRate_result({success: result});
+        output.writeMessageBegin("GetValidatorExRate", Thrift.MessageType.REPLY, seqid);
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof model_ttypes.Exception) {
+          result = new IRISHubService_GetValidatorExRate_result(err);
+          output.writeMessageBegin("GetValidatorExRate", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("GetValidatorExRate", Thrift.MessageType.EXCEPTION, seqid);
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+    this._handler.GetValidatorExRate(args.req, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof model_ttypes.Exception) {
+        result_obj = new IRISHubService_GetValidatorExRate_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("GetValidatorExRate", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("GetValidatorExRate", Thrift.MessageType.EXCEPTION, seqid);
       }
       result_obj.write(output);
       output.writeMessageEnd();
