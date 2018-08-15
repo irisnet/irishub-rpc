@@ -160,13 +160,13 @@ func (p *DelegatorUnbondingDelegation) String() string {
 
 // Attributes:
 //  - Address
-//  - PubKey
+//  - ValAddress
 //  - Shares
 //  - BondedTokens
 //  - UnbondingDelegation
 type Delegator struct {
 	Address             string                        `thrift:"address,1" db:"address" json:"address"`
-	PubKey              string                        `thrift:"pubKey,2" db:"pubKey" json:"pubKey"`
+	ValAddress          string                        `thrift:"valAddress,2" db:"valAddress" json:"valAddress"`
 	Shares              float64                       `thrift:"shares,3" db:"shares" json:"shares"`
 	BondedTokens        float64                       `thrift:"bondedTokens,4" db:"bondedTokens" json:"bondedTokens"`
 	UnbondingDelegation *DelegatorUnbondingDelegation `thrift:"unbondingDelegation,5" db:"unbondingDelegation" json:"unbondingDelegation"`
@@ -180,8 +180,8 @@ func (p *Delegator) GetAddress() string {
 	return p.Address
 }
 
-func (p *Delegator) GetPubKey() string {
-	return p.PubKey
+func (p *Delegator) GetValAddress() string {
+	return p.ValAddress
 }
 
 func (p *Delegator) GetShares() float64 {
@@ -296,7 +296,7 @@ func (p *Delegator) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return thrift.PrependError("error reading field 2: ", err)
 	} else {
-		p.PubKey = v
+		p.ValAddress = v
 	}
 	return nil
 }
@@ -371,14 +371,14 @@ func (p *Delegator) writeField1(oprot thrift.TProtocol) (err error) {
 }
 
 func (p *Delegator) writeField2(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("pubKey", thrift.STRING, 2); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 2:pubKey: ", p), err)
+	if err := oprot.WriteFieldBegin("valAddress", thrift.STRING, 2); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 2:valAddress: ", p), err)
 	}
-	if err := oprot.WriteString(string(p.PubKey)); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T.pubKey (2) field write error: ", p), err)
+	if err := oprot.WriteString(string(p.ValAddress)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.valAddress (2) field write error: ", p), err)
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 2:pubKey: ", p), err)
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 2:valAddress: ", p), err)
 	}
 	return err
 }
@@ -1394,23 +1394,23 @@ func (p *CandidateListRequest) String() string {
 }
 
 // Attributes:
-//  - Address
-//  - PubKey
+//  - DelAddress
+//  - ValAddress
 type CandidateDetailRequest struct {
-	Address string `thrift:"address,1" db:"address" json:"address"`
-	PubKey  string `thrift:"pubKey,2" db:"pubKey" json:"pubKey"`
+	DelAddress string `thrift:"delAddress,1" db:"delAddress" json:"delAddress"`
+	ValAddress string `thrift:"valAddress,2" db:"valAddress" json:"valAddress"`
 }
 
 func NewCandidateDetailRequest() *CandidateDetailRequest {
 	return &CandidateDetailRequest{}
 }
 
-func (p *CandidateDetailRequest) GetAddress() string {
-	return p.Address
+func (p *CandidateDetailRequest) GetDelAddress() string {
+	return p.DelAddress
 }
 
-func (p *CandidateDetailRequest) GetPubKey() string {
-	return p.PubKey
+func (p *CandidateDetailRequest) GetValAddress() string {
+	return p.ValAddress
 }
 func (p *CandidateDetailRequest) Read(iprot thrift.TProtocol) error {
 	if _, err := iprot.ReadStructBegin(); err != nil {
@@ -1465,7 +1465,7 @@ func (p *CandidateDetailRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return thrift.PrependError("error reading field 1: ", err)
 	} else {
-		p.Address = v
+		p.DelAddress = v
 	}
 	return nil
 }
@@ -1474,7 +1474,7 @@ func (p *CandidateDetailRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return thrift.PrependError("error reading field 2: ", err)
 	} else {
-		p.PubKey = v
+		p.ValAddress = v
 	}
 	return nil
 }
@@ -1501,27 +1501,27 @@ func (p *CandidateDetailRequest) Write(oprot thrift.TProtocol) error {
 }
 
 func (p *CandidateDetailRequest) writeField1(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("address", thrift.STRING, 1); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:address: ", p), err)
+	if err := oprot.WriteFieldBegin("delAddress", thrift.STRING, 1); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:delAddress: ", p), err)
 	}
-	if err := oprot.WriteString(string(p.Address)); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T.address (1) field write error: ", p), err)
+	if err := oprot.WriteString(string(p.DelAddress)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.delAddress (1) field write error: ", p), err)
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 1:address: ", p), err)
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 1:delAddress: ", p), err)
 	}
 	return err
 }
 
 func (p *CandidateDetailRequest) writeField2(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("pubKey", thrift.STRING, 2); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 2:pubKey: ", p), err)
+	if err := oprot.WriteFieldBegin("valAddress", thrift.STRING, 2); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 2:valAddress: ", p), err)
 	}
-	if err := oprot.WriteString(string(p.PubKey)); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T.pubKey (2) field write error: ", p), err)
+	if err := oprot.WriteString(string(p.ValAddress)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.valAddress (2) field write error: ", p), err)
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 2:pubKey: ", p), err)
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 2:valAddress: ", p), err)
 	}
 	return err
 }

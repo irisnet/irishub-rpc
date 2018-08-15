@@ -7,7 +7,7 @@ struct DelegatorUnbondingDelegation {
 
 struct Delegator {
 	1: string address,
-	2: string pubKey,
+	2: string valAddress,
 	3: double shares,
     4: double bondedTokens,
     5: DelegatorUnbondingDelegation unbondingDelegation
@@ -51,8 +51,8 @@ struct CandidateListRequest {
 }
 
 struct CandidateDetailRequest {
-	1: string address
-	2: string pubKey
+	1: string delAddress
+	2: string valAddress
 }
 
 struct DelegatorCandidateListRequest {

@@ -79,7 +79,7 @@ DelegatorUnbondingDelegation.prototype.write = function(output) {
 
 var Delegator = module.exports.Delegator = function(args) {
   this.address = null;
-  this.pubKey = null;
+    this.valAddress = null;
   this.shares = null;
   this.bondedTokens = null;
   this.unbondingDelegation = null;
@@ -87,8 +87,8 @@ var Delegator = module.exports.Delegator = function(args) {
     if (args.address !== undefined && args.address !== null) {
       this.address = args.address;
     }
-    if (args.pubKey !== undefined && args.pubKey !== null) {
-      this.pubKey = args.pubKey;
+      if (args.valAddress !== undefined && args.valAddress !== null) {
+          this.valAddress = args.valAddress;
     }
     if (args.shares !== undefined && args.shares !== null) {
       this.shares = args.shares;
@@ -124,7 +124,7 @@ Delegator.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.pubKey = input.readString();
+          this.valAddress = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -167,9 +167,9 @@ Delegator.prototype.write = function(output) {
     output.writeString(this.address);
     output.writeFieldEnd();
   }
-  if (this.pubKey !== null && this.pubKey !== undefined) {
-    output.writeFieldBegin('pubKey', Thrift.Type.STRING, 2);
-    output.writeString(this.pubKey);
+    if (this.valAddress !== null && this.valAddress !== undefined) {
+        output.writeFieldBegin('valAddress', Thrift.Type.STRING, 2);
+        output.writeString(this.valAddress);
     output.writeFieldEnd();
   }
   if (this.shares !== null && this.shares !== undefined) {
@@ -628,14 +628,14 @@ CandidateListRequest.prototype.write = function(output) {
 };
 
 var CandidateDetailRequest = module.exports.CandidateDetailRequest = function(args) {
-  this.address = null;
-  this.pubKey = null;
+    this.delAddress = null;
+    this.valAddress = null;
   if (args) {
-    if (args.address !== undefined && args.address !== null) {
-      this.address = args.address;
+      if (args.delAddress !== undefined && args.delAddress !== null) {
+          this.delAddress = args.delAddress;
     }
-    if (args.pubKey !== undefined && args.pubKey !== null) {
-      this.pubKey = args.pubKey;
+      if (args.valAddress !== undefined && args.valAddress !== null) {
+          this.valAddress = args.valAddress;
     }
   }
 };
@@ -655,14 +655,14 @@ CandidateDetailRequest.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.address = input.readString();
+          this.delAddress = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
       if (ftype == Thrift.Type.STRING) {
-        this.pubKey = input.readString();
+          this.valAddress = input.readString();
       } else {
         input.skip(ftype);
       }
@@ -678,14 +678,14 @@ CandidateDetailRequest.prototype.read = function(input) {
 
 CandidateDetailRequest.prototype.write = function(output) {
   output.writeStructBegin('CandidateDetailRequest');
-  if (this.address !== null && this.address !== undefined) {
-    output.writeFieldBegin('address', Thrift.Type.STRING, 1);
-    output.writeString(this.address);
+    if (this.delAddress !== null && this.delAddress !== undefined) {
+        output.writeFieldBegin('delAddress', Thrift.Type.STRING, 1);
+        output.writeString(this.delAddress);
     output.writeFieldEnd();
   }
-  if (this.pubKey !== null && this.pubKey !== undefined) {
-    output.writeFieldBegin('pubKey', Thrift.Type.STRING, 2);
-    output.writeString(this.pubKey);
+    if (this.valAddress !== null && this.valAddress !== undefined) {
+        output.writeFieldBegin('valAddress', Thrift.Type.STRING, 2);
+        output.writeString(this.valAddress);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
