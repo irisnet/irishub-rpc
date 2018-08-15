@@ -281,6 +281,132 @@ IRISHubService_GetCandidateDetail_result.prototype.write = function(output) {
   return;
 };
 
+IRISHubService_GetValidatorExRate_args = function(args) {
+  this.req = null;
+  if (args) {
+    if (args.req !== undefined && args.req !== null) {
+      this.req = new ValidatorExRateRequest(args.req);
+    }
+  }
+};
+IRISHubService_GetValidatorExRate_args.prototype = {};
+IRISHubService_GetValidatorExRate_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.req = new ValidatorExRateRequest();
+        this.req.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+IRISHubService_GetValidatorExRate_args.prototype.write = function(output) {
+  output.writeStructBegin('IRISHubService_GetValidatorExRate_args');
+  if (this.req !== null && this.req !== undefined) {
+    output.writeFieldBegin('req', Thrift.Type.STRUCT, 1);
+    this.req.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+IRISHubService_GetValidatorExRate_result = function(args) {
+  this.success = null;
+  this.e = null;
+  if (args instanceof Exception) {
+    this.e = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined && args.success !== null) {
+      this.success = new ValidatorExRateResponse(args.success);
+    }
+    if (args.e !== undefined && args.e !== null) {
+      this.e = args.e;
+    }
+  }
+};
+IRISHubService_GetValidatorExRate_result.prototype = {};
+IRISHubService_GetValidatorExRate_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new ValidatorExRateResponse();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.e = new Exception();
+        this.e.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+IRISHubService_GetValidatorExRate_result.prototype.write = function(output) {
+  output.writeStructBegin('IRISHubService_GetValidatorExRate_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.e !== null && this.e !== undefined) {
+    output.writeFieldBegin('e', Thrift.Type.STRUCT, 1);
+    this.e.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 IRISHubService_GetDelegatorCandidateList_args = function(args) {
   this.req = null;
   if (args) {
@@ -668,6 +794,60 @@ IRISHubServiceClient.prototype.recv_GetCandidateDetail = function() {
     return result.success;
   }
   throw 'GetCandidateDetail failed: unknown result';
+};
+IRISHubServiceClient.prototype.GetValidatorExRate = function(req, callback) {
+  this.send_GetValidatorExRate(req, callback); 
+  if (!callback) {
+    return this.recv_GetValidatorExRate();
+  }
+};
+
+IRISHubServiceClient.prototype.send_GetValidatorExRate = function(req, callback) {
+  this.output.writeMessageBegin('GetValidatorExRate', Thrift.MessageType.CALL, this.seqid);
+  var params = {
+    req: req
+  };
+  var args = new IRISHubService_GetValidatorExRate_args(params);
+  args.write(this.output);
+  this.output.writeMessageEnd();
+  if (callback) {
+    var self = this;
+    this.output.getTransport().flush(true, function() {
+      var result = null;
+      try {
+        result = self.recv_GetValidatorExRate();
+      } catch (e) {
+        result = e;
+      }
+      callback(result);
+    });
+  } else {
+    return this.output.getTransport().flush();
+  }
+};
+
+IRISHubServiceClient.prototype.recv_GetValidatorExRate = function() {
+  var ret = this.input.readMessageBegin();
+  var fname = ret.fname;
+  var mtype = ret.mtype;
+  var rseqid = ret.rseqid;
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(this.input);
+    this.input.readMessageEnd();
+    throw x;
+  }
+  var result = new IRISHubService_GetValidatorExRate_result();
+  result.read(this.input);
+  this.input.readMessageEnd();
+
+  if (null !== result.e) {
+    throw result.e;
+  }
+  if (null !== result.success) {
+    return result.success;
+  }
+  throw 'GetValidatorExRate failed: unknown result';
 };
 IRISHubServiceClient.prototype.GetDelegatorCandidateList = function(req, callback) {
   this.send_GetDelegatorCandidateList(req, callback); 
