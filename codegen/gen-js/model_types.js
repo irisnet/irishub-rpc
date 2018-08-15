@@ -5,10 +5,78 @@
 //
 
 
+DelegatorUnbondingDelegation = function(args) {
+  this.tokens = null;
+  this.minTime = null;
+  if (args) {
+    if (args.tokens !== undefined && args.tokens !== null) {
+      this.tokens = args.tokens;
+    }
+    if (args.minTime !== undefined && args.minTime !== null) {
+      this.minTime = args.minTime;
+    }
+  }
+};
+DelegatorUnbondingDelegation.prototype = {};
+DelegatorUnbondingDelegation.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.tokens = input.readDouble().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.minTime = input.readString().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+DelegatorUnbondingDelegation.prototype.write = function(output) {
+  output.writeStructBegin('DelegatorUnbondingDelegation');
+  if (this.tokens !== null && this.tokens !== undefined) {
+    output.writeFieldBegin('tokens', Thrift.Type.DOUBLE, 1);
+    output.writeDouble(this.tokens);
+    output.writeFieldEnd();
+  }
+  if (this.minTime !== null && this.minTime !== undefined) {
+    output.writeFieldBegin('minTime', Thrift.Type.STRING, 2);
+    output.writeString(this.minTime);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 Delegator = function(args) {
   this.address = null;
   this.pubKey = null;
   this.shares = null;
+  this.bondedTokens = null;
+  this.unbondingDelegation = null;
   if (args) {
     if (args.address !== undefined && args.address !== null) {
       this.address = args.address;
@@ -18,6 +86,12 @@ Delegator = function(args) {
     }
     if (args.shares !== undefined && args.shares !== null) {
       this.shares = args.shares;
+    }
+    if (args.bondedTokens !== undefined && args.bondedTokens !== null) {
+      this.bondedTokens = args.bondedTokens;
+    }
+    if (args.unbondingDelegation !== undefined && args.unbondingDelegation !== null) {
+      this.unbondingDelegation = new DelegatorUnbondingDelegation(args.unbondingDelegation);
     }
   }
 };
@@ -50,8 +124,23 @@ Delegator.prototype.read = function(input) {
       }
       break;
       case 3:
-      if (ftype == Thrift.Type.I64) {
-        this.shares = input.readI64().value;
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.shares = input.readDouble().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.bondedTokens = input.readDouble().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 5:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.unbondingDelegation = new DelegatorUnbondingDelegation();
+        this.unbondingDelegation.read(input);
       } else {
         input.skip(ftype);
       }
@@ -78,8 +167,18 @@ Delegator.prototype.write = function(output) {
     output.writeFieldEnd();
   }
   if (this.shares !== null && this.shares !== undefined) {
-    output.writeFieldBegin('shares', Thrift.Type.I64, 3);
-    output.writeI64(this.shares);
+    output.writeFieldBegin('shares', Thrift.Type.DOUBLE, 3);
+    output.writeDouble(this.shares);
+    output.writeFieldEnd();
+  }
+  if (this.bondedTokens !== null && this.bondedTokens !== undefined) {
+    output.writeFieldBegin('bondedTokens', Thrift.Type.DOUBLE, 4);
+    output.writeDouble(this.bondedTokens);
+    output.writeFieldEnd();
+  }
+  if (this.unbondingDelegation !== null && this.unbondingDelegation !== undefined) {
+    output.writeFieldBegin('unbondingDelegation', Thrift.Type.STRUCT, 5);
+    this.unbondingDelegation.write(output);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -242,8 +341,8 @@ Candidate.prototype.read = function(input) {
       }
       break;
       case 3:
-      if (ftype == Thrift.Type.I64) {
-        this.shares = input.readI64().value;
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.shares = input.readDouble().value;
       } else {
         input.skip(ftype);
       }
@@ -306,8 +405,8 @@ Candidate.prototype.write = function(output) {
     output.writeFieldEnd();
   }
   if (this.shares !== null && this.shares !== undefined) {
-    output.writeFieldBegin('shares', Thrift.Type.I64, 3);
-    output.writeI64(this.shares);
+    output.writeFieldBegin('shares', Thrift.Type.DOUBLE, 3);
+    output.writeDouble(this.shares);
     output.writeFieldEnd();
   }
   if (this.votingPower !== null && this.votingPower !== undefined) {
@@ -755,9 +854,17 @@ TotalShareRequest.prototype.write = function(output) {
 
 TotalShareResponse = function(args) {
   this.totalShares = null;
+  this.bondedTokens = null;
+  this.unbondingTokens = null;
   if (args) {
     if (args.totalShares !== undefined && args.totalShares !== null) {
       this.totalShares = args.totalShares;
+    }
+    if (args.bondedTokens !== undefined && args.bondedTokens !== null) {
+      this.bondedTokens = args.bondedTokens;
+    }
+    if (args.unbondingTokens !== undefined && args.unbondingTokens !== null) {
+      this.unbondingTokens = args.unbondingTokens;
     }
   }
 };
@@ -775,9 +882,83 @@ TotalShareResponse.prototype.read = function(input) {
     }
     switch (fid)
     {
+      case 1:
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.totalShares = input.readDouble().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
       case 2:
-      if (ftype == Thrift.Type.I64) {
-        this.totalShares = input.readI64().value;
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.bondedTokens = input.readDouble().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.unbondingTokens = input.readDouble().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+TotalShareResponse.prototype.write = function(output) {
+  output.writeStructBegin('TotalShareResponse');
+  if (this.totalShares !== null && this.totalShares !== undefined) {
+    output.writeFieldBegin('totalShares', Thrift.Type.DOUBLE, 1);
+    output.writeDouble(this.totalShares);
+    output.writeFieldEnd();
+  }
+  if (this.bondedTokens !== null && this.bondedTokens !== undefined) {
+    output.writeFieldBegin('bondedTokens', Thrift.Type.DOUBLE, 2);
+    output.writeDouble(this.bondedTokens);
+    output.writeFieldEnd();
+  }
+  if (this.unbondingTokens !== null && this.unbondingTokens !== undefined) {
+    output.writeFieldBegin('unbondingTokens', Thrift.Type.DOUBLE, 3);
+    output.writeDouble(this.unbondingTokens);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+ValidatorExRateRequest = function(args) {
+  this.validatorAddress = null;
+  if (args) {
+    if (args.validatorAddress !== undefined && args.validatorAddress !== null) {
+      this.validatorAddress = args.validatorAddress;
+    }
+  }
+};
+ValidatorExRateRequest.prototype = {};
+ValidatorExRateRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.validatorAddress = input.readString().value;
       } else {
         input.skip(ftype);
       }
@@ -794,11 +975,64 @@ TotalShareResponse.prototype.read = function(input) {
   return;
 };
 
-TotalShareResponse.prototype.write = function(output) {
-  output.writeStructBegin('TotalShareResponse');
-  if (this.totalShares !== null && this.totalShares !== undefined) {
-    output.writeFieldBegin('totalShares', Thrift.Type.I64, 2);
-    output.writeI64(this.totalShares);
+ValidatorExRateRequest.prototype.write = function(output) {
+  output.writeStructBegin('ValidatorExRateRequest');
+  if (this.validatorAddress !== null && this.validatorAddress !== undefined) {
+    output.writeFieldBegin('validatorAddress', Thrift.Type.STRING, 1);
+    output.writeString(this.validatorAddress);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+ValidatorExRateResponse = function(args) {
+  this.tokenSharesRate = null;
+  if (args) {
+    if (args.tokenSharesRate !== undefined && args.tokenSharesRate !== null) {
+      this.tokenSharesRate = args.tokenSharesRate;
+    }
+  }
+};
+ValidatorExRateResponse.prototype = {};
+ValidatorExRateResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.tokenSharesRate = input.readDouble().value;
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+ValidatorExRateResponse.prototype.write = function(output) {
+  output.writeStructBegin('ValidatorExRateResponse');
+  if (this.tokenSharesRate !== null && this.tokenSharesRate !== undefined) {
+    output.writeFieldBegin('tokenSharesRate', Thrift.Type.DOUBLE, 1);
+    output.writeDouble(this.tokenSharesRate);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
