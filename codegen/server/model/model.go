@@ -658,6 +658,7 @@ func (p *CandidateDescription) String() string {
 //  - VotingPower
 //  - Description
 //  - Delegators
+//  - UpTime
 type Candidate struct {
 	Address     string                `thrift:"address,1" db:"address" json:"address"`
 	PubKey      string                `thrift:"pubKey,2" db:"pubKey" json:"pubKey"`
@@ -665,6 +666,7 @@ type Candidate struct {
 	VotingPower float64               `thrift:"votingPower,4" db:"votingPower" json:"votingPower"`
 	Description *CandidateDescription `thrift:"description,5" db:"description" json:"description"`
 	Delegators  []*Delegator          `thrift:"delegators,6" db:"delegators" json:"delegators"`
+	UpTime      float64               `thrift:"upTime,7" db:"upTime" json:"upTime"`
 }
 
 func NewCandidate() *Candidate {
@@ -698,6 +700,10 @@ func (p *Candidate) GetDescription() *CandidateDescription {
 
 func (p *Candidate) GetDelegators() []*Delegator {
 	return p.Delegators
+}
+
+func (p *Candidate) GetUpTime() float64 {
+	return p.UpTime
 }
 func (p *Candidate) IsSetDescription() bool {
 	return p.Description != nil
@@ -770,6 +776,16 @@ func (p *Candidate) Read(iprot thrift.TProtocol) error {
 		case 6:
 			if fieldTypeId == thrift.LIST {
 				if err := p.ReadField6(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		case 7:
+			if fieldTypeId == thrift.DOUBLE {
+				if err := p.ReadField7(iprot); err != nil {
 					return err
 				}
 			} else {
@@ -856,6 +872,15 @@ func (p *Candidate) ReadField6(iprot thrift.TProtocol) error {
 	return nil
 }
 
+func (p *Candidate) ReadField7(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadDouble(); err != nil {
+		return thrift.PrependError("error reading field 7: ", err)
+	} else {
+		p.UpTime = v
+	}
+	return nil
+}
+
 func (p *Candidate) Write(oprot thrift.TProtocol) error {
 	if err := oprot.WriteStructBegin("Candidate"); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
@@ -877,6 +902,9 @@ func (p *Candidate) Write(oprot thrift.TProtocol) error {
 			return err
 		}
 		if err := p.writeField6(oprot); err != nil {
+			return err
+		}
+		if err := p.writeField7(oprot); err != nil {
 			return err
 		}
 	}
@@ -971,6 +999,19 @@ func (p *Candidate) writeField6(oprot thrift.TProtocol) (err error) {
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write field end error 6:delegators: ", p), err)
+	}
+	return err
+}
+
+func (p *Candidate) writeField7(oprot thrift.TProtocol) (err error) {
+	if err := oprot.WriteFieldBegin("upTime", thrift.DOUBLE, 7); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 7:upTime: ", p), err)
+	}
+	if err := oprot.WriteDouble(float64(p.UpTime)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.upTime (7) field write error: ", p), err)
+	}
+	if err := oprot.WriteFieldEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 7:upTime: ", p), err)
 	}
 	return err
 }

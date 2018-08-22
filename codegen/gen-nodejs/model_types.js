@@ -297,6 +297,7 @@ var Candidate = module.exports.Candidate = function(args) {
   this.votingPower = null;
   this.description = null;
   this.delegators = null;
+    this.upTime = null;
   if (args) {
     if (args.address !== undefined && args.address !== null) {
       this.address = args.address;
@@ -316,6 +317,9 @@ var Candidate = module.exports.Candidate = function(args) {
     if (args.delegators !== undefined && args.delegators !== null) {
       this.delegators = Thrift.copyList(args.delegators, [ttypes.Delegator]);
     }
+      if (args.upTime !== undefined && args.upTime !== null) {
+          this.upTime = args.upTime;
+      }
   }
 };
 Candidate.prototype = {};
@@ -388,7 +392,14 @@ Candidate.prototype.read = function(input) {
       } else {
         input.skip(ftype);
       }
-      break;
+          break;
+        case 7:
+            if (ftype == Thrift.Type.DOUBLE) {
+                this.upTime = input.readDouble();
+            } else {
+                input.skip(ftype);
+            }
+            break;
       default:
         input.skip(ftype);
     }
@@ -439,6 +450,11 @@ Candidate.prototype.write = function(output) {
     output.writeListEnd();
     output.writeFieldEnd();
   }
+    if (this.upTime !== null && this.upTime !== undefined) {
+        output.writeFieldBegin('upTime', Thrift.Type.DOUBLE, 7);
+        output.writeDouble(this.upTime);
+        output.writeFieldEnd();
+    }
   output.writeFieldStop();
   output.writeStructEnd();
   return;
