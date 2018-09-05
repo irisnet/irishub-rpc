@@ -5,11 +5,10 @@ package model
 
 import (
 	"bytes"
-	"reflect"
 	"context"
 	"fmt"
 	"git.apache.org/thrift.git/lib/go/thrift"
-
+	"reflect"
 )
 
 // (needed to ensure safety because of naive import list construction.)
@@ -20,1695 +19,1812 @@ var _ = reflect.DeepEqual
 var _ = bytes.Equal
 
 type IRISHubService interface {
-  // Parameters:
-  //  - Req
-  GetCandidateList(ctx context.Context, req *CandidateListRequest) (r []*Candidate, err error)
-  // Parameters:
-  //  - Req
-  GetCandidateDetail(ctx context.Context, req *CandidateDetailRequest) (r *Candidate, err error)
-  // Parameters:
-  //  - Req
-  GetDelegatorCandidateList(ctx context.Context, req *DelegatorCandidateListRequest) (r []*Candidate, err error)
-  // Parameters:
-  //  - Req
-  GetDelegatorTotalShares(ctx context.Context, req *TotalShareRequest) (r *TotalShareResponse, err error)
-  // Parameters:
-  //  - Req
-  GetValidatorExRate(ctx context.Context, req *ValidatorExRateRequest) (r *ValidatorExRateResponse, err error)
+	// Parameters:
+	//  - Req
+	GetCandidateList(ctx context.Context, req *CandidateListRequest) (r []*Candidate, err error)
+	// Parameters:
+	//  - Req
+	GetCandidateDetail(ctx context.Context, req *CandidateDetailRequest) (r *Candidate, err error)
+	// Parameters:
+	//  - Req
+	GetValidatorExRate(ctx context.Context, req *ValidatorExRateRequest) (r *ValidatorExRateResponse, err error)
+	// Parameters:
+	//  - Req
+	GetDelegatorCandidateList(ctx context.Context, req *DelegatorCandidateListRequest) (r []*Candidate, err error)
+	// Parameters:
+	//  - Req
+	GetDelegatorTotalShares(ctx context.Context, req *TotalShareRequest) (r *TotalShareResponse, err error)
 }
 
 type IRISHubServiceClient struct {
-  c thrift.TClient
+	c thrift.TClient
 }
 
 // Deprecated: Use NewIRISHubService instead
 func NewIRISHubServiceClientFactory(t thrift.TTransport, f thrift.TProtocolFactory) *IRISHubServiceClient {
-  return &IRISHubServiceClient{
-    c: thrift.NewTStandardClient(f.GetProtocol(t), f.GetProtocol(t)),
-  }
+	return &IRISHubServiceClient{
+		c: thrift.NewTStandardClient(f.GetProtocol(t), f.GetProtocol(t)),
+	}
 }
 
 // Deprecated: Use NewIRISHubService instead
 func NewIRISHubServiceClientProtocol(t thrift.TTransport, iprot thrift.TProtocol, oprot thrift.TProtocol) *IRISHubServiceClient {
-  return &IRISHubServiceClient{
-    c: thrift.NewTStandardClient(iprot, oprot),
-  }
+	return &IRISHubServiceClient{
+		c: thrift.NewTStandardClient(iprot, oprot),
+	}
 }
 
 func NewIRISHubServiceClient(c thrift.TClient) *IRISHubServiceClient {
-  return &IRISHubServiceClient{
-    c: c,
-  }
+	return &IRISHubServiceClient{
+		c: c,
+	}
 }
 
 // Parameters:
 //  - Req
 func (p *IRISHubServiceClient) GetCandidateList(ctx context.Context, req *CandidateListRequest) (r []*Candidate, err error) {
-  var _args0 IRISHubServiceGetCandidateListArgs
-  _args0.Req = req
-  var _result1 IRISHubServiceGetCandidateListResult
-  if err = p.c.Call(ctx, "GetCandidateList", &_args0, &_result1); err != nil {
-    return
-  }
-  switch {
-  case _result1.E!= nil:
-    return r, _result1.E
-  }
+	var _args0 IRISHubServiceGetCandidateListArgs
+	_args0.Req = req
+	var _result1 IRISHubServiceGetCandidateListResult
+	if err = p.c.Call(ctx, "GetCandidateList", &_args0, &_result1); err != nil {
+		return
+	}
+	switch {
+	case _result1.E != nil:
+		return r, _result1.E
+	}
 
-  return _result1.GetSuccess(), nil
+	return _result1.GetSuccess(), nil
 }
 
 // Parameters:
 //  - Req
 func (p *IRISHubServiceClient) GetCandidateDetail(ctx context.Context, req *CandidateDetailRequest) (r *Candidate, err error) {
-  var _args2 IRISHubServiceGetCandidateDetailArgs
-  _args2.Req = req
-  var _result3 IRISHubServiceGetCandidateDetailResult
-  if err = p.c.Call(ctx, "GetCandidateDetail", &_args2, &_result3); err != nil {
-    return
-  }
-  switch {
-  case _result3.E!= nil:
-    return r, _result3.E
-  }
+	var _args2 IRISHubServiceGetCandidateDetailArgs
+	_args2.Req = req
+	var _result3 IRISHubServiceGetCandidateDetailResult
+	if err = p.c.Call(ctx, "GetCandidateDetail", &_args2, &_result3); err != nil {
+		return
+	}
+	switch {
+	case _result3.E != nil:
+		return r, _result3.E
+	}
 
-  return _result3.GetSuccess(), nil
-}
-
-// Parameters:
-//  - Req
-func (p *IRISHubServiceClient) GetDelegatorCandidateList(ctx context.Context, req *DelegatorCandidateListRequest) (r []*Candidate, err error) {
-  var _args4 IRISHubServiceGetDelegatorCandidateListArgs
-  _args4.Req = req
-  var _result5 IRISHubServiceGetDelegatorCandidateListResult
-  if err = p.c.Call(ctx, "GetDelegatorCandidateList", &_args4, &_result5); err != nil {
-    return
-  }
-  switch {
-  case _result5.E!= nil:
-    return r, _result5.E
-  }
-
-  return _result5.GetSuccess(), nil
-}
-
-// Parameters:
-//  - Req
-func (p *IRISHubServiceClient) GetDelegatorTotalShares(ctx context.Context, req *TotalShareRequest) (r *TotalShareResponse, err error) {
-  var _args6 IRISHubServiceGetDelegatorTotalSharesArgs
-  _args6.Req = req
-  var _result7 IRISHubServiceGetDelegatorTotalSharesResult
-  if err = p.c.Call(ctx, "GetDelegatorTotalShares", &_args6, &_result7); err != nil {
-    return
-  }
-  switch {
-  case _result7.E!= nil:
-    return r, _result7.E
-  }
-
-  return _result7.GetSuccess(), nil
+	return _result3.GetSuccess(), nil
 }
 
 // Parameters:
 //  - Req
 func (p *IRISHubServiceClient) GetValidatorExRate(ctx context.Context, req *ValidatorExRateRequest) (r *ValidatorExRateResponse, err error) {
-  var _args8 IRISHubServiceGetValidatorExRateArgs
-  _args8.Req = req
-  var _result9 IRISHubServiceGetValidatorExRateResult
-  if err = p.c.Call(ctx, "GetValidatorExRate", &_args8, &_result9); err != nil {
-    return
-  }
-  switch {
-  case _result9.E!= nil:
-    return r, _result9.E
-  }
+	var _args4 IRISHubServiceGetValidatorExRateArgs
+	_args4.Req = req
+	var _result5 IRISHubServiceGetValidatorExRateResult
+	if err = p.c.Call(ctx, "GetValidatorExRate", &_args4, &_result5); err != nil {
+		return
+	}
+	switch {
+	case _result5.E != nil:
+		return r, _result5.E
+	}
 
-  return _result9.GetSuccess(), nil
+	return _result5.GetSuccess(), nil
+}
+
+// Parameters:
+//  - Req
+func (p *IRISHubServiceClient) GetDelegatorCandidateList(ctx context.Context, req *DelegatorCandidateListRequest) (r []*Candidate, err error) {
+	var _args6 IRISHubServiceGetDelegatorCandidateListArgs
+	_args6.Req = req
+	var _result7 IRISHubServiceGetDelegatorCandidateListResult
+	if err = p.c.Call(ctx, "GetDelegatorCandidateList", &_args6, &_result7); err != nil {
+		return
+	}
+	switch {
+	case _result7.E != nil:
+		return r, _result7.E
+	}
+
+	return _result7.GetSuccess(), nil
+}
+
+// Parameters:
+//  - Req
+func (p *IRISHubServiceClient) GetDelegatorTotalShares(ctx context.Context, req *TotalShareRequest) (r *TotalShareResponse, err error) {
+	var _args8 IRISHubServiceGetDelegatorTotalSharesArgs
+	_args8.Req = req
+	var _result9 IRISHubServiceGetDelegatorTotalSharesResult
+	if err = p.c.Call(ctx, "GetDelegatorTotalShares", &_args8, &_result9); err != nil {
+		return
+	}
+	switch {
+	case _result9.E != nil:
+		return r, _result9.E
+	}
+
+	return _result9.GetSuccess(), nil
 }
 
 type IRISHubServiceProcessor struct {
-  processorMap map[string]thrift.TProcessorFunction
-  handler IRISHubService
+	processorMap map[string]thrift.TProcessorFunction
+	handler      IRISHubService
 }
 
 func (p *IRISHubServiceProcessor) AddToProcessorMap(key string, processor thrift.TProcessorFunction) {
-  p.processorMap[key] = processor
+	p.processorMap[key] = processor
 }
 
 func (p *IRISHubServiceProcessor) GetProcessorFunction(key string) (processor thrift.TProcessorFunction, ok bool) {
-  processor, ok = p.processorMap[key]
-  return processor, ok
+	processor, ok = p.processorMap[key]
+	return processor, ok
 }
 
 func (p *IRISHubServiceProcessor) ProcessorMap() map[string]thrift.TProcessorFunction {
-  return p.processorMap
+	return p.processorMap
 }
 
 func NewIRISHubServiceProcessor(handler IRISHubService) *IRISHubServiceProcessor {
 
-  self10 := &IRISHubServiceProcessor{handler:handler, processorMap:make(map[string]thrift.TProcessorFunction)}
-  self10.processorMap["GetCandidateList"] = &iRISHubServiceProcessorGetCandidateList{handler:handler}
-  self10.processorMap["GetCandidateDetail"] = &iRISHubServiceProcessorGetCandidateDetail{handler:handler}
-  self10.processorMap["GetDelegatorCandidateList"] = &iRISHubServiceProcessorGetDelegatorCandidateList{handler:handler}
-  self10.processorMap["GetDelegatorTotalShares"] = &iRISHubServiceProcessorGetDelegatorTotalShares{handler:handler}
-  self10.processorMap["GetValidatorExRate"] = &iRISHubServiceProcessorGetValidatorExRate{handler:handler}
-return self10
+	self10 := &IRISHubServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
+	self10.processorMap["GetCandidateList"] = &iRISHubServiceProcessorGetCandidateList{handler: handler}
+	self10.processorMap["GetCandidateDetail"] = &iRISHubServiceProcessorGetCandidateDetail{handler: handler}
+	self10.processorMap["GetValidatorExRate"] = &iRISHubServiceProcessorGetValidatorExRate{handler: handler}
+	self10.processorMap["GetDelegatorCandidateList"] = &iRISHubServiceProcessorGetDelegatorCandidateList{handler: handler}
+	self10.processorMap["GetDelegatorTotalShares"] = &iRISHubServiceProcessorGetDelegatorTotalShares{handler: handler}
+	return self10
 }
 
 func (p *IRISHubServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-  name, _, seqId, err := iprot.ReadMessageBegin()
-  if err != nil { return false, err }
-  if processor, ok := p.GetProcessorFunction(name); ok {
-    return processor.Process(ctx, seqId, iprot, oprot)
-  }
-  iprot.Skip(thrift.STRUCT)
-  iprot.ReadMessageEnd()
-  x11 := thrift.NewTApplicationException(thrift.UNKNOWN_METHOD, "Unknown function " + name)
-  oprot.WriteMessageBegin(name, thrift.EXCEPTION, seqId)
-  x11.Write(oprot)
-  oprot.WriteMessageEnd()
-  oprot.Flush()
-  return false, x11
+	name, _, seqId, err := iprot.ReadMessageBegin()
+	if err != nil {
+		return false, err
+	}
+	if processor, ok := p.GetProcessorFunction(name); ok {
+		return processor.Process(ctx, seqId, iprot, oprot)
+	}
+	iprot.Skip(thrift.STRUCT)
+	iprot.ReadMessageEnd()
+	x11 := thrift.NewTApplicationException(thrift.UNKNOWN_METHOD, "Unknown function "+name)
+	oprot.WriteMessageBegin(name, thrift.EXCEPTION, seqId)
+	x11.Write(oprot)
+	oprot.WriteMessageEnd()
+	oprot.Flush()
+	return false, x11
 
 }
 
 type iRISHubServiceProcessorGetCandidateList struct {
-  handler IRISHubService
+	handler IRISHubService
 }
 
 func (p *iRISHubServiceProcessorGetCandidateList) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-  args := IRISHubServiceGetCandidateListArgs{}
-  if err = args.Read(iprot); err != nil {
-    iprot.ReadMessageEnd()
-    x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-    oprot.WriteMessageBegin("GetCandidateList", thrift.EXCEPTION, seqId)
-    x.Write(oprot)
-    oprot.WriteMessageEnd()
-    oprot.Flush()
-    return false, err
-  }
+	args := IRISHubServiceGetCandidateListArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("GetCandidateList", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush()
+		return false, err
+	}
 
-  iprot.ReadMessageEnd()
-  result := IRISHubServiceGetCandidateListResult{}
-var retval []*Candidate
-  var err2 error
-  if retval, err2 = p.handler.GetCandidateList(ctx, args.Req); err2 != nil {
-  switch v := err2.(type) {
-    case *Exception:
-  result.E = v
-    default:
-    x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetCandidateList: " + err2.Error())
-    oprot.WriteMessageBegin("GetCandidateList", thrift.EXCEPTION, seqId)
-    x.Write(oprot)
-    oprot.WriteMessageEnd()
-    oprot.Flush()
-    return true, err2
-  }
-  } else {
-    result.Success = retval
-}
-  if err2 = oprot.WriteMessageBegin("GetCandidateList", thrift.REPLY, seqId); err2 != nil {
-    err = err2
-  }
-  if err2 = result.Write(oprot); err == nil && err2 != nil {
-    err = err2
-  }
-  if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
-    err = err2
-  }
-  if err2 = oprot.Flush(); err == nil && err2 != nil {
-    err = err2
-  }
-  if err != nil {
-    return
-  }
-  return true, err
+	iprot.ReadMessageEnd()
+	result := IRISHubServiceGetCandidateListResult{}
+	var retval []*Candidate
+	var err2 error
+	if retval, err2 = p.handler.GetCandidateList(ctx, args.Req); err2 != nil {
+		switch v := err2.(type) {
+		case *Exception:
+			result.E = v
+		default:
+			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetCandidateList: "+err2.Error())
+			oprot.WriteMessageBegin("GetCandidateList", thrift.EXCEPTION, seqId)
+			x.Write(oprot)
+			oprot.WriteMessageEnd()
+			oprot.Flush()
+			return true, err2
+		}
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("GetCandidateList", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
 }
 
 type iRISHubServiceProcessorGetCandidateDetail struct {
-  handler IRISHubService
+	handler IRISHubService
 }
 
 func (p *iRISHubServiceProcessorGetCandidateDetail) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-  args := IRISHubServiceGetCandidateDetailArgs{}
-  if err = args.Read(iprot); err != nil {
-    iprot.ReadMessageEnd()
-    x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-    oprot.WriteMessageBegin("GetCandidateDetail", thrift.EXCEPTION, seqId)
-    x.Write(oprot)
-    oprot.WriteMessageEnd()
-    oprot.Flush()
-    return false, err
-  }
+	args := IRISHubServiceGetCandidateDetailArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("GetCandidateDetail", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush()
+		return false, err
+	}
 
-  iprot.ReadMessageEnd()
-  result := IRISHubServiceGetCandidateDetailResult{}
-var retval *Candidate
-  var err2 error
-  if retval, err2 = p.handler.GetCandidateDetail(ctx, args.Req); err2 != nil {
-  switch v := err2.(type) {
-    case *Exception:
-  result.E = v
-    default:
-    x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetCandidateDetail: " + err2.Error())
-    oprot.WriteMessageBegin("GetCandidateDetail", thrift.EXCEPTION, seqId)
-    x.Write(oprot)
-    oprot.WriteMessageEnd()
-    oprot.Flush()
-    return true, err2
-  }
-  } else {
-    result.Success = retval
-}
-  if err2 = oprot.WriteMessageBegin("GetCandidateDetail", thrift.REPLY, seqId); err2 != nil {
-    err = err2
-  }
-  if err2 = result.Write(oprot); err == nil && err2 != nil {
-    err = err2
-  }
-  if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
-    err = err2
-  }
-  if err2 = oprot.Flush(); err == nil && err2 != nil {
-    err = err2
-  }
-  if err != nil {
-    return
-  }
-  return true, err
-}
-
-type iRISHubServiceProcessorGetDelegatorCandidateList struct {
-  handler IRISHubService
-}
-
-func (p *iRISHubServiceProcessorGetDelegatorCandidateList) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-  args := IRISHubServiceGetDelegatorCandidateListArgs{}
-  if err = args.Read(iprot); err != nil {
-    iprot.ReadMessageEnd()
-    x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-    oprot.WriteMessageBegin("GetDelegatorCandidateList", thrift.EXCEPTION, seqId)
-    x.Write(oprot)
-    oprot.WriteMessageEnd()
-    oprot.Flush()
-    return false, err
-  }
-
-  iprot.ReadMessageEnd()
-  result := IRISHubServiceGetDelegatorCandidateListResult{}
-var retval []*Candidate
-  var err2 error
-  if retval, err2 = p.handler.GetDelegatorCandidateList(ctx, args.Req); err2 != nil {
-  switch v := err2.(type) {
-    case *Exception:
-  result.E = v
-    default:
-    x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetDelegatorCandidateList: " + err2.Error())
-    oprot.WriteMessageBegin("GetDelegatorCandidateList", thrift.EXCEPTION, seqId)
-    x.Write(oprot)
-    oprot.WriteMessageEnd()
-    oprot.Flush()
-    return true, err2
-  }
-  } else {
-    result.Success = retval
-}
-  if err2 = oprot.WriteMessageBegin("GetDelegatorCandidateList", thrift.REPLY, seqId); err2 != nil {
-    err = err2
-  }
-  if err2 = result.Write(oprot); err == nil && err2 != nil {
-    err = err2
-  }
-  if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
-    err = err2
-  }
-  if err2 = oprot.Flush(); err == nil && err2 != nil {
-    err = err2
-  }
-  if err != nil {
-    return
-  }
-  return true, err
-}
-
-type iRISHubServiceProcessorGetDelegatorTotalShares struct {
-  handler IRISHubService
-}
-
-func (p *iRISHubServiceProcessorGetDelegatorTotalShares) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-  args := IRISHubServiceGetDelegatorTotalSharesArgs{}
-  if err = args.Read(iprot); err != nil {
-    iprot.ReadMessageEnd()
-    x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-    oprot.WriteMessageBegin("GetDelegatorTotalShares", thrift.EXCEPTION, seqId)
-    x.Write(oprot)
-    oprot.WriteMessageEnd()
-    oprot.Flush()
-    return false, err
-  }
-
-  iprot.ReadMessageEnd()
-  result := IRISHubServiceGetDelegatorTotalSharesResult{}
-var retval *TotalShareResponse
-  var err2 error
-  if retval, err2 = p.handler.GetDelegatorTotalShares(ctx, args.Req); err2 != nil {
-  switch v := err2.(type) {
-    case *Exception:
-  result.E = v
-    default:
-    x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetDelegatorTotalShares: " + err2.Error())
-    oprot.WriteMessageBegin("GetDelegatorTotalShares", thrift.EXCEPTION, seqId)
-    x.Write(oprot)
-    oprot.WriteMessageEnd()
-    oprot.Flush()
-    return true, err2
-  }
-  } else {
-    result.Success = retval
-}
-  if err2 = oprot.WriteMessageBegin("GetDelegatorTotalShares", thrift.REPLY, seqId); err2 != nil {
-    err = err2
-  }
-  if err2 = result.Write(oprot); err == nil && err2 != nil {
-    err = err2
-  }
-  if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
-    err = err2
-  }
-  if err2 = oprot.Flush(); err == nil && err2 != nil {
-    err = err2
-  }
-  if err != nil {
-    return
-  }
-  return true, err
+	iprot.ReadMessageEnd()
+	result := IRISHubServiceGetCandidateDetailResult{}
+	var retval *Candidate
+	var err2 error
+	if retval, err2 = p.handler.GetCandidateDetail(ctx, args.Req); err2 != nil {
+		switch v := err2.(type) {
+		case *Exception:
+			result.E = v
+		default:
+			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetCandidateDetail: "+err2.Error())
+			oprot.WriteMessageBegin("GetCandidateDetail", thrift.EXCEPTION, seqId)
+			x.Write(oprot)
+			oprot.WriteMessageEnd()
+			oprot.Flush()
+			return true, err2
+		}
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("GetCandidateDetail", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
 }
 
 type iRISHubServiceProcessorGetValidatorExRate struct {
-  handler IRISHubService
+	handler IRISHubService
 }
 
 func (p *iRISHubServiceProcessorGetValidatorExRate) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-  args := IRISHubServiceGetValidatorExRateArgs{}
-  if err = args.Read(iprot); err != nil {
-    iprot.ReadMessageEnd()
-    x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-    oprot.WriteMessageBegin("GetValidatorExRate", thrift.EXCEPTION, seqId)
-    x.Write(oprot)
-    oprot.WriteMessageEnd()
-    oprot.Flush()
-    return false, err
-  }
+	args := IRISHubServiceGetValidatorExRateArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("GetValidatorExRate", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush()
+		return false, err
+	}
 
-  iprot.ReadMessageEnd()
-  result := IRISHubServiceGetValidatorExRateResult{}
-var retval *ValidatorExRateResponse
-  var err2 error
-  if retval, err2 = p.handler.GetValidatorExRate(ctx, args.Req); err2 != nil {
-  switch v := err2.(type) {
-    case *Exception:
-  result.E = v
-    default:
-    x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetValidatorExRate: " + err2.Error())
-    oprot.WriteMessageBegin("GetValidatorExRate", thrift.EXCEPTION, seqId)
-    x.Write(oprot)
-    oprot.WriteMessageEnd()
-    oprot.Flush()
-    return true, err2
-  }
-  } else {
-    result.Success = retval
-}
-  if err2 = oprot.WriteMessageBegin("GetValidatorExRate", thrift.REPLY, seqId); err2 != nil {
-    err = err2
-  }
-  if err2 = result.Write(oprot); err == nil && err2 != nil {
-    err = err2
-  }
-  if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
-    err = err2
-  }
-  if err2 = oprot.Flush(); err == nil && err2 != nil {
-    err = err2
-  }
-  if err != nil {
-    return
-  }
-  return true, err
+	iprot.ReadMessageEnd()
+	result := IRISHubServiceGetValidatorExRateResult{}
+	var retval *ValidatorExRateResponse
+	var err2 error
+	if retval, err2 = p.handler.GetValidatorExRate(ctx, args.Req); err2 != nil {
+		switch v := err2.(type) {
+		case *Exception:
+			result.E = v
+		default:
+			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetValidatorExRate: "+err2.Error())
+			oprot.WriteMessageBegin("GetValidatorExRate", thrift.EXCEPTION, seqId)
+			x.Write(oprot)
+			oprot.WriteMessageEnd()
+			oprot.Flush()
+			return true, err2
+		}
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("GetValidatorExRate", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
 }
 
+type iRISHubServiceProcessorGetDelegatorCandidateList struct {
+	handler IRISHubService
+}
+
+func (p *iRISHubServiceProcessorGetDelegatorCandidateList) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := IRISHubServiceGetDelegatorCandidateListArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("GetDelegatorCandidateList", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush()
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	result := IRISHubServiceGetDelegatorCandidateListResult{}
+	var retval []*Candidate
+	var err2 error
+	if retval, err2 = p.handler.GetDelegatorCandidateList(ctx, args.Req); err2 != nil {
+		switch v := err2.(type) {
+		case *Exception:
+			result.E = v
+		default:
+			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetDelegatorCandidateList: "+err2.Error())
+			oprot.WriteMessageBegin("GetDelegatorCandidateList", thrift.EXCEPTION, seqId)
+			x.Write(oprot)
+			oprot.WriteMessageEnd()
+			oprot.Flush()
+			return true, err2
+		}
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("GetDelegatorCandidateList", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type iRISHubServiceProcessorGetDelegatorTotalShares struct {
+	handler IRISHubService
+}
+
+func (p *iRISHubServiceProcessorGetDelegatorTotalShares) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := IRISHubServiceGetDelegatorTotalSharesArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("GetDelegatorTotalShares", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush()
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	result := IRISHubServiceGetDelegatorTotalSharesResult{}
+	var retval *TotalShareResponse
+	var err2 error
+	if retval, err2 = p.handler.GetDelegatorTotalShares(ctx, args.Req); err2 != nil {
+		switch v := err2.(type) {
+		case *Exception:
+			result.E = v
+		default:
+			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetDelegatorTotalShares: "+err2.Error())
+			oprot.WriteMessageBegin("GetDelegatorTotalShares", thrift.EXCEPTION, seqId)
+			x.Write(oprot)
+			oprot.WriteMessageEnd()
+			oprot.Flush()
+			return true, err2
+		}
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("GetDelegatorTotalShares", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
 
 // HELPER FUNCTIONS AND STRUCTURES
 
 // Attributes:
 //  - Req
 type IRISHubServiceGetCandidateListArgs struct {
-  Req *CandidateListRequest `thrift:"req,1" db:"req" json:"req"`
+	Req *CandidateListRequest `thrift:"req,1" db:"req" json:"req"`
 }
 
 func NewIRISHubServiceGetCandidateListArgs() *IRISHubServiceGetCandidateListArgs {
-  return &IRISHubServiceGetCandidateListArgs{}
+	return &IRISHubServiceGetCandidateListArgs{}
 }
 
 var IRISHubServiceGetCandidateListArgs_Req_DEFAULT *CandidateListRequest
+
 func (p *IRISHubServiceGetCandidateListArgs) GetReq() *CandidateListRequest {
-  if !p.IsSetReq() {
-    return IRISHubServiceGetCandidateListArgs_Req_DEFAULT
-  }
-return p.Req
+	if !p.IsSetReq() {
+		return IRISHubServiceGetCandidateListArgs_Req_DEFAULT
+	}
+	return p.Req
 }
 func (p *IRISHubServiceGetCandidateListArgs) IsSetReq() bool {
-  return p.Req != nil
+	return p.Req != nil
 }
 
 func (p *IRISHubServiceGetCandidateListArgs) Read(iprot thrift.TProtocol) error {
-  if _, err := iprot.ReadStructBegin(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-  }
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
 
-
-  for {
-    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
-    if err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-    }
-    if fieldTypeId == thrift.STOP { break; }
-    switch fieldId {
-    case 1:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField1(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    default:
-      if err := iprot.Skip(fieldTypeId); err != nil {
-        return err
-      }
-    }
-    if err := iprot.ReadFieldEnd(); err != nil {
-      return err
-    }
-  }
-  if err := iprot.ReadStructEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-  }
-  return nil
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField1(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
 }
 
-func (p *IRISHubServiceGetCandidateListArgs)  ReadField1(iprot thrift.TProtocol) error {
-  p.Req = &CandidateListRequest{}
-  if err := p.Req.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Req), err)
-  }
-  return nil
+func (p *IRISHubServiceGetCandidateListArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = &CandidateListRequest{}
+	if err := p.Req.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Req), err)
+	}
+	return nil
 }
 
 func (p *IRISHubServiceGetCandidateListArgs) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("GetCandidateList_args"); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
-  if p != nil {
-    if err := p.writeField1(oprot); err != nil { return err }
-  }
-  if err := oprot.WriteFieldStop(); err != nil {
-    return thrift.PrependError("write field stop error: ", err) }
-  if err := oprot.WriteStructEnd(); err != nil {
-    return thrift.PrependError("write struct stop error: ", err) }
-  return nil
+	if err := oprot.WriteStructBegin("GetCandidateList_args"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if p != nil {
+		if err := p.writeField1(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
 }
 
 func (p *IRISHubServiceGetCandidateListArgs) writeField1(oprot thrift.TProtocol) (err error) {
-  if err := oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:req: ", p), err) }
-  if err := p.Req.Write(oprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Req), err)
-  }
-  if err := oprot.WriteFieldEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write field end error 1:req: ", p), err) }
-  return err
+	if err := oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:req: ", p), err)
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Req), err)
+	}
+	if err := oprot.WriteFieldEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 1:req: ", p), err)
+	}
+	return err
 }
 
 func (p *IRISHubServiceGetCandidateListArgs) String() string {
-  if p == nil {
-    return "<nil>"
-  }
-  return fmt.Sprintf("IRISHubServiceGetCandidateListArgs(%+v)", *p)
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IRISHubServiceGetCandidateListArgs(%+v)", *p)
 }
 
 // Attributes:
 //  - Success
 //  - E
 type IRISHubServiceGetCandidateListResult struct {
-  Success []*Candidate `thrift:"success,0" db:"success" json:"success,omitempty"`
-  E *Exception `thrift:"e,1" db:"e" json:"e,omitempty"`
+	Success []*Candidate `thrift:"success,0" db:"success" json:"success,omitempty"`
+	E       *Exception   `thrift:"e,1" db:"e" json:"e,omitempty"`
 }
 
 func NewIRISHubServiceGetCandidateListResult() *IRISHubServiceGetCandidateListResult {
-  return &IRISHubServiceGetCandidateListResult{}
+	return &IRISHubServiceGetCandidateListResult{}
 }
 
 var IRISHubServiceGetCandidateListResult_Success_DEFAULT []*Candidate
 
 func (p *IRISHubServiceGetCandidateListResult) GetSuccess() []*Candidate {
-  return p.Success
+	return p.Success
 }
+
 var IRISHubServiceGetCandidateListResult_E_DEFAULT *Exception
+
 func (p *IRISHubServiceGetCandidateListResult) GetE() *Exception {
-  if !p.IsSetE() {
-    return IRISHubServiceGetCandidateListResult_E_DEFAULT
-  }
-return p.E
+	if !p.IsSetE() {
+		return IRISHubServiceGetCandidateListResult_E_DEFAULT
+	}
+	return p.E
 }
 func (p *IRISHubServiceGetCandidateListResult) IsSetSuccess() bool {
-  return p.Success != nil
+	return p.Success != nil
 }
 
 func (p *IRISHubServiceGetCandidateListResult) IsSetE() bool {
-  return p.E != nil
+	return p.E != nil
 }
 
 func (p *IRISHubServiceGetCandidateListResult) Read(iprot thrift.TProtocol) error {
-  if _, err := iprot.ReadStructBegin(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-  }
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
 
-
-  for {
-    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
-    if err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-    }
-    if fieldTypeId == thrift.STOP { break; }
-    switch fieldId {
-    case 0:
-      if fieldTypeId == thrift.LIST {
-        if err := p.ReadField0(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    case 1:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField1(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    default:
-      if err := iprot.Skip(fieldTypeId); err != nil {
-        return err
-      }
-    }
-    if err := iprot.ReadFieldEnd(); err != nil {
-      return err
-    }
-  }
-  if err := iprot.ReadStructEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-  }
-  return nil
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.LIST {
+				if err := p.ReadField0(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField1(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
 }
 
-func (p *IRISHubServiceGetCandidateListResult)  ReadField0(iprot thrift.TProtocol) error {
-  _, size, err := iprot.ReadListBegin()
-  if err != nil {
-    return thrift.PrependError("error reading list begin: ", err)
-  }
-  tSlice := make([]*Candidate, 0, size)
-  p.Success =  tSlice
-  for i := 0; i < size; i ++ {
-    _elem12 := &Candidate{}
-    if err := _elem12.Read(iprot); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", _elem12), err)
-    }
-    p.Success = append(p.Success, _elem12)
-  }
-  if err := iprot.ReadListEnd(); err != nil {
-    return thrift.PrependError("error reading list end: ", err)
-  }
-  return nil
+func (p *IRISHubServiceGetCandidateListResult) ReadField0(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return thrift.PrependError("error reading list begin: ", err)
+	}
+	tSlice := make([]*Candidate, 0, size)
+	p.Success = tSlice
+	for i := 0; i < size; i++ {
+		_elem12 := &Candidate{}
+		if err := _elem12.Read(iprot); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", _elem12), err)
+		}
+		p.Success = append(p.Success, _elem12)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return thrift.PrependError("error reading list end: ", err)
+	}
+	return nil
 }
 
-func (p *IRISHubServiceGetCandidateListResult)  ReadField1(iprot thrift.TProtocol) error {
-  p.E = &Exception{}
-  if err := p.E.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.E), err)
-  }
-  return nil
+func (p *IRISHubServiceGetCandidateListResult) ReadField1(iprot thrift.TProtocol) error {
+	p.E = &Exception{}
+	if err := p.E.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.E), err)
+	}
+	return nil
 }
 
 func (p *IRISHubServiceGetCandidateListResult) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("GetCandidateList_result"); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
-  if p != nil {
-    if err := p.writeField0(oprot); err != nil { return err }
-    if err := p.writeField1(oprot); err != nil { return err }
-  }
-  if err := oprot.WriteFieldStop(); err != nil {
-    return thrift.PrependError("write field stop error: ", err) }
-  if err := oprot.WriteStructEnd(); err != nil {
-    return thrift.PrependError("write struct stop error: ", err) }
-  return nil
+	if err := oprot.WriteStructBegin("GetCandidateList_result"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if p != nil {
+		if err := p.writeField0(oprot); err != nil {
+			return err
+		}
+		if err := p.writeField1(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
 }
 
 func (p *IRISHubServiceGetCandidateListResult) writeField0(oprot thrift.TProtocol) (err error) {
-  if p.IsSetSuccess() {
-    if err := oprot.WriteFieldBegin("success", thrift.LIST, 0); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field begin error 0:success: ", p), err) }
-    if err := oprot.WriteListBegin(thrift.STRUCT, len(p.Success)); err != nil {
-      return thrift.PrependError("error writing list begin: ", err)
-    }
-    for _, v := range p.Success {
-      if err := v.Write(oprot); err != nil {
-        return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", v), err)
-      }
-    }
-    if err := oprot.WriteListEnd(); err != nil {
-      return thrift.PrependError("error writing list end: ", err)
-    }
-    if err := oprot.WriteFieldEnd(); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field end error 0:success: ", p), err) }
-  }
-  return err
+	if p.IsSetSuccess() {
+		if err := oprot.WriteFieldBegin("success", thrift.LIST, 0); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 0:success: ", p), err)
+		}
+		if err := oprot.WriteListBegin(thrift.STRUCT, len(p.Success)); err != nil {
+			return thrift.PrependError("error writing list begin: ", err)
+		}
+		for _, v := range p.Success {
+			if err := v.Write(oprot); err != nil {
+				return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", v), err)
+			}
+		}
+		if err := oprot.WriteListEnd(); err != nil {
+			return thrift.PrependError("error writing list end: ", err)
+		}
+		if err := oprot.WriteFieldEnd(); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 0:success: ", p), err)
+		}
+	}
+	return err
 }
 
 func (p *IRISHubServiceGetCandidateListResult) writeField1(oprot thrift.TProtocol) (err error) {
-  if p.IsSetE() {
-    if err := oprot.WriteFieldBegin("e", thrift.STRUCT, 1); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:e: ", p), err) }
-    if err := p.E.Write(oprot); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.E), err)
-    }
-    if err := oprot.WriteFieldEnd(); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field end error 1:e: ", p), err) }
-  }
-  return err
+	if p.IsSetE() {
+		if err := oprot.WriteFieldBegin("e", thrift.STRUCT, 1); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:e: ", p), err)
+		}
+		if err := p.E.Write(oprot); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.E), err)
+		}
+		if err := oprot.WriteFieldEnd(); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 1:e: ", p), err)
+		}
+	}
+	return err
 }
 
 func (p *IRISHubServiceGetCandidateListResult) String() string {
-  if p == nil {
-    return "<nil>"
-  }
-  return fmt.Sprintf("IRISHubServiceGetCandidateListResult(%+v)", *p)
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IRISHubServiceGetCandidateListResult(%+v)", *p)
 }
 
 // Attributes:
 //  - Req
 type IRISHubServiceGetCandidateDetailArgs struct {
-  Req *CandidateDetailRequest `thrift:"req,1" db:"req" json:"req"`
+	Req *CandidateDetailRequest `thrift:"req,1" db:"req" json:"req"`
 }
 
 func NewIRISHubServiceGetCandidateDetailArgs() *IRISHubServiceGetCandidateDetailArgs {
-  return &IRISHubServiceGetCandidateDetailArgs{}
+	return &IRISHubServiceGetCandidateDetailArgs{}
 }
 
 var IRISHubServiceGetCandidateDetailArgs_Req_DEFAULT *CandidateDetailRequest
+
 func (p *IRISHubServiceGetCandidateDetailArgs) GetReq() *CandidateDetailRequest {
-  if !p.IsSetReq() {
-    return IRISHubServiceGetCandidateDetailArgs_Req_DEFAULT
-  }
-return p.Req
+	if !p.IsSetReq() {
+		return IRISHubServiceGetCandidateDetailArgs_Req_DEFAULT
+	}
+	return p.Req
 }
 func (p *IRISHubServiceGetCandidateDetailArgs) IsSetReq() bool {
-  return p.Req != nil
+	return p.Req != nil
 }
 
 func (p *IRISHubServiceGetCandidateDetailArgs) Read(iprot thrift.TProtocol) error {
-  if _, err := iprot.ReadStructBegin(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-  }
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
 
-
-  for {
-    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
-    if err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-    }
-    if fieldTypeId == thrift.STOP { break; }
-    switch fieldId {
-    case 1:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField1(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    default:
-      if err := iprot.Skip(fieldTypeId); err != nil {
-        return err
-      }
-    }
-    if err := iprot.ReadFieldEnd(); err != nil {
-      return err
-    }
-  }
-  if err := iprot.ReadStructEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-  }
-  return nil
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField1(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
 }
 
-func (p *IRISHubServiceGetCandidateDetailArgs)  ReadField1(iprot thrift.TProtocol) error {
-  p.Req = &CandidateDetailRequest{}
-  if err := p.Req.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Req), err)
-  }
-  return nil
+func (p *IRISHubServiceGetCandidateDetailArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = &CandidateDetailRequest{}
+	if err := p.Req.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Req), err)
+	}
+	return nil
 }
 
 func (p *IRISHubServiceGetCandidateDetailArgs) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("GetCandidateDetail_args"); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
-  if p != nil {
-    if err := p.writeField1(oprot); err != nil { return err }
-  }
-  if err := oprot.WriteFieldStop(); err != nil {
-    return thrift.PrependError("write field stop error: ", err) }
-  if err := oprot.WriteStructEnd(); err != nil {
-    return thrift.PrependError("write struct stop error: ", err) }
-  return nil
+	if err := oprot.WriteStructBegin("GetCandidateDetail_args"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if p != nil {
+		if err := p.writeField1(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
 }
 
 func (p *IRISHubServiceGetCandidateDetailArgs) writeField1(oprot thrift.TProtocol) (err error) {
-  if err := oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:req: ", p), err) }
-  if err := p.Req.Write(oprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Req), err)
-  }
-  if err := oprot.WriteFieldEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write field end error 1:req: ", p), err) }
-  return err
+	if err := oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:req: ", p), err)
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Req), err)
+	}
+	if err := oprot.WriteFieldEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 1:req: ", p), err)
+	}
+	return err
 }
 
 func (p *IRISHubServiceGetCandidateDetailArgs) String() string {
-  if p == nil {
-    return "<nil>"
-  }
-  return fmt.Sprintf("IRISHubServiceGetCandidateDetailArgs(%+v)", *p)
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IRISHubServiceGetCandidateDetailArgs(%+v)", *p)
 }
 
 // Attributes:
 //  - Success
 //  - E
 type IRISHubServiceGetCandidateDetailResult struct {
-  Success *Candidate `thrift:"success,0" db:"success" json:"success,omitempty"`
-  E *Exception `thrift:"e,1" db:"e" json:"e,omitempty"`
+	Success *Candidate `thrift:"success,0" db:"success" json:"success,omitempty"`
+	E       *Exception `thrift:"e,1" db:"e" json:"e,omitempty"`
 }
 
 func NewIRISHubServiceGetCandidateDetailResult() *IRISHubServiceGetCandidateDetailResult {
-  return &IRISHubServiceGetCandidateDetailResult{}
+	return &IRISHubServiceGetCandidateDetailResult{}
 }
 
 var IRISHubServiceGetCandidateDetailResult_Success_DEFAULT *Candidate
+
 func (p *IRISHubServiceGetCandidateDetailResult) GetSuccess() *Candidate {
-  if !p.IsSetSuccess() {
-    return IRISHubServiceGetCandidateDetailResult_Success_DEFAULT
-  }
-return p.Success
+	if !p.IsSetSuccess() {
+		return IRISHubServiceGetCandidateDetailResult_Success_DEFAULT
+	}
+	return p.Success
 }
+
 var IRISHubServiceGetCandidateDetailResult_E_DEFAULT *Exception
+
 func (p *IRISHubServiceGetCandidateDetailResult) GetE() *Exception {
-  if !p.IsSetE() {
-    return IRISHubServiceGetCandidateDetailResult_E_DEFAULT
-  }
-return p.E
+	if !p.IsSetE() {
+		return IRISHubServiceGetCandidateDetailResult_E_DEFAULT
+	}
+	return p.E
 }
 func (p *IRISHubServiceGetCandidateDetailResult) IsSetSuccess() bool {
-  return p.Success != nil
+	return p.Success != nil
 }
 
 func (p *IRISHubServiceGetCandidateDetailResult) IsSetE() bool {
-  return p.E != nil
+	return p.E != nil
 }
 
 func (p *IRISHubServiceGetCandidateDetailResult) Read(iprot thrift.TProtocol) error {
-  if _, err := iprot.ReadStructBegin(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-  }
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
 
-
-  for {
-    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
-    if err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-    }
-    if fieldTypeId == thrift.STOP { break; }
-    switch fieldId {
-    case 0:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField0(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    case 1:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField1(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    default:
-      if err := iprot.Skip(fieldTypeId); err != nil {
-        return err
-      }
-    }
-    if err := iprot.ReadFieldEnd(); err != nil {
-      return err
-    }
-  }
-  if err := iprot.ReadStructEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-  }
-  return nil
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField0(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField1(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
 }
 
-func (p *IRISHubServiceGetCandidateDetailResult)  ReadField0(iprot thrift.TProtocol) error {
-  p.Success = &Candidate{}
-  if err := p.Success.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Success), err)
-  }
-  return nil
+func (p *IRISHubServiceGetCandidateDetailResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = &Candidate{}
+	if err := p.Success.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Success), err)
+	}
+	return nil
 }
 
-func (p *IRISHubServiceGetCandidateDetailResult)  ReadField1(iprot thrift.TProtocol) error {
-  p.E = &Exception{}
-  if err := p.E.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.E), err)
-  }
-  return nil
+func (p *IRISHubServiceGetCandidateDetailResult) ReadField1(iprot thrift.TProtocol) error {
+	p.E = &Exception{}
+	if err := p.E.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.E), err)
+	}
+	return nil
 }
 
 func (p *IRISHubServiceGetCandidateDetailResult) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("GetCandidateDetail_result"); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
-  if p != nil {
-    if err := p.writeField0(oprot); err != nil { return err }
-    if err := p.writeField1(oprot); err != nil { return err }
-  }
-  if err := oprot.WriteFieldStop(); err != nil {
-    return thrift.PrependError("write field stop error: ", err) }
-  if err := oprot.WriteStructEnd(); err != nil {
-    return thrift.PrependError("write struct stop error: ", err) }
-  return nil
+	if err := oprot.WriteStructBegin("GetCandidateDetail_result"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if p != nil {
+		if err := p.writeField0(oprot); err != nil {
+			return err
+		}
+		if err := p.writeField1(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
 }
 
 func (p *IRISHubServiceGetCandidateDetailResult) writeField0(oprot thrift.TProtocol) (err error) {
-  if p.IsSetSuccess() {
-    if err := oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field begin error 0:success: ", p), err) }
-    if err := p.Success.Write(oprot); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Success), err)
-    }
-    if err := oprot.WriteFieldEnd(); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field end error 0:success: ", p), err) }
-  }
-  return err
+	if p.IsSetSuccess() {
+		if err := oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 0:success: ", p), err)
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Success), err)
+		}
+		if err := oprot.WriteFieldEnd(); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 0:success: ", p), err)
+		}
+	}
+	return err
 }
 
 func (p *IRISHubServiceGetCandidateDetailResult) writeField1(oprot thrift.TProtocol) (err error) {
-  if p.IsSetE() {
-    if err := oprot.WriteFieldBegin("e", thrift.STRUCT, 1); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:e: ", p), err) }
-    if err := p.E.Write(oprot); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.E), err)
-    }
-    if err := oprot.WriteFieldEnd(); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field end error 1:e: ", p), err) }
-  }
-  return err
+	if p.IsSetE() {
+		if err := oprot.WriteFieldBegin("e", thrift.STRUCT, 1); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:e: ", p), err)
+		}
+		if err := p.E.Write(oprot); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.E), err)
+		}
+		if err := oprot.WriteFieldEnd(); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 1:e: ", p), err)
+		}
+	}
+	return err
 }
 
 func (p *IRISHubServiceGetCandidateDetailResult) String() string {
-  if p == nil {
-    return "<nil>"
-  }
-  return fmt.Sprintf("IRISHubServiceGetCandidateDetailResult(%+v)", *p)
-}
-
-// Attributes:
-//  - Req
-type IRISHubServiceGetDelegatorCandidateListArgs struct {
-  Req *DelegatorCandidateListRequest `thrift:"req,1" db:"req" json:"req"`
-}
-
-func NewIRISHubServiceGetDelegatorCandidateListArgs() *IRISHubServiceGetDelegatorCandidateListArgs {
-  return &IRISHubServiceGetDelegatorCandidateListArgs{}
-}
-
-var IRISHubServiceGetDelegatorCandidateListArgs_Req_DEFAULT *DelegatorCandidateListRequest
-func (p *IRISHubServiceGetDelegatorCandidateListArgs) GetReq() *DelegatorCandidateListRequest {
-  if !p.IsSetReq() {
-    return IRISHubServiceGetDelegatorCandidateListArgs_Req_DEFAULT
-  }
-return p.Req
-}
-func (p *IRISHubServiceGetDelegatorCandidateListArgs) IsSetReq() bool {
-  return p.Req != nil
-}
-
-func (p *IRISHubServiceGetDelegatorCandidateListArgs) Read(iprot thrift.TProtocol) error {
-  if _, err := iprot.ReadStructBegin(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-  }
-
-
-  for {
-    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
-    if err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-    }
-    if fieldTypeId == thrift.STOP { break; }
-    switch fieldId {
-    case 1:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField1(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    default:
-      if err := iprot.Skip(fieldTypeId); err != nil {
-        return err
-      }
-    }
-    if err := iprot.ReadFieldEnd(); err != nil {
-      return err
-    }
-  }
-  if err := iprot.ReadStructEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-  }
-  return nil
-}
-
-func (p *IRISHubServiceGetDelegatorCandidateListArgs)  ReadField1(iprot thrift.TProtocol) error {
-  p.Req = &DelegatorCandidateListRequest{}
-  if err := p.Req.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Req), err)
-  }
-  return nil
-}
-
-func (p *IRISHubServiceGetDelegatorCandidateListArgs) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("GetDelegatorCandidateList_args"); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
-  if p != nil {
-    if err := p.writeField1(oprot); err != nil { return err }
-  }
-  if err := oprot.WriteFieldStop(); err != nil {
-    return thrift.PrependError("write field stop error: ", err) }
-  if err := oprot.WriteStructEnd(); err != nil {
-    return thrift.PrependError("write struct stop error: ", err) }
-  return nil
-}
-
-func (p *IRISHubServiceGetDelegatorCandidateListArgs) writeField1(oprot thrift.TProtocol) (err error) {
-  if err := oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:req: ", p), err) }
-  if err := p.Req.Write(oprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Req), err)
-  }
-  if err := oprot.WriteFieldEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write field end error 1:req: ", p), err) }
-  return err
-}
-
-func (p *IRISHubServiceGetDelegatorCandidateListArgs) String() string {
-  if p == nil {
-    return "<nil>"
-  }
-  return fmt.Sprintf("IRISHubServiceGetDelegatorCandidateListArgs(%+v)", *p)
-}
-
-// Attributes:
-//  - Success
-//  - E
-type IRISHubServiceGetDelegatorCandidateListResult struct {
-  Success []*Candidate `thrift:"success,0" db:"success" json:"success,omitempty"`
-  E *Exception `thrift:"e,1" db:"e" json:"e,omitempty"`
-}
-
-func NewIRISHubServiceGetDelegatorCandidateListResult() *IRISHubServiceGetDelegatorCandidateListResult {
-  return &IRISHubServiceGetDelegatorCandidateListResult{}
-}
-
-var IRISHubServiceGetDelegatorCandidateListResult_Success_DEFAULT []*Candidate
-
-func (p *IRISHubServiceGetDelegatorCandidateListResult) GetSuccess() []*Candidate {
-  return p.Success
-}
-var IRISHubServiceGetDelegatorCandidateListResult_E_DEFAULT *Exception
-func (p *IRISHubServiceGetDelegatorCandidateListResult) GetE() *Exception {
-  if !p.IsSetE() {
-    return IRISHubServiceGetDelegatorCandidateListResult_E_DEFAULT
-  }
-return p.E
-}
-func (p *IRISHubServiceGetDelegatorCandidateListResult) IsSetSuccess() bool {
-  return p.Success != nil
-}
-
-func (p *IRISHubServiceGetDelegatorCandidateListResult) IsSetE() bool {
-  return p.E != nil
-}
-
-func (p *IRISHubServiceGetDelegatorCandidateListResult) Read(iprot thrift.TProtocol) error {
-  if _, err := iprot.ReadStructBegin(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-  }
-
-
-  for {
-    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
-    if err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-    }
-    if fieldTypeId == thrift.STOP { break; }
-    switch fieldId {
-    case 0:
-      if fieldTypeId == thrift.LIST {
-        if err := p.ReadField0(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    case 1:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField1(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    default:
-      if err := iprot.Skip(fieldTypeId); err != nil {
-        return err
-      }
-    }
-    if err := iprot.ReadFieldEnd(); err != nil {
-      return err
-    }
-  }
-  if err := iprot.ReadStructEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-  }
-  return nil
-}
-
-func (p *IRISHubServiceGetDelegatorCandidateListResult)  ReadField0(iprot thrift.TProtocol) error {
-  _, size, err := iprot.ReadListBegin()
-  if err != nil {
-    return thrift.PrependError("error reading list begin: ", err)
-  }
-  tSlice := make([]*Candidate, 0, size)
-  p.Success =  tSlice
-  for i := 0; i < size; i ++ {
-    _elem13 := &Candidate{}
-    if err := _elem13.Read(iprot); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", _elem13), err)
-    }
-    p.Success = append(p.Success, _elem13)
-  }
-  if err := iprot.ReadListEnd(); err != nil {
-    return thrift.PrependError("error reading list end: ", err)
-  }
-  return nil
-}
-
-func (p *IRISHubServiceGetDelegatorCandidateListResult)  ReadField1(iprot thrift.TProtocol) error {
-  p.E = &Exception{}
-  if err := p.E.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.E), err)
-  }
-  return nil
-}
-
-func (p *IRISHubServiceGetDelegatorCandidateListResult) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("GetDelegatorCandidateList_result"); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
-  if p != nil {
-    if err := p.writeField0(oprot); err != nil { return err }
-    if err := p.writeField1(oprot); err != nil { return err }
-  }
-  if err := oprot.WriteFieldStop(); err != nil {
-    return thrift.PrependError("write field stop error: ", err) }
-  if err := oprot.WriteStructEnd(); err != nil {
-    return thrift.PrependError("write struct stop error: ", err) }
-  return nil
-}
-
-func (p *IRISHubServiceGetDelegatorCandidateListResult) writeField0(oprot thrift.TProtocol) (err error) {
-  if p.IsSetSuccess() {
-    if err := oprot.WriteFieldBegin("success", thrift.LIST, 0); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field begin error 0:success: ", p), err) }
-    if err := oprot.WriteListBegin(thrift.STRUCT, len(p.Success)); err != nil {
-      return thrift.PrependError("error writing list begin: ", err)
-    }
-    for _, v := range p.Success {
-      if err := v.Write(oprot); err != nil {
-        return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", v), err)
-      }
-    }
-    if err := oprot.WriteListEnd(); err != nil {
-      return thrift.PrependError("error writing list end: ", err)
-    }
-    if err := oprot.WriteFieldEnd(); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field end error 0:success: ", p), err) }
-  }
-  return err
-}
-
-func (p *IRISHubServiceGetDelegatorCandidateListResult) writeField1(oprot thrift.TProtocol) (err error) {
-  if p.IsSetE() {
-    if err := oprot.WriteFieldBegin("e", thrift.STRUCT, 1); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:e: ", p), err) }
-    if err := p.E.Write(oprot); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.E), err)
-    }
-    if err := oprot.WriteFieldEnd(); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field end error 1:e: ", p), err) }
-  }
-  return err
-}
-
-func (p *IRISHubServiceGetDelegatorCandidateListResult) String() string {
-  if p == nil {
-    return "<nil>"
-  }
-  return fmt.Sprintf("IRISHubServiceGetDelegatorCandidateListResult(%+v)", *p)
-}
-
-// Attributes:
-//  - Req
-type IRISHubServiceGetDelegatorTotalSharesArgs struct {
-  Req *TotalShareRequest `thrift:"req,1" db:"req" json:"req"`
-}
-
-func NewIRISHubServiceGetDelegatorTotalSharesArgs() *IRISHubServiceGetDelegatorTotalSharesArgs {
-  return &IRISHubServiceGetDelegatorTotalSharesArgs{}
-}
-
-var IRISHubServiceGetDelegatorTotalSharesArgs_Req_DEFAULT *TotalShareRequest
-func (p *IRISHubServiceGetDelegatorTotalSharesArgs) GetReq() *TotalShareRequest {
-  if !p.IsSetReq() {
-    return IRISHubServiceGetDelegatorTotalSharesArgs_Req_DEFAULT
-  }
-return p.Req
-}
-func (p *IRISHubServiceGetDelegatorTotalSharesArgs) IsSetReq() bool {
-  return p.Req != nil
-}
-
-func (p *IRISHubServiceGetDelegatorTotalSharesArgs) Read(iprot thrift.TProtocol) error {
-  if _, err := iprot.ReadStructBegin(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-  }
-
-
-  for {
-    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
-    if err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-    }
-    if fieldTypeId == thrift.STOP { break; }
-    switch fieldId {
-    case 1:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField1(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    default:
-      if err := iprot.Skip(fieldTypeId); err != nil {
-        return err
-      }
-    }
-    if err := iprot.ReadFieldEnd(); err != nil {
-      return err
-    }
-  }
-  if err := iprot.ReadStructEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-  }
-  return nil
-}
-
-func (p *IRISHubServiceGetDelegatorTotalSharesArgs)  ReadField1(iprot thrift.TProtocol) error {
-  p.Req = &TotalShareRequest{}
-  if err := p.Req.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Req), err)
-  }
-  return nil
-}
-
-func (p *IRISHubServiceGetDelegatorTotalSharesArgs) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("GetDelegatorTotalShares_args"); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
-  if p != nil {
-    if err := p.writeField1(oprot); err != nil { return err }
-  }
-  if err := oprot.WriteFieldStop(); err != nil {
-    return thrift.PrependError("write field stop error: ", err) }
-  if err := oprot.WriteStructEnd(); err != nil {
-    return thrift.PrependError("write struct stop error: ", err) }
-  return nil
-}
-
-func (p *IRISHubServiceGetDelegatorTotalSharesArgs) writeField1(oprot thrift.TProtocol) (err error) {
-  if err := oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:req: ", p), err) }
-  if err := p.Req.Write(oprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Req), err)
-  }
-  if err := oprot.WriteFieldEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write field end error 1:req: ", p), err) }
-  return err
-}
-
-func (p *IRISHubServiceGetDelegatorTotalSharesArgs) String() string {
-  if p == nil {
-    return "<nil>"
-  }
-  return fmt.Sprintf("IRISHubServiceGetDelegatorTotalSharesArgs(%+v)", *p)
-}
-
-// Attributes:
-//  - Success
-//  - E
-type IRISHubServiceGetDelegatorTotalSharesResult struct {
-  Success *TotalShareResponse `thrift:"success,0" db:"success" json:"success,omitempty"`
-  E *Exception `thrift:"e,1" db:"e" json:"e,omitempty"`
-}
-
-func NewIRISHubServiceGetDelegatorTotalSharesResult() *IRISHubServiceGetDelegatorTotalSharesResult {
-  return &IRISHubServiceGetDelegatorTotalSharesResult{}
-}
-
-var IRISHubServiceGetDelegatorTotalSharesResult_Success_DEFAULT *TotalShareResponse
-func (p *IRISHubServiceGetDelegatorTotalSharesResult) GetSuccess() *TotalShareResponse {
-  if !p.IsSetSuccess() {
-    return IRISHubServiceGetDelegatorTotalSharesResult_Success_DEFAULT
-  }
-return p.Success
-}
-var IRISHubServiceGetDelegatorTotalSharesResult_E_DEFAULT *Exception
-func (p *IRISHubServiceGetDelegatorTotalSharesResult) GetE() *Exception {
-  if !p.IsSetE() {
-    return IRISHubServiceGetDelegatorTotalSharesResult_E_DEFAULT
-  }
-return p.E
-}
-func (p *IRISHubServiceGetDelegatorTotalSharesResult) IsSetSuccess() bool {
-  return p.Success != nil
-}
-
-func (p *IRISHubServiceGetDelegatorTotalSharesResult) IsSetE() bool {
-  return p.E != nil
-}
-
-func (p *IRISHubServiceGetDelegatorTotalSharesResult) Read(iprot thrift.TProtocol) error {
-  if _, err := iprot.ReadStructBegin(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-  }
-
-
-  for {
-    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
-    if err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-    }
-    if fieldTypeId == thrift.STOP { break; }
-    switch fieldId {
-    case 0:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField0(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    case 1:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField1(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    default:
-      if err := iprot.Skip(fieldTypeId); err != nil {
-        return err
-      }
-    }
-    if err := iprot.ReadFieldEnd(); err != nil {
-      return err
-    }
-  }
-  if err := iprot.ReadStructEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-  }
-  return nil
-}
-
-func (p *IRISHubServiceGetDelegatorTotalSharesResult)  ReadField0(iprot thrift.TProtocol) error {
-  p.Success = &TotalShareResponse{}
-  if err := p.Success.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Success), err)
-  }
-  return nil
-}
-
-func (p *IRISHubServiceGetDelegatorTotalSharesResult)  ReadField1(iprot thrift.TProtocol) error {
-  p.E = &Exception{}
-  if err := p.E.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.E), err)
-  }
-  return nil
-}
-
-func (p *IRISHubServiceGetDelegatorTotalSharesResult) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("GetDelegatorTotalShares_result"); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
-  if p != nil {
-    if err := p.writeField0(oprot); err != nil { return err }
-    if err := p.writeField1(oprot); err != nil { return err }
-  }
-  if err := oprot.WriteFieldStop(); err != nil {
-    return thrift.PrependError("write field stop error: ", err) }
-  if err := oprot.WriteStructEnd(); err != nil {
-    return thrift.PrependError("write struct stop error: ", err) }
-  return nil
-}
-
-func (p *IRISHubServiceGetDelegatorTotalSharesResult) writeField0(oprot thrift.TProtocol) (err error) {
-  if p.IsSetSuccess() {
-    if err := oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field begin error 0:success: ", p), err) }
-    if err := p.Success.Write(oprot); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Success), err)
-    }
-    if err := oprot.WriteFieldEnd(); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field end error 0:success: ", p), err) }
-  }
-  return err
-}
-
-func (p *IRISHubServiceGetDelegatorTotalSharesResult) writeField1(oprot thrift.TProtocol) (err error) {
-  if p.IsSetE() {
-    if err := oprot.WriteFieldBegin("e", thrift.STRUCT, 1); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:e: ", p), err) }
-    if err := p.E.Write(oprot); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.E), err)
-    }
-    if err := oprot.WriteFieldEnd(); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field end error 1:e: ", p), err) }
-  }
-  return err
-}
-
-func (p *IRISHubServiceGetDelegatorTotalSharesResult) String() string {
-  if p == nil {
-    return "<nil>"
-  }
-  return fmt.Sprintf("IRISHubServiceGetDelegatorTotalSharesResult(%+v)", *p)
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IRISHubServiceGetCandidateDetailResult(%+v)", *p)
 }
 
 // Attributes:
 //  - Req
 type IRISHubServiceGetValidatorExRateArgs struct {
-  Req *ValidatorExRateRequest `thrift:"req,1" db:"req" json:"req"`
+	Req *ValidatorExRateRequest `thrift:"req,1" db:"req" json:"req"`
 }
 
 func NewIRISHubServiceGetValidatorExRateArgs() *IRISHubServiceGetValidatorExRateArgs {
-  return &IRISHubServiceGetValidatorExRateArgs{}
+	return &IRISHubServiceGetValidatorExRateArgs{}
 }
 
 var IRISHubServiceGetValidatorExRateArgs_Req_DEFAULT *ValidatorExRateRequest
+
 func (p *IRISHubServiceGetValidatorExRateArgs) GetReq() *ValidatorExRateRequest {
-  if !p.IsSetReq() {
-    return IRISHubServiceGetValidatorExRateArgs_Req_DEFAULT
-  }
-return p.Req
+	if !p.IsSetReq() {
+		return IRISHubServiceGetValidatorExRateArgs_Req_DEFAULT
+	}
+	return p.Req
 }
 func (p *IRISHubServiceGetValidatorExRateArgs) IsSetReq() bool {
-  return p.Req != nil
+	return p.Req != nil
 }
 
 func (p *IRISHubServiceGetValidatorExRateArgs) Read(iprot thrift.TProtocol) error {
-  if _, err := iprot.ReadStructBegin(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-  }
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
 
-
-  for {
-    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
-    if err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-    }
-    if fieldTypeId == thrift.STOP { break; }
-    switch fieldId {
-    case 1:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField1(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    default:
-      if err := iprot.Skip(fieldTypeId); err != nil {
-        return err
-      }
-    }
-    if err := iprot.ReadFieldEnd(); err != nil {
-      return err
-    }
-  }
-  if err := iprot.ReadStructEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-  }
-  return nil
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField1(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
 }
 
-func (p *IRISHubServiceGetValidatorExRateArgs)  ReadField1(iprot thrift.TProtocol) error {
-  p.Req = &ValidatorExRateRequest{}
-  if err := p.Req.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Req), err)
-  }
-  return nil
+func (p *IRISHubServiceGetValidatorExRateArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = &ValidatorExRateRequest{}
+	if err := p.Req.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Req), err)
+	}
+	return nil
 }
 
 func (p *IRISHubServiceGetValidatorExRateArgs) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("GetValidatorExRate_args"); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
-  if p != nil {
-    if err := p.writeField1(oprot); err != nil { return err }
-  }
-  if err := oprot.WriteFieldStop(); err != nil {
-    return thrift.PrependError("write field stop error: ", err) }
-  if err := oprot.WriteStructEnd(); err != nil {
-    return thrift.PrependError("write struct stop error: ", err) }
-  return nil
+	if err := oprot.WriteStructBegin("GetValidatorExRate_args"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if p != nil {
+		if err := p.writeField1(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
 }
 
 func (p *IRISHubServiceGetValidatorExRateArgs) writeField1(oprot thrift.TProtocol) (err error) {
-  if err := oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:req: ", p), err) }
-  if err := p.Req.Write(oprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Req), err)
-  }
-  if err := oprot.WriteFieldEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write field end error 1:req: ", p), err) }
-  return err
+	if err := oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:req: ", p), err)
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Req), err)
+	}
+	if err := oprot.WriteFieldEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 1:req: ", p), err)
+	}
+	return err
 }
 
 func (p *IRISHubServiceGetValidatorExRateArgs) String() string {
-  if p == nil {
-    return "<nil>"
-  }
-  return fmt.Sprintf("IRISHubServiceGetValidatorExRateArgs(%+v)", *p)
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IRISHubServiceGetValidatorExRateArgs(%+v)", *p)
 }
 
 // Attributes:
 //  - Success
 //  - E
 type IRISHubServiceGetValidatorExRateResult struct {
-  Success *ValidatorExRateResponse `thrift:"success,0" db:"success" json:"success,omitempty"`
-  E *Exception `thrift:"e,1" db:"e" json:"e,omitempty"`
+	Success *ValidatorExRateResponse `thrift:"success,0" db:"success" json:"success,omitempty"`
+	E       *Exception               `thrift:"e,1" db:"e" json:"e,omitempty"`
 }
 
 func NewIRISHubServiceGetValidatorExRateResult() *IRISHubServiceGetValidatorExRateResult {
-  return &IRISHubServiceGetValidatorExRateResult{}
+	return &IRISHubServiceGetValidatorExRateResult{}
 }
 
 var IRISHubServiceGetValidatorExRateResult_Success_DEFAULT *ValidatorExRateResponse
+
 func (p *IRISHubServiceGetValidatorExRateResult) GetSuccess() *ValidatorExRateResponse {
-  if !p.IsSetSuccess() {
-    return IRISHubServiceGetValidatorExRateResult_Success_DEFAULT
-  }
-return p.Success
+	if !p.IsSetSuccess() {
+		return IRISHubServiceGetValidatorExRateResult_Success_DEFAULT
+	}
+	return p.Success
 }
+
 var IRISHubServiceGetValidatorExRateResult_E_DEFAULT *Exception
+
 func (p *IRISHubServiceGetValidatorExRateResult) GetE() *Exception {
-  if !p.IsSetE() {
-    return IRISHubServiceGetValidatorExRateResult_E_DEFAULT
-  }
-return p.E
+	if !p.IsSetE() {
+		return IRISHubServiceGetValidatorExRateResult_E_DEFAULT
+	}
+	return p.E
 }
 func (p *IRISHubServiceGetValidatorExRateResult) IsSetSuccess() bool {
-  return p.Success != nil
+	return p.Success != nil
 }
 
 func (p *IRISHubServiceGetValidatorExRateResult) IsSetE() bool {
-  return p.E != nil
+	return p.E != nil
 }
 
 func (p *IRISHubServiceGetValidatorExRateResult) Read(iprot thrift.TProtocol) error {
-  if _, err := iprot.ReadStructBegin(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-  }
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
 
-
-  for {
-    _, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
-    if err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-    }
-    if fieldTypeId == thrift.STOP { break; }
-    switch fieldId {
-    case 0:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField0(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    case 1:
-      if fieldTypeId == thrift.STRUCT {
-        if err := p.ReadField1(iprot); err != nil {
-          return err
-        }
-      } else {
-        if err := iprot.Skip(fieldTypeId); err != nil {
-          return err
-        }
-      }
-    default:
-      if err := iprot.Skip(fieldTypeId); err != nil {
-        return err
-      }
-    }
-    if err := iprot.ReadFieldEnd(); err != nil {
-      return err
-    }
-  }
-  if err := iprot.ReadStructEnd(); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-  }
-  return nil
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField0(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField1(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
 }
 
-func (p *IRISHubServiceGetValidatorExRateResult)  ReadField0(iprot thrift.TProtocol) error {
-  p.Success = &ValidatorExRateResponse{}
-  if err := p.Success.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Success), err)
-  }
-  return nil
+func (p *IRISHubServiceGetValidatorExRateResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = &ValidatorExRateResponse{}
+	if err := p.Success.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Success), err)
+	}
+	return nil
 }
 
-func (p *IRISHubServiceGetValidatorExRateResult)  ReadField1(iprot thrift.TProtocol) error {
-  p.E = &Exception{}
-  if err := p.E.Read(iprot); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.E), err)
-  }
-  return nil
+func (p *IRISHubServiceGetValidatorExRateResult) ReadField1(iprot thrift.TProtocol) error {
+	p.E = &Exception{}
+	if err := p.E.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.E), err)
+	}
+	return nil
 }
 
 func (p *IRISHubServiceGetValidatorExRateResult) Write(oprot thrift.TProtocol) error {
-  if err := oprot.WriteStructBegin("GetValidatorExRate_result"); err != nil {
-    return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err) }
-  if p != nil {
-    if err := p.writeField0(oprot); err != nil { return err }
-    if err := p.writeField1(oprot); err != nil { return err }
-  }
-  if err := oprot.WriteFieldStop(); err != nil {
-    return thrift.PrependError("write field stop error: ", err) }
-  if err := oprot.WriteStructEnd(); err != nil {
-    return thrift.PrependError("write struct stop error: ", err) }
-  return nil
+	if err := oprot.WriteStructBegin("GetValidatorExRate_result"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if p != nil {
+		if err := p.writeField0(oprot); err != nil {
+			return err
+		}
+		if err := p.writeField1(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
 }
 
 func (p *IRISHubServiceGetValidatorExRateResult) writeField0(oprot thrift.TProtocol) (err error) {
-  if p.IsSetSuccess() {
-    if err := oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field begin error 0:success: ", p), err) }
-    if err := p.Success.Write(oprot); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Success), err)
-    }
-    if err := oprot.WriteFieldEnd(); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field end error 0:success: ", p), err) }
-  }
-  return err
+	if p.IsSetSuccess() {
+		if err := oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 0:success: ", p), err)
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Success), err)
+		}
+		if err := oprot.WriteFieldEnd(); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 0:success: ", p), err)
+		}
+	}
+	return err
 }
 
 func (p *IRISHubServiceGetValidatorExRateResult) writeField1(oprot thrift.TProtocol) (err error) {
-  if p.IsSetE() {
-    if err := oprot.WriteFieldBegin("e", thrift.STRUCT, 1); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:e: ", p), err) }
-    if err := p.E.Write(oprot); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.E), err)
-    }
-    if err := oprot.WriteFieldEnd(); err != nil {
-      return thrift.PrependError(fmt.Sprintf("%T write field end error 1:e: ", p), err) }
-  }
-  return err
+	if p.IsSetE() {
+		if err := oprot.WriteFieldBegin("e", thrift.STRUCT, 1); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:e: ", p), err)
+		}
+		if err := p.E.Write(oprot); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.E), err)
+		}
+		if err := oprot.WriteFieldEnd(); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 1:e: ", p), err)
+		}
+	}
+	return err
 }
 
 func (p *IRISHubServiceGetValidatorExRateResult) String() string {
-  if p == nil {
-    return "<nil>"
-  }
-  return fmt.Sprintf("IRISHubServiceGetValidatorExRateResult(%+v)", *p)
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IRISHubServiceGetValidatorExRateResult(%+v)", *p)
 }
 
+// Attributes:
+//  - Req
+type IRISHubServiceGetDelegatorCandidateListArgs struct {
+	Req *DelegatorCandidateListRequest `thrift:"req,1" db:"req" json:"req"`
+}
 
+func NewIRISHubServiceGetDelegatorCandidateListArgs() *IRISHubServiceGetDelegatorCandidateListArgs {
+	return &IRISHubServiceGetDelegatorCandidateListArgs{}
+}
+
+var IRISHubServiceGetDelegatorCandidateListArgs_Req_DEFAULT *DelegatorCandidateListRequest
+
+func (p *IRISHubServiceGetDelegatorCandidateListArgs) GetReq() *DelegatorCandidateListRequest {
+	if !p.IsSetReq() {
+		return IRISHubServiceGetDelegatorCandidateListArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *IRISHubServiceGetDelegatorCandidateListArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *IRISHubServiceGetDelegatorCandidateListArgs) Read(iprot thrift.TProtocol) error {
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField1(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
+}
+
+func (p *IRISHubServiceGetDelegatorCandidateListArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = &DelegatorCandidateListRequest{}
+	if err := p.Req.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Req), err)
+	}
+	return nil
+}
+
+func (p *IRISHubServiceGetDelegatorCandidateListArgs) Write(oprot thrift.TProtocol) error {
+	if err := oprot.WriteStructBegin("GetDelegatorCandidateList_args"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if p != nil {
+		if err := p.writeField1(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
+}
+
+func (p *IRISHubServiceGetDelegatorCandidateListArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err := oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:req: ", p), err)
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Req), err)
+	}
+	if err := oprot.WriteFieldEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 1:req: ", p), err)
+	}
+	return err
+}
+
+func (p *IRISHubServiceGetDelegatorCandidateListArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IRISHubServiceGetDelegatorCandidateListArgs(%+v)", *p)
+}
+
+// Attributes:
+//  - Success
+//  - E
+type IRISHubServiceGetDelegatorCandidateListResult struct {
+	Success []*Candidate `thrift:"success,0" db:"success" json:"success,omitempty"`
+	E       *Exception   `thrift:"e,1" db:"e" json:"e,omitempty"`
+}
+
+func NewIRISHubServiceGetDelegatorCandidateListResult() *IRISHubServiceGetDelegatorCandidateListResult {
+	return &IRISHubServiceGetDelegatorCandidateListResult{}
+}
+
+var IRISHubServiceGetDelegatorCandidateListResult_Success_DEFAULT []*Candidate
+
+func (p *IRISHubServiceGetDelegatorCandidateListResult) GetSuccess() []*Candidate {
+	return p.Success
+}
+
+var IRISHubServiceGetDelegatorCandidateListResult_E_DEFAULT *Exception
+
+func (p *IRISHubServiceGetDelegatorCandidateListResult) GetE() *Exception {
+	if !p.IsSetE() {
+		return IRISHubServiceGetDelegatorCandidateListResult_E_DEFAULT
+	}
+	return p.E
+}
+func (p *IRISHubServiceGetDelegatorCandidateListResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *IRISHubServiceGetDelegatorCandidateListResult) IsSetE() bool {
+	return p.E != nil
+}
+
+func (p *IRISHubServiceGetDelegatorCandidateListResult) Read(iprot thrift.TProtocol) error {
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.LIST {
+				if err := p.ReadField0(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField1(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
+}
+
+func (p *IRISHubServiceGetDelegatorCandidateListResult) ReadField0(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return thrift.PrependError("error reading list begin: ", err)
+	}
+	tSlice := make([]*Candidate, 0, size)
+	p.Success = tSlice
+	for i := 0; i < size; i++ {
+		_elem13 := &Candidate{}
+		if err := _elem13.Read(iprot); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", _elem13), err)
+		}
+		p.Success = append(p.Success, _elem13)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return thrift.PrependError("error reading list end: ", err)
+	}
+	return nil
+}
+
+func (p *IRISHubServiceGetDelegatorCandidateListResult) ReadField1(iprot thrift.TProtocol) error {
+	p.E = &Exception{}
+	if err := p.E.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.E), err)
+	}
+	return nil
+}
+
+func (p *IRISHubServiceGetDelegatorCandidateListResult) Write(oprot thrift.TProtocol) error {
+	if err := oprot.WriteStructBegin("GetDelegatorCandidateList_result"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if p != nil {
+		if err := p.writeField0(oprot); err != nil {
+			return err
+		}
+		if err := p.writeField1(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
+}
+
+func (p *IRISHubServiceGetDelegatorCandidateListResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err := oprot.WriteFieldBegin("success", thrift.LIST, 0); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 0:success: ", p), err)
+		}
+		if err := oprot.WriteListBegin(thrift.STRUCT, len(p.Success)); err != nil {
+			return thrift.PrependError("error writing list begin: ", err)
+		}
+		for _, v := range p.Success {
+			if err := v.Write(oprot); err != nil {
+				return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", v), err)
+			}
+		}
+		if err := oprot.WriteListEnd(); err != nil {
+			return thrift.PrependError("error writing list end: ", err)
+		}
+		if err := oprot.WriteFieldEnd(); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 0:success: ", p), err)
+		}
+	}
+	return err
+}
+
+func (p *IRISHubServiceGetDelegatorCandidateListResult) writeField1(oprot thrift.TProtocol) (err error) {
+	if p.IsSetE() {
+		if err := oprot.WriteFieldBegin("e", thrift.STRUCT, 1); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:e: ", p), err)
+		}
+		if err := p.E.Write(oprot); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.E), err)
+		}
+		if err := oprot.WriteFieldEnd(); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 1:e: ", p), err)
+		}
+	}
+	return err
+}
+
+func (p *IRISHubServiceGetDelegatorCandidateListResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IRISHubServiceGetDelegatorCandidateListResult(%+v)", *p)
+}
+
+// Attributes:
+//  - Req
+type IRISHubServiceGetDelegatorTotalSharesArgs struct {
+	Req *TotalShareRequest `thrift:"req,1" db:"req" json:"req"`
+}
+
+func NewIRISHubServiceGetDelegatorTotalSharesArgs() *IRISHubServiceGetDelegatorTotalSharesArgs {
+	return &IRISHubServiceGetDelegatorTotalSharesArgs{}
+}
+
+var IRISHubServiceGetDelegatorTotalSharesArgs_Req_DEFAULT *TotalShareRequest
+
+func (p *IRISHubServiceGetDelegatorTotalSharesArgs) GetReq() *TotalShareRequest {
+	if !p.IsSetReq() {
+		return IRISHubServiceGetDelegatorTotalSharesArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *IRISHubServiceGetDelegatorTotalSharesArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *IRISHubServiceGetDelegatorTotalSharesArgs) Read(iprot thrift.TProtocol) error {
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField1(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
+}
+
+func (p *IRISHubServiceGetDelegatorTotalSharesArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = &TotalShareRequest{}
+	if err := p.Req.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Req), err)
+	}
+	return nil
+}
+
+func (p *IRISHubServiceGetDelegatorTotalSharesArgs) Write(oprot thrift.TProtocol) error {
+	if err := oprot.WriteStructBegin("GetDelegatorTotalShares_args"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if p != nil {
+		if err := p.writeField1(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
+}
+
+func (p *IRISHubServiceGetDelegatorTotalSharesArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err := oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:req: ", p), err)
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Req), err)
+	}
+	if err := oprot.WriteFieldEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 1:req: ", p), err)
+	}
+	return err
+}
+
+func (p *IRISHubServiceGetDelegatorTotalSharesArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IRISHubServiceGetDelegatorTotalSharesArgs(%+v)", *p)
+}
+
+// Attributes:
+//  - Success
+//  - E
+type IRISHubServiceGetDelegatorTotalSharesResult struct {
+	Success *TotalShareResponse `thrift:"success,0" db:"success" json:"success,omitempty"`
+	E       *Exception          `thrift:"e,1" db:"e" json:"e,omitempty"`
+}
+
+func NewIRISHubServiceGetDelegatorTotalSharesResult() *IRISHubServiceGetDelegatorTotalSharesResult {
+	return &IRISHubServiceGetDelegatorTotalSharesResult{}
+}
+
+var IRISHubServiceGetDelegatorTotalSharesResult_Success_DEFAULT *TotalShareResponse
+
+func (p *IRISHubServiceGetDelegatorTotalSharesResult) GetSuccess() *TotalShareResponse {
+	if !p.IsSetSuccess() {
+		return IRISHubServiceGetDelegatorTotalSharesResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var IRISHubServiceGetDelegatorTotalSharesResult_E_DEFAULT *Exception
+
+func (p *IRISHubServiceGetDelegatorTotalSharesResult) GetE() *Exception {
+	if !p.IsSetE() {
+		return IRISHubServiceGetDelegatorTotalSharesResult_E_DEFAULT
+	}
+	return p.E
+}
+func (p *IRISHubServiceGetDelegatorTotalSharesResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *IRISHubServiceGetDelegatorTotalSharesResult) IsSetE() bool {
+	return p.E != nil
+}
+
+func (p *IRISHubServiceGetDelegatorTotalSharesResult) Read(iprot thrift.TProtocol) error {
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField0(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField1(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
+}
+
+func (p *IRISHubServiceGetDelegatorTotalSharesResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = &TotalShareResponse{}
+	if err := p.Success.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Success), err)
+	}
+	return nil
+}
+
+func (p *IRISHubServiceGetDelegatorTotalSharesResult) ReadField1(iprot thrift.TProtocol) error {
+	p.E = &Exception{}
+	if err := p.E.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.E), err)
+	}
+	return nil
+}
+
+func (p *IRISHubServiceGetDelegatorTotalSharesResult) Write(oprot thrift.TProtocol) error {
+	if err := oprot.WriteStructBegin("GetDelegatorTotalShares_result"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if p != nil {
+		if err := p.writeField0(oprot); err != nil {
+			return err
+		}
+		if err := p.writeField1(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
+}
+
+func (p *IRISHubServiceGetDelegatorTotalSharesResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err := oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 0:success: ", p), err)
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Success), err)
+		}
+		if err := oprot.WriteFieldEnd(); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 0:success: ", p), err)
+		}
+	}
+	return err
+}
+
+func (p *IRISHubServiceGetDelegatorTotalSharesResult) writeField1(oprot thrift.TProtocol) (err error) {
+	if p.IsSetE() {
+		if err := oprot.WriteFieldBegin("e", thrift.STRUCT, 1); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:e: ", p), err)
+		}
+		if err := p.E.Write(oprot); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.E), err)
+		}
+		if err := oprot.WriteFieldEnd(); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 1:e: ", p), err)
+		}
+	}
+	return err
+}
+
+func (p *IRISHubServiceGetDelegatorTotalSharesResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IRISHubServiceGetDelegatorTotalSharesResult(%+v)", *p)
+}
